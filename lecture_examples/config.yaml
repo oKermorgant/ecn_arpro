@@ -1,0 +1,9 @@
+start:
+  x: 1
+  y: 1
+  t: 3.13
+end: 
+  x: 1
+  y: 4
+  t: 2.5
+run: exp10
