@@ -20,7 +20,6 @@ add_executable(chrono chrono.cpp)
 add_executable(debug debug.cpp)
 add_executable(function function.cpp)
 
-add_executable(constraints constraints.cpp)
 
 #add_executable(exception exception.cpp)
 

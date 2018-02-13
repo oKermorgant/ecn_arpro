@@ -7,6 +7,7 @@ using namespace ecn;
 // a node is a x-y position, we move from 1 each time
 class Position : public Point
 {
+    typedef std::unique_ptr<Position> PositionPtr;
 
 public:
     // constructor from coordinates
@@ -21,12 +22,13 @@ public:
         return 1;
     }
 
-    void children(vector<Position*> &children)
+    std::vector<PositionPtr> children()
     {
-        /* this method should update the chidren vector by putting
-         * all positions reachable from this one
-         */
+        // this method should return  all positions reachable from this one
+        std::vector<PositionPtr> generated;
 
+        
+        return generated;
     }
 };
 

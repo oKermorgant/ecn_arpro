@@ -17,14 +17,14 @@ public:
     Point() {}
     Point(int _x, int _y): x(_x), y(_y) {}
 
-    void operator=(const Point &p)
+    void operator=(Point p)
     {
         x = p.x;
         y = p.y;
     }
 
     // prints the grid with all positions from parent
-    virtual void print(Point* parent);
+    virtual void print(Point *parent);
 
     virtual void show(bool closed = false, Point* parent = 0);
 
@@ -35,9 +35,9 @@ public:
     }
 
     // 2 positions are equal if they have the same x and y
-    bool is(Point *other)
+    bool is(const Point &other)
     {
-        return x == other->x && y == other->y;
+        return x == other.x && y == other.y;
     }
 
     double h(const Point &goal, bool use_manhattan)

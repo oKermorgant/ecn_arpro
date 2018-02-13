@@ -6,32 +6,70 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
-#include <unordered_map>
 #include <chrono>
+#include <memory>
 
 namespace ecn
 {
 
+// a custom map for unique ptr's
+template <class T>
+class PtrMap : std::vector<std::pair<std::unique_ptr<T>, T*>>
+{
+  public:
+    void write(T* key, T* val)
+    {
+        // usually we find it near the end
+        for(auto v = this->rbegin(); v != this->rend(); v++)
+        {
+            if(v->first.get() == key)
+            {
+                v->second = val;
+                return;
+            }
+        }
+    }
+
+    T* get(T* key)
+    {
+        // usually we find it near the end
+        for(auto v = this->rbegin(); v != this->rend(); v++)
+        {
+            if(v->first.get() == key)
+            {
+                return v->second;
+            }
+        }
+        return 0;
+    }
+
+    // insertion
+    void add(std::unique_ptr<T> &key, T* val)
+    {
+        this->push_back({std::move(key), val});
+    }
+};
+
+
 // reconstruct path from last best element
 template<class T>
-void reconstructPath(std::unordered_map<T*, T*> &come_from, T* best, int dist)
+void reconstructPath(PtrMap<T> &come_from, T* best, int dist)
 {
     std::vector<T*> summary = {best};
     // build list from end to start
-    while(come_from[best])
+    while(come_from.get(best))
     {
-        best = come_from[best];
+        best = come_from.get(best);
         summary.push_back(best);
     }
     // list from start to end
     std::reverse(summary.begin(),summary.end());
 
     for(auto &elem: summary)
-        elem->print(come_from[elem]);
+        elem->print(come_from.get(elem));
     std::cout << "solved in " << summary.size()-1 << " steps, distance is " <<
                  dist << std::endl;
 }
-
 
 // templated version of A* algorithm
 template<class T>
@@ -56,6 +94,8 @@ void Astar(T start, T goal)
 
     auto t0 = std::chrono::system_clock::now();
 
+    typedef std::unique_ptr<T> Tptr;
+
     struct NodeWithCost
     {
         T* elem;
@@ -76,7 +116,7 @@ void Astar(T start, T goal)
             public std::priority_queue<NodeWithCost, std::vector<NodeWithCost>, Compare>
     {
     public:
-        NodeWithCost* find(T* elem)
+        NodeWithCost* find( const T& elem)
         {
             // when looking for an given element,
             // the best occurrence should be near the end
@@ -89,14 +129,12 @@ void Astar(T start, T goal)
         }
     };
 
-
     std::vector<T*> closedSet;
-    std::vector<T*> children;
     priority_access queue;
     queue.push({&start, start.h(goal, use_manhattan), 0});
 
     // keep track of who comes from who
-    std::unordered_map<T*, T*> come_from = {{&start, 0}};
+    PtrMap<T> come_from;
 
     if(show)
         start.show();
@@ -107,7 +145,7 @@ void Astar(T start, T goal)
     {
         auto best = queue.top();
 
-        if(best.elem->is(&goal))
+        if(best.elem->is(goal))
         {
             std::cout << created << " nodes created, " <<
                          evaluated << " evaluated, " <<
@@ -121,35 +159,38 @@ void Astar(T start, T goal)
         closedSet.push_back(best.elem);
         queue.pop();
         if(show)
-            best.elem->show(true,come_from[best.elem]);
+            best.elem->show(true,come_from.get(best.elem));
 
-        best.elem->children(children);
+        auto children = best.elem->children();
         created += children.size();
 
         // to avoid equal costs leading to favorite directions
         std::random_shuffle(children.begin(), children.end());
 
-        for(auto child: children)
+        for(auto &child: children)
         {
+            auto child_ptr = child.get();
             // ensure we have not been here
             if(std::find_if(closedSet.rbegin(), closedSet.rend(),
-                            [child](T* elem){return elem->is(child);}) == closedSet.rend())
-            {
-                auto twin = queue.find(child);
-                const int child_g = best.g + child->distToParent();
+                            [&child_ptr](T* elem){return elem->is(*child_ptr);}) == closedSet.rend())
+            {                
+                auto twin = queue.find(*child_ptr);
+                const int child_g = best.g + child_ptr->distToParent();
                 if(!twin)
                 {
-                    queue.push({child, child->h(goal, use_manhattan) + child_g, child_g});
+                    queue.push({child_ptr,
+                                child_ptr->h(goal, use_manhattan) + child_g,
+                                child_g});
                     evaluated++;
-                    come_from[child] = best.elem;
+                    come_from.add(child, best.elem);
                     if(show)
-                        child->show(false, best.elem);
+                        child_ptr->show(false, best.elem);
                 }
                 else
                 {
                     if(twin->g > child_g)
                     {
-                        come_from[twin->elem] = best.elem;
+                        come_from.write(twin->elem, best.elem);
                         queue.push({twin->elem, twin->f - twin->g + child_g, child_g});
                         shortcut++;
                     }
