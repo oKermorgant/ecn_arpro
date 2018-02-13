@@ -4,10 +4,15 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include <vector>
+#include <memory>
 
 // what is this puzzle
 class Puzzle
 {
+    
+    typedef std::unique_ptr<Puzzle> Ptr;
+    typedef std::vector<Ptr> Vector;
+    
 public:
     // default constructor
     Puzzle()
@@ -76,11 +81,11 @@ public:
 
 
 
-    bool is(Puzzle * goal_ptr)
+    bool is(const Puzzle & goal)
     {
         for(int i=0;i<n*n-1;++i)
         {
-            if(grid[i] != goal_ptr->grid[i])
+            if(grid[i] != goal.grid[i])
                 return false;
         }
         return true;
@@ -104,16 +109,12 @@ public:
         return moves;
     }
 
-    void children(std::vector<Puzzle* > &children)
+    Vector children()
     {
-        children.clear();
-      //  std::cout << "Creating children of " << c0 << "... ";
+       Vector children;
         for(auto c: gen_moves())
-        {
-            children.push_back(new Puzzle(this, c));
-         //   std::cout << c << " ";
-        }
-       // std::cout << std::endl;
+            children.push_back(Ptr(new Puzzle(this, c)));
+       return children;
     }
 
     int h(const Puzzle &goal)
