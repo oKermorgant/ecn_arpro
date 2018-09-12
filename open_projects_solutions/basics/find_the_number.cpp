@@ -14,7 +14,7 @@ int main(int argc, char ** argv)
 
     if(human_guess)
     {
-        srand(time(NULL));
+        srand(time(0));
         //srand(100);
         const unsigned int n = (rand() % 100) + 1;
         cout << "Random number: " << n << '\n';
@@ -52,7 +52,7 @@ int main(int argc, char ** argv)
                 cout << " I knew it!" << endl;
                 break;
             }
-            else if(lower == upper)
+            else if(lower >= upper)
             {
                 cout << "I think you are cheating" << endl;
                 break;

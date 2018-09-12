@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 project (maze)
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++14)
 set(CMAKE_BUILD_TYPE Release)
 
 find_package(OpenCV REQUIRED)

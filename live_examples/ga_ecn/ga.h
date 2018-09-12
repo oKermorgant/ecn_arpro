@@ -4,8 +4,6 @@
 #include <vector>
 #include <algorithm>
 
-
-
 template <class Indiv>
 void ga(Indiv& best)
 {

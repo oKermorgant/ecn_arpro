@@ -218,7 +218,7 @@ std::vector<PositionPtr> children()
     {
     
         // assuming that we found a child at (x,y)
-        generated.push_back(PositionPtr(new Position(x,y)));
+        generated.push_back(std::make_unique<Position>(x,y)));
     }
     return generated;
 }

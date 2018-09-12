@@ -70,10 +70,12 @@ public:
         {
             for(unsigned int j=0;j<n;++j)
             {
-                if(grid[n*i+j])
+                if(grid[n*i+j] > 9)
                 std::cout << grid[n*i+j] << " ";
+                else if(grid[n*i+j])
+                std::cout << " " << grid[n*i+j] << " ";
                 else
-                    std::cout << ". ";
+                    std::cout << " . ";
             }
             std::cout << std::endl;
         }

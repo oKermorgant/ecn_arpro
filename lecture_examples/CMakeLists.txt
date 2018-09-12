@@ -3,7 +3,9 @@ project (ARPRO_examples)
 
 add_compile_options(-std=c++11)
 add_compile_options(-pthread)
-set(CMAKE_BUILD_TYPE Release)
+
+set(CMAKE_BUILD_TYPE Debug)
+
 find_package (Threads)
 find_package(PkgConfig)
 pkg_check_modules(YamlCpp yaml-cpp)

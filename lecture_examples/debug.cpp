@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int DEBUG = 0;
+int DEBUG = 2;
 
 int main()
 {
@@ -21,15 +21,15 @@ int main()
 
     if(DEBUG > 1)
         cout << " before loop" << endl;
-    try
+   // try
     {
         for(int i=0;i<3;++i)
             cout << v[i] << endl;
     }
-    catch(...)
+  /*  catch(...)
     {
 
-    }
+    }*/
 
     if(DEBUG > 1)
         cout << " after loop" << endl;

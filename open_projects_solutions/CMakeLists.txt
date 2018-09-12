@@ -18,7 +18,6 @@ add_executable(four_in_a_row alpha_beta/alpha_beta.h alpha_beta/alpha_beta_game.
 
 # minimization
 add_executable(scalar minimization/scalar.cpp)
-add_executable(nD_live minimization/minim.cpp)
 add_executable(nD_function minimization/nd_function.cpp minimization/nd_vector.h)
 
 # A* algorithm

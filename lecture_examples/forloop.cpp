@@ -54,7 +54,7 @@ std::cout << '\n';
 
 for(auto const &x: vec)
 {
-    vec[0] = 5;
+   // x = 5;
     std::cout << x << " ";
 }
 std::cout << '\n';

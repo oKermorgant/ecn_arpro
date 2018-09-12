@@ -30,7 +30,7 @@ struct pose
 int main(int argc, char ** argv)
 {
 
-    string config_type;// = "yaml";
+    string config_type= "yaml";
 
     if(argc > 1 && argc < 5)
         config_type = string(argv[1]);

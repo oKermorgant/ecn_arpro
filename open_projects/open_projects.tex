@@ -79,20 +79,9 @@ The CMake file is used to generate a Makefile. The steps are:
  \item Then launch your program: \texttt{./mygame}
 \end{enumerate}
 
-\subsection{How to use QtCreator}
+\subsection{Using an IDE (Integrated Development Environment)}
 
-The IDE\footnote{Integrated Development Environment} that will be used for C++ (and all my other labs) is Qt Creator. It is an open source, multi-platform IDE based on the Qt framework (which is used in the KDE Linux desktop). 
-Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \texttt{build} folder. You can then run Qt Creator:
-\begin{enumerate}
-\item Load the CMakeLists.txt file through \texttt{File...open project}
-\item Give the path to your \texttt{build} directory
-\item Qt Creator will then execute CMake and display the source files found in CMakeLists.txt (if any)
-\item To add a file (.cpp or .h), you can create an empty one with \texttt{File... new file} 
-\item Add this file in the CMakeLists.txt and right-click on the Project to run CMake to tell Qt Creator that the structure of the project has changed
-\item Compilation is done by clicking the bottom-left hammer
-\item Run your program with the green triangle. However, if you need user input, you will need to run the program from the console.
-\item Do to so, open a terminal, go to the \texttt{build} folder and type the name of the program: \texttt{./myprogram}
-\end{enumerate}
+Depending on the room where the labs are done, different IDE's may be used. The way to configure them is detailed in Appendix \ref{app:soft}.
 
 
 \section{Single player games}
@@ -534,8 +523,26 @@ In this instance of Genetic algorithm:
  \involves{Yaml file input}
  \end{itemize}
 
+\newpage
+\appendix
 
+\section{IDE's for C++}\label{app:soft}
 
+\subsection{Using QtCreator}
 
+The IDE\footnote{Integrated Development Environment} that will be used for C++ (and all my other labs) is Qt Creator. It is an open source, multi-platform IDE based on the Qt framework (which is used in the KDE Linux desktop). 
+Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \texttt{build} folder. You can then run Qt Creator:
+\begin{enumerate}
+	\item Load the CMakeLists.txt file through \texttt{File...open project}
+	\item Give the path to your \texttt{build} directory
+	\item Qt Creator will then execute CMake and display the source files found in CMakeLists.txt (if any)
+	\item To add a file (.cpp or .h), you can create an empty one with \texttt{File... new file} 
+	\item Add this file in the CMakeLists.txt and right-click on the Project to run CMake to tell Qt Creator that the structure of the project has changed
+	\item Compilation is done by clicking the bottom-left hammer
+	\item Run your program with the green triangle. However, if you need user input, you will need to run the program from the console.
+	\item Do to so, open a terminal, go to the \texttt{build} folder and type the name of the program: \texttt{./myprogram}
+\end{enumerate}
+
+\subsection{Using Code::Blocks}
 
 \end{document}
