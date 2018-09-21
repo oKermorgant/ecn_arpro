@@ -16,7 +16,7 @@ namespace ecn
 template <class T>
 class PtrMap : std::vector<std::pair<std::unique_ptr<T>, T*>>
 {
-  public:
+public:
     void write(T* key, T* val)
     {
         // usually we find it near the end
@@ -66,7 +66,10 @@ void reconstructPath(PtrMap<T> &come_from, T* best, int dist)
     std::reverse(summary.begin(),summary.end());
 
     for(auto &elem: summary)
-        elem->print(come_from.get(elem));
+    {
+        if(come_from.get(elem))
+            elem->print(*come_from.get(elem));
+    }
     std::cout << "solved in " << summary.size()-1 << " steps, distance is " <<
                  dist << std::endl;
 }
@@ -81,15 +84,15 @@ void Astar(T start, T goal)
     bool show = false, use_manhattan = true;
     while(config >> keyword)
     {
-         if(keyword == "show")
-             config >> show;
-         else if(keyword == "use_manhattan")
-             config >> use_manhattan;
-         else
-         {
-             std::string dummy;
-             config >> dummy;
-         }
+        if(keyword == "show")
+            config >> show;
+        else if(keyword == "use_manhattan")
+            config >> use_manhattan;
+        else
+        {
+            std::string dummy;
+            config >> dummy;
+        }
     }
 
     auto t0 = std::chrono::system_clock::now();
@@ -116,13 +119,13 @@ void Astar(T start, T goal)
             public std::priority_queue<NodeWithCost, std::vector<NodeWithCost>, Compare>
     {
     public:
-        NodeWithCost* find( const T& elem)
+        NodeWithCost* find( const T& node)
         {
             // when looking for an given element,
             // the best occurrence should be near the end
             for(auto it = this->c.rbegin(); it!=this->c.rend(); it++)
             {
-                if(it->elem->is(elem))
+                if(it->elem->is(node))
                     return &(*it);
             }
             return 0;
@@ -137,7 +140,7 @@ void Astar(T start, T goal)
     PtrMap<T> come_from;
 
     if(show)
-        start.show();
+        start.start();
 
     int evaluated = 0, created = 0, shortcut = 0;
     evaluated++;
@@ -159,7 +162,12 @@ void Astar(T start, T goal)
         closedSet.push_back(best.elem);
         queue.pop();
         if(show)
-            best.elem->show(true,come_from.get(best.elem));
+        {
+            T* parent = come_from.get(best.elem);
+            if(parent)
+                best.elem->show(true, *parent);
+        }
+
 
         auto children = best.elem->children();
         created += children.size();
@@ -173,7 +181,7 @@ void Astar(T start, T goal)
             // ensure we have not been here
             if(std::find_if(closedSet.rbegin(), closedSet.rend(),
                             [&child_ptr](T* elem){return elem->is(*child_ptr);}) == closedSet.rend())
-            {                
+            {
                 auto twin = queue.find(*child_ptr);
                 const int child_g = best.g + child_ptr->distToParent();
                 if(!twin)
@@ -184,16 +192,13 @@ void Astar(T start, T goal)
                     evaluated++;
                     come_from.add(child, best.elem);
                     if(show)
-                        child_ptr->show(false, best.elem);
+                        child_ptr->show(false, *best.elem);
                 }
-                else
+                else if(twin->g > child_g)
                 {
-                    if(twin->g > child_g)
-                    {
-                        come_from.write(twin->elem, best.elem);
-                        queue.push({twin->elem, twin->f - twin->g + child_g, child_g});
-                        shortcut++;
-                    }
+                    come_from.write(twin->elem, best.elem);
+                    queue.push({twin->elem, twin->f - twin->g + child_g, child_g});
+                    shortcut++;
                 }
             }
         }

@@ -75,9 +75,8 @@ public:
 
     void passThrough(int x, int y)
     {
-        passing.push_back(cv::Point(x,y));
+        path.push_back(cv::Point(x,y));
     }
-
 
     void dig(int x, int y)
     {
@@ -95,7 +94,7 @@ public:
         cv::imshow(name, im);
     }
 
-    void write(int x, int y, int r, int g, int b, bool show = true)
+    void write(int x, int y, int r=0, int g=0, int b=0, bool show = true)
     {
         out.at<cv::Vec3b>(y, x) = cv::Vec3b(b, g, r);
         if(show)
@@ -117,11 +116,11 @@ public:
         cv::Vec3b col(0, 255, 0);
 
         col[1] = 0;
-        for(int i = 0; i < passing.size(); ++i)
+        for(int i = 0; i < path.size(); ++i)
         {
-            col[2] = i*255/passing.size();
+            col[2] = i*255/path.size();
             col[0] = 255-col[2];
-            out.at<cv::Vec3b>(passing[i]) = col;
+            out.at<cv::Vec3b>(path[i]) = col;
         }
 
         // re-write black nodes just to be sure...
@@ -142,10 +141,11 @@ public:
 protected:
     cv::Mat im, out;
     std::string filename;
-    std::vector<cv::Point> passing;
+    std::vector<cv::Point> path;
     std::vector<std::string> windows;
 };
 }
 
 
 #endif
+

@@ -83,8 +83,8 @@ In terms of implementation, the algorithm can deal with any \texttt{Node} class 
  \item \texttt{int distToParent()}: returns the distance to the node that generated this one
  \item \texttt{bool is(const Node \&other)}: returns true if the passed argument is actually the same point
  \item \texttt{double h(const Node \&goal)}: returns the heuristic distance to the passed argument
- \item \texttt{void show(bool closed, Node* parent)}: used for online display of the behavior
- \item \texttt{void print(Node* parent)}: used for final display
+ \item \texttt{void show(bool closed, const Node \& parent)}: used for online display of the behavior
+ \item \texttt{void print(const Node \& parent)}: used for final display
 \end{itemize}
 
 
@@ -186,9 +186,9 @@ This class implements basic properties of a 2D point:
  \item \texttt{bool is(Point)}: returns true if both points have the same x and y coordinates
  \item \texttt{double h(const Point \&goal)}: heuristic distance, may use Manhattan
  ($|x-\texttt{goal}.x| + |y-\texttt{goal}.y|$) or classical Euclidean distance.
- \item \texttt{void show(bool closed, Point* parent)}: draws a straight line between the point and its parent, that
+ \item \texttt{void show(bool closed, const Point \& parent)}: draws a straight line between the point and its parent, that
  is blue if the point is in the closed set or red if it is in the open set.
- \item \texttt{void print(Point* parent)}: writes the final path into the maze for display, also considers a straight line
+ \item \texttt{void print(const Point\& parent)}: writes the final path into the maze for display, also considers a straight line
 \end{itemize}
 All built classes should inherit from this class. The considered maze is available through the static member variable \texttt{ecn::maze} and can thus
 be accessed from the built member functions.

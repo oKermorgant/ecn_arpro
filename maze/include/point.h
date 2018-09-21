@@ -17,16 +17,18 @@ public:
     Point() {}
     Point(int _x, int _y): x(_x), y(_y) {}
 
-    void operator=(Point p)
+    void operator=(const Point &p)
     {
         x = p.x;
         y = p.y;
     }
 
     // prints the grid with all positions from parent
-    virtual void print(Point *parent);
+    virtual void print(const Point &parent);
 
-    virtual void show(bool closed = false, Point* parent = 0);
+    void start();
+
+    virtual void show(bool closed, const Point &parent);
 
     friend std::ostream& operator<<(std::ostream& out, const Point& p)
     {
