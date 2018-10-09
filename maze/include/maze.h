@@ -29,11 +29,11 @@ public:
     }
 
 
-    bool cell(int x, int y)
+    int cell(int x, int y)
     {
         if(x < 0 || y < 0 || x >= im.cols || y >= im.rows)
-            return false;
-        return im.at<uchar>(y,x);
+            return 0;
+        return im.at<uchar>(y,x) ? 1 : 0;
     }
 
     int height() {return im.rows;}
