@@ -174,7 +174,6 @@ void Astar(T start, T goal)
         }
     }
 
-    // while loop exit means no solutions
     std::cout << "No solutions " << std::endl;
     std::cout << created << " nodes created, " <<
                  evaluated << " evaluated, " <<

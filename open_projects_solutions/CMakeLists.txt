@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(arpro_robot_sols)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 add_compile_options(-std=c++11)
 
 # basic exercises

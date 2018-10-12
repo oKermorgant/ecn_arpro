@@ -19,8 +19,7 @@ void PrintVec(vector<int> vec)
 
 void PrintIndexAndValue(string s, vector<int> &vec, vector<int>::iterator &idx)
 {
-    Print(s + " is at ", distance(vec.begin(), idx));
-    cout << s << " is " << *idx << endl;
+    cout << s << " is at " << distance(vec.begin(), idx) << " and equal to " << *idx << endl;
 
 }
 bool is_odd(int &v) {return v%2==1;}

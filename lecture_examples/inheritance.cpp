@@ -40,7 +40,7 @@ protected:
 };
 
 
-class Square// a square is a polygon
+class Square// a square is not a polygon
 {
 public:
     Square()  {n=4;}  // force sides to be 4
@@ -102,16 +102,16 @@ int main()
     passWithTemplate(s);
    // passWithTemplate(1);
    // passWithTemplate(std::vector<double>(3,4));
-/*
+
     PassByValue(p);
     PassByValue(t);
-    PassByValue(s);
+  //  PassByValue(s);
 
     PassByReference(p);
     PassByReference(t);
-    PassByReference(s);
-*/
-/*
+    //PassByReference(s);
+
+
     // what about storing polygons in a vector?
     // a vector of values does not keep track of the actual class
     std::vector<Polygon> vec = {p, t, s};
@@ -132,5 +132,5 @@ int main()
         cout << "this element is a " << elem->What() << endl;
         cout << "this element is actually a " << elem->WhatWithVirtual() << endl;
     }
-*/
+
 }

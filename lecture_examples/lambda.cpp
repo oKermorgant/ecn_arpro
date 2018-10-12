@@ -34,7 +34,6 @@ bool compare(MyObj &o1, MyObj &o2)
 
 int main()
 {
-
     // random vector of int's
     vector<int> whatever(10);
 

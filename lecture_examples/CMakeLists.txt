@@ -21,7 +21,7 @@ add_executable(profiling profiling.cpp)
 add_executable(chrono chrono.cpp)
 add_executable(debug debug.cpp)
 add_executable(function function.cpp)
-
+add_executable(smart_ptr smart_ptr.cpp)
 
 #add_executable(exception exception.cpp)
 

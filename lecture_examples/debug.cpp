@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int DEBUG = 2;
+int DEBUG = 1;
 
 int main()
 {
