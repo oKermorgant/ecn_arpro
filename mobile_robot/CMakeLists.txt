@@ -13,9 +13,7 @@ SET(CXX_INCLUDES ${CXX_INCLUDES} ${PYTHON_INCLUDE_FLAGS})
 # Robot library
 add_library(lab2 src/robot.cpp include/robot.h include/geom.h
                         include/envir.h src/envir.cpp
-                        include/sensor.h include/sensor_range.h
-                        include/sensor_bearing.h
-                        )
+                        include/sensor.h)
 target_link_libraries(lab2 "-lpython2.7")
 
 # Lab 3: using the robot class
