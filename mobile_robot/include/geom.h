@@ -12,12 +12,11 @@ namespace arpro
 
 struct Pose
 {
-    double x;
-    double y;
-    double theta;
+    double x = 0;
+    double y = 0;
+    double theta = 0;
     Pose() {}
-    Pose(double _x, double _y, double _theta=0) {x = _x;y = _y;theta = _theta;}
-
+    Pose(double _x, double _y, double _theta=0) : x(_x), y(_y), theta(_theta) {}
     Pose transformDirect(Pose _transform) const
     {
         const double c = cos(_transform.theta);
@@ -41,9 +40,9 @@ struct Pose
 
 struct Twist
 {
-    double vx, vy, w;
+    double vx = 0, vy = 0, w = 0;
     Twist() {}
-    Twist(double _vx, double _vy, double _w=0) {vx = _vx;vy = _vy;w=_w;}
+    Twist(double _vx, double _vy, double _w=0) : vx(_vx), vy(_vy), w(_w) {}
 
     Twist transformDirect(Pose _transform)
     {
@@ -56,8 +55,8 @@ struct Twist
     {
         const double c = cos(_transform.theta);
         const double s = sin(_transform.theta);
-        return Twist((vx-_transform.y)*c+(vy+_transform.x*w)*s,
-                     -(vx-_transform.y)*s+(vy+_transform.x*w)*c,w);
+        return Twist((vx-_transform.y*w)*c+(vy+_transform.x*w)*s,
+                     -(vx-_transform.y*w)*s+(vy+_transform.x*w)*c,w);
     } const
 
     Twist operator+(const Twist &_other)
