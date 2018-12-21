@@ -49,7 +49,6 @@ public:
         return 1.5*sqrt((x-goal.x)*(x-goal.x) + (y-goal.y)*(y-goal.y));
     }
 
-
     int x, y;
     static Maze maze;
 };

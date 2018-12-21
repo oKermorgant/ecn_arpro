@@ -16,11 +16,18 @@ class Maze
 public:
     Maze() {}
 
-    Maze(std::string _filename) : filename(_filename)
+    Maze(std::string _filename)
     {
-        // load image
-        im = cv::imread("../mazes/" + filename, cv::IMREAD_GRAYSCALE);
-        cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
+      load(_filename);
+    }
+
+    void load(std::string _filename)
+    {
+      filename = _filename;
+      // load image
+      if(filename.at(0) == '/') im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
+      else im = cv::imread("../mazes/"+filename, cv::IMREAD_GRAYSCALE);
+      cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
     }
 
     Maze(int height, int width)
@@ -28,12 +35,11 @@ public:
         im = cv::Mat(height, width, CV_8UC1, cv::Scalar(0));
     }
 
-
-    int cell(int x, int y)
+    bool isFree(int x, int y) const
     {
-        if(x < 0 || y < 0 || x >= im.cols || y >= im.rows)
-            return 0;
-        return im.at<uchar>(y,x) ? 1 : 0;
+      if(x < 0 || y < 0 || x >= im.cols || y >= im.rows)
+          return 0;
+      return im.at<uchar>(y,x);
     }
 
     int height() {return im.rows;}
@@ -46,7 +52,7 @@ public:
         {
             for(ret.x=0;ret.x<im.cols;++ret.x)
             {
-                if(cell(ret.x, ret.y))
+                if(isFree(ret.x, ret.y))
                 {
                     std::cout << "Start @ (" << ret.x << ", " << ret.y << ")\n";
                     return ret;
@@ -63,7 +69,7 @@ public:
         {
             for(ret.x=im.cols-1;ret.x>0;--ret.x)
             {
-                if(cell(ret.x, ret.y))
+                if(isFree(ret.x, ret.y))
                 {
                     std::cout << "End @ (" << ret.x << ", " << ret.y << ")\n";
                     return ret;
@@ -128,7 +134,7 @@ public:
         {
             for(int y = 0; y < im.rows; ++y)
             {
-                if(!cell(x,y))
+                if(!isFree(x,y))
                     write(x,y,0,0,0,false);
             }
         }

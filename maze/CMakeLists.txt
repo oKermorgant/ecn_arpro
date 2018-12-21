@@ -10,7 +10,7 @@ pkg_check_modules(YamlCpp yaml-cpp)
 
 include_directories(${YamlCpp_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} include)
 
-add_library(maze include/maze.h include/a_star.h
+add_library(maze SHARED include/maze.h include/a_star.h
     include/point.h src/point.cpp)
 target_link_libraries(maze ${OpenCV_LIBS})
 

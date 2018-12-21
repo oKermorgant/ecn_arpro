@@ -41,7 +41,7 @@ int main( int argc, char **argv )
         filename = std::string(argv[1]);
 
     // let Point know about this maze
-    Position::maze = ecn::Maze(filename);
+    Position::maze.load(filename);
 
     // initial and goal positions as Position's
     Position start = Position::maze.start(),
