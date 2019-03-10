@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/find_the_number.dir/basics/find_the_number.cpp.o  -o find_the_number -rdynamic 

@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/sticks_ab.dir/sticks/sticks_alpha_beta.cpp.o  -o sticks_ab -rdynamic 

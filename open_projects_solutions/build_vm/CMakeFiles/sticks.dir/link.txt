@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/sticks.dir/sticks/sticks.cpp.o  -o sticks -rdynamic 

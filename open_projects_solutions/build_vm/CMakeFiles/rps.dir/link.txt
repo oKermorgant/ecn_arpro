@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/rps.dir/basics/rps.cpp.o  -o rps -rdynamic 
