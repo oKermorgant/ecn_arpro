@@ -8,7 +8,7 @@
 using namespace arpro;
 using namespace std;
 
-Environment* Sensor::envir_ = NULL;
+Environment* Sensor::envir_ = nullptr;
 
 Robot::Robot(string _name, double _x, double _y, double _theta)
 {    

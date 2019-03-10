@@ -3,15 +3,15 @@ project(ecn_arpro)
 
 # Python to plot robot trajectory
 execute_process(COMMAND python2-config --includes OUTPUT_VARIABLE PYTHON_INCLUDE_FLAGS)
-
-add_compile_options(-std=c++11)
+SET(CXX_INCLUDES ${CXX_INCLUDES} ${PYTHON_INCLUDE_FLAGS})
+set(CMAKE_CXX_STANDARD 11)
 
 # all include libraries
 include_directories(include)
-SET(CXX_INCLUDES ${CXX_INCLUDES} ${PYTHON_INCLUDE_FLAGS})
+
 
 # Robot library
-add_library(lab2 src/robot.cpp include/robot.h include/geom.h
+add_library(lab2 SHARED src/robot.cpp include/robot.h include/geom.h
                         include/envir.h src/envir.cpp
                         include/sensor.h)
 target_link_libraries(lab2 "-lpython2.7")

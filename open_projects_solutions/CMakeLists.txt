@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(arpro_robot_sols)
 set(CMAKE_BUILD_TYPE Debug)
-add_compile_options(-std=c++11)
+set(CMAKE_CXX_STANDARD 11)
 
 # basic exercises
 add_executable(find_the_number basics/find_the_number.cpp)
@@ -22,6 +22,7 @@ add_executable(nD_function minimization/nd_function.cpp minimization/nd_vector.h
 
 # A* algorithm
 add_executable(puzzle a_star/puzzle.cpp a_star/puzzle.h a_star/a_star.h)
+add_executable(missionaries_cannibals a_star/missionaries_cannibals.cpp a_star/missionaries_cannibals.h a_star/a_star.h)
 
 # Genetic Algorithm with multi-thread
 add_executable(function_ga ga/function_indiv.h ga/genetic_algo.h ga/main.cpp)

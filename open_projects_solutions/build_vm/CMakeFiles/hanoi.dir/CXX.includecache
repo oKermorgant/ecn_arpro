@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/hanoi/hanoi.cpp
+vector
+-
+iostream
+-
+time.h
+-
+string
+-
+algorithm
+-
+time.h
+-
+

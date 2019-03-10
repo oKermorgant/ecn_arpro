@@ -29,14 +29,19 @@ protected:
 class Triangle : public Polygon // a triangle is a polygon
 {
 public:
-    Triangle() : Polygon(3) {n=3;}  // force sides to be 3
+    Triangle() : Polygon(3) {}  // force sides to be 3
+
+    bool checkTriangle()
+    {
+      return n == 3;
+    }
 
     // overload of non-virtual function
     string What() {return name;}
     // overload of virtual function
     string WhatWithVirtual() {return name;}
 protected:
-    string name = "triangle";int n;  // number of sides
+    string name = "triangle";  // number of sides
 };
 
 
@@ -91,6 +96,8 @@ int main()
     Triangle t; // no need to give the sides, it is a triangle...
     Square s;
 
+    cout << p.sides() << endl;
+
     // the correct function (virtual or not) will be called if directly called from the object
     cout << "p is a " << p.What() << endl;
     cout << "t is a " << t.What() << endl;
@@ -114,7 +121,7 @@ int main()
 
     // what about storing polygons in a vector?
     // a vector of values does not keep track of the actual class
-    std::vector<Polygon> vec = {p, t, s};
+    /*std::vector<Polygon> vec = {p, t, s};
     cout << "exploring vector of values" << endl;
     for(auto &elem: vec)
     {
@@ -131,6 +138,6 @@ int main()
         // still does not work if function is not virtual
         cout << "this element is a " << elem->What() << endl;
         cout << "this element is actually a " << elem->WhatWithVirtual() << endl;
-    }
+    }*/
 
 }

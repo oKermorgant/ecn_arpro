@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/minimization/scalar.cpp
+iostream
+-
+cmath
+-
+stdlib.h
+-
+time.h
+-
+

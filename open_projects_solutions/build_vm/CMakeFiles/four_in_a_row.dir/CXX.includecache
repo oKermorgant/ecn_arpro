@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/alpha_beta.h
+algorithm
+-
+vector
+-
+iostream
+-
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/alpha_beta_game.h
+algorithm
+-
+vector
+-
+alpha_beta.h
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/alpha_beta.h
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/four_in_a_row.cpp
+algorithm
+-
+vector
+-
+four_in_a_row_config.h
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/four_in_a_row_config.h
+alpha_beta_game.h
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/alpha_beta_game.h
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/alpha_beta/four_in_a_row_config.h
+algorithm
+-
+vector
+-
+iostream
+-
+stdlib.h
+-
+

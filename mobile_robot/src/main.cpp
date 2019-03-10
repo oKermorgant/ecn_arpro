@@ -9,19 +9,19 @@
 using namespace std;
 using namespace arpro;
 
-
-
-int main()
+int main(int argc, char **argv)
 {
-    // default environment with moving target
+  // init configuration from arguments
+
+
+  // default environment with moving target
     Environment envir;
     // sensors gets measurements from this environment
     Sensor::setEnvironment(envir);
 
     // init robot at (0,0,0)
     Robot robot("R2D2", 0,0,0);    
-    envir.addRobot(robot);
-
+    envir.addRobot(robot);   
 
     for(unsigned int i=0;i<10000;++i)
     {

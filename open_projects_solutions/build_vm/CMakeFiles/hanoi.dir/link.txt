@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/hanoi.dir/hanoi/hanoi.cpp.o  -o hanoi -rdynamic 

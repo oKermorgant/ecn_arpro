@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/a_star/a_star.h
+vector
+-
+algorithm
+-
+iostream
+-
+queue
+-
+chrono
+-
+memory
+-
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/a_star/missionaries_cannibals.cpp
+a_star.h
+/media/sf_code/Labs/ARPRO/open_projects_solutions/a_star/a_star.h
+iostream
+-
+missionaries_cannibals.h
+/media/sf_code/Labs/ARPRO/open_projects_solutions/a_star/missionaries_cannibals.h
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/a_star/missionaries_cannibals.h
+vector
+-
+string
+-
+iostream
+-
+memory
+-
+sstream
+-
+

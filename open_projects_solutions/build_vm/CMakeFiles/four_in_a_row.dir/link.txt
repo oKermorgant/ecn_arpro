@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/four_in_a_row.dir/alpha_beta/four_in_a_row.cpp.o  -o four_in_a_row -rdynamic 

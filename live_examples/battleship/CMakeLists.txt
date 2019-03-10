@@ -1,5 +1,5 @@
  project(battleship)
- add_compile_options(-std=c++11)
+ set(CMAKE_CXX_STANDARD 11)
 
 
  add_executable(battleship main.cpp

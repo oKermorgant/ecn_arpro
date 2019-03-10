@@ -61,7 +61,7 @@ void use_unique()
 
     for(int i = 0; i < 100; ++i)
     {
-        auto o = std::unique_ptr<Obj>(new Obj(std::rand()));
+        auto o = std::make_unique<Obj>(std::rand());
         if(o->value < 10)
             v.push_back(std::move(o));
     }
@@ -80,7 +80,7 @@ void use_shared()
         auto o = std::make_shared<Obj>(std::rand());
         if(o->value < 10)
             v.push_back(o);
-      //  std::cout << "  use counts inside loop: " << o.use_count() << std::endl;
+        std::cout << "  use counts inside loop: " << o.use_count() << std::endl;
     }
     printCount(v, "Using shared pointers");
 }
@@ -89,7 +89,7 @@ void use_shared()
 int main()
 {
     std::srand(time(0));
-   use_raw();
+   //use_raw();
    use_unique();
-   use_shared();
+  // use_shared();
 }

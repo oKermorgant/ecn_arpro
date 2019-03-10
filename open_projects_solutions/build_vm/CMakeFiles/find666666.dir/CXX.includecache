@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/sf_code/Labs/ARPRO/open_projects_solutions/666666/find666666.cpp
+iostream
+-
+sstream
+-
+vector
+-
+algorithm
+-
+

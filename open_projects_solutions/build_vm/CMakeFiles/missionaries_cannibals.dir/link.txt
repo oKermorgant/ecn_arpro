@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/missionaries_cannibals.dir/a_star/missionaries_cannibals.cpp.o  -o missionaries_cannibals -rdynamic 

@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/scalar.dir/minimization/scalar.cpp.o  -o scalar -rdynamic 

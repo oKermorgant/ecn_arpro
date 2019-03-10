@@ -59,7 +59,7 @@ The content of the CMakeLists.txt file should follow the structure of your code 
 cmake_minimum_required (VERSION 2.6)
 project (MYPROJECT)
 
-add_compile_options(-std=c++11)
+set(CMAKE_CXX_STANDARD 11)
 
 include_directories(include)
 

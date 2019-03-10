@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (ARPRO_examples)
 
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++17)
 add_compile_options(-pthread)
 
 set(CMAKE_BUILD_TYPE Debug)

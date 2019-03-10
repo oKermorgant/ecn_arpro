@@ -1,0 +1,16 @@
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/sticks_ab.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/hanoi.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/sticks.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/battleship.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/nD_function.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/rps.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/rebuild_cache.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/find666666.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/tictactoe.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/puzzle.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/find_the_number.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/four_in_a_row.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/scalar.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/edit_cache.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/missionaries_cannibals.dir
+/media/sf_code/Labs/ARPRO/open_projects_solutions/build_vm/CMakeFiles/function_ga.dir

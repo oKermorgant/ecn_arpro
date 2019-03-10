@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/function_ga.dir/ga/main.cpp.o  -o function_ga -rdynamic 
