@@ -3,7 +3,7 @@
 #include <sstream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
-#include <vector>
+#include <array>
 #include <algorithm>
 
 
@@ -13,8 +13,8 @@ int main(int argc, char ** argv)
 {
     srand(time(NULL));
 
-    vector<string> RPS = {"r", "p", "s"};
-    vector<string> RPS2 = {"rock", "paper", "scissors"};
+    const array<string,3> RPS = {"r", "p", "s"};
+    const array<string,3> RPS2 = {"rock", "paper", "scissors"};
 
     string rps;
     int human, ai;

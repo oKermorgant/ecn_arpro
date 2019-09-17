@@ -1,10 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <vector>
+#include <array>
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
+#include "cell.h"
+#include <map>
 
 // a Player class that may be human or not
 
@@ -14,18 +17,28 @@ public:
     Player(std::string _name, bool _human = true);
 
     // the value at a given grid position
-    inline int& cell(unsigned int r, unsigned int c)
+    inline Cell& cell(unsigned int row, unsigned int col)
     {
-        if( r > 9 || c > 9)
+        if( row > 9 || col > 9)
         {
-            std::cout << "Wrong row/column given: "<< r << ", "<< c << std::endl;
+            std::cout << "Wrong row/column given: "<< row << ", "<< col << std::endl;
             return grid[0];
         }
-        return grid[10*r + c];
+        return grid[10*row + col];
+    }
+
+    Cell cell(unsigned int row, unsigned int col) const
+    {
+        if( row > 9 || col > 9)
+        {
+            std::cout << "Wrong row/column given: "<< row << ", "<< col << std::endl;
+            return grid[0];
+        }
+        return grid[10*row + col];
     }
 
     // print this grid and the one of the other player
-    void Print(Player &other);
+    void Print(const Player &other);
 
     // shoot at the other
     bool Shoot(Player &other);
@@ -34,19 +47,17 @@ public:
 
 
 protected:
+
     bool human;
     std::string name;
-    std::vector<int> grid;
-    std::vector<unsigned int> alive;
+    std::array<Cell, 100> grid;
+    std::map<char,uint> boats;
 
     // for computer: history of passed shots
-    std::vector<unsigned int> hist;
-
-    // static for legends, etc.
-    static std::vector<std::string> legend;
+    std::vector<uint> hist;
 
     // print a grid line
-    std::string PrintLine(unsigned int r);
+    std::string PrintRow(uint r) const;
 };
 
 
