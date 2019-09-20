@@ -127,7 +127,7 @@ bool Player::Shoot(Player &other)
   // count if any boats left
 
   int total = 0;
-  for(const auto &boat: boats)
+  for(const auto &boat: other.boats)
     total += boat.second;
 
   return total == 0;    // no boats left -> over
