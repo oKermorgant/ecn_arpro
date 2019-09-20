@@ -211,10 +211,11 @@ Function minimization consists in finding the minimum value of a function, and w
 %add $P_0$ to $\mathcal{P}_s$\;
 iter$\gets$0\;
 $g\gets2\times g_m$\;
-\While{iter $<$ iter$_{max}$ and $g > g_m$}
+\While{iter $<$ iter$_{max}$ and $\|g\| > g_m$}
 {
 $g\gets f'(x)$\;
 $x\gets x - \lambda.g$\;
+iter $\gets$ iter + 1\;
 }
 \Return $x$\;
 \caption{Gradient descent}
