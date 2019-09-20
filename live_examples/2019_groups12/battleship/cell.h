@@ -4,7 +4,7 @@
 struct Cell
 {
   char type;
-  bool visible = true;
+  bool visible = false;
 
   Cell(char _type = '.')
   {
@@ -23,7 +23,12 @@ struct Cell
   char content()
   {
     if(visible)
+    {
+      if(type == '.')
+        return 'x';
       return type;
+    }
+
     return '.';
   }
 

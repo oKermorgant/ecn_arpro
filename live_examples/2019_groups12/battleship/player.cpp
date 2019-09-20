@@ -11,21 +11,27 @@ Player::Player()
   const std::vector<std::pair<char,uint>>
       boats{{'A',5}, {'C',4}, {'D',3}, {'S',3}, {'M',2}};
 
+  // small helper clas
+  struct Coord
+  {
+    uint row, col;
+  };
+
   for(const auto &boat: boats)
   {
+
     const auto type = boat.first;
     const auto length = boat.second;
 
-    struct Coord
-    {
-      uint row, col;
-    };
-
+    remaining += length;
     std::vector<Coord> coordinates(length);
 
+    while(true)
+    {
     // assume horizontal for now
     const uint row0 = rand() % 10;
     const uint col0 = rand() % (10-length);
+
     for(uint i = 0; i < length; ++i)
     {
       coordinates[i].row = row0;
@@ -39,8 +45,18 @@ Player::Player()
         std::swap(coord.row, coord.col);
     }
 
+    // check these coordinates are empty
+    if(std::all_of(coordinates.begin(), coordinates.end(),
+                   [&](const Coord &coord)
+    {return cell(coord.row, coord.col).type == '.';}))
+    {
+      //  write the boat
+      for(const auto &coord: coordinates)
+        cell(coord.row, coord.col) = type;
 
-
+      break;
+    }
+  }
 
   }
 }
@@ -48,7 +64,7 @@ Player::Player()
 
 void Player::display()
 {
-  std::cout << "   1 2 3 4 5 6 7 8 9 10" << std::endl;
+  std::cout << "\n\n   1 2 3 4 5 6 7 8 9 10" << std::endl;
 
   for(auto row = 0; row < 10; ++row)
   {
@@ -65,5 +81,14 @@ void Player::display()
 
 bool Player::shoot(Player &other)
 {
-  return true;
+  const uint row = rand() % 10;
+  const uint col = rand() % 10;
+  auto & target = other.cell(row,col);
+
+  if(target.makeVisible())
+  {
+    std::cout << "You have hit a " << target.type << "!\n";
+    other.remaining--;
+  }
+  return other.remaining == 0;
 }

@@ -7,6 +7,7 @@ class Player
 private:
 
   std::array<Cell,100> grid;
+  uint remaining = 0;
 
   Cell& cell(uint row, uint col)
   {
