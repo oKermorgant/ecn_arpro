@@ -233,8 +233,29 @@ This algorithm relies on the function derivative $f'(x)$ that must be defined. A
 Here the function to be minimized is still a scalar but may take several arguments. A typical case is a quadratic function over $\mathbb{R}^n$: $f(\x) = \x^T\Q\x + \mathbf{r}^T\x$. The algorithm is the same as in 1D minimization except that $\x$ has several components. Instead of a function for the derivative, we need thus a function to compute the Jacobian of $f$ that will return a n-D vector for all derivatives along the $x_i$'s. 
 
 \begin{itemize}
- \involves{Functions, Vector}
+ \involves{Functions, Vector, Operator overloading}
  \end{itemize}
+
+ \newpage
+$\x$ can be a \texttt{std::array<double,n>} with known \texttt{n} at compile time. In this case, this type can be aliased and these operations should be defined:
+\begin{center}\cppstyle
+\begin{lstlisting}
+const uint n = 4;
+using Vector = std::array<double,n>;
+using Matrix = std::array<Vector,n>;
+
+// vector-vector addition
+Vector operator+(const Vector \&v1, const Vector \&v2);
+// dot product
+double operator*(const Vector \&v1, const Vector \&v2);
+// scalar-vector product
+Vector operator*(const double k, const Vector \&v);
+// matrix-vector product
+Vector operator*(const Matrix \& M, const Vector \&v);
+\end{lstlisting}
+\end{center}
+
+
 
  
 \subsection{Tower of Hanoi}
