@@ -223,9 +223,9 @@ The \texttt{sensor.h} files defines a \texttt{Sensor} class that has the followi
 \begin{itemize}
 \item \texttt{Sensor(Robot \&\_robot, double \_x, double \_y, double \_theta)}\\initializes a sensor at a given position on the given robot
 \item \texttt{virtual void update(const Pose \&\_p)}\\ updates the measurement from the sensor current position
-\item \texttt{virtual void checkTwist(Twist \&\_t)}\\ checks if the given Twist is fine with the current sensor measurement
+\item \texttt{virtual void correctTwist(Twist \&\_v)}\\ checks if the given Twist is fine with the current sensor measurement
 \item \texttt{void updateFromRobotPose(const Pose \&\_p)}\\ computes the sensor absolute position from the given robot pose, then calls \texttt{update}
-\item \texttt{void checkRobotTwist(Twist \&\_t)}\\ computes the twist in the sensor space, then calls \texttt{checkTwist}
+\item \texttt{void correctRobotTwist(Twist \&\_v)}\\ computes the twist in the sensor space, then calls \texttt{correctTwist}
 \end{itemize}
 Some of the methods are pure virtual functions, which makes the \texttt{Sensor} class an abstract class.
 It is thus impossible to declare a variable to be of \texttt{Sensor} type, as this class is only designed to build daughter-classes depending on the sensor type.
@@ -249,7 +249,7 @@ called with an arrow instead of a dot.
 
 
 \begin{itemize}
-\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{RangeSensor} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
+\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_range.h} file that defines a \texttt{RangeSensor} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{correctTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
 As the \texttt{Sensor} class does not have a default constructor, the \texttt{RangeSensor} class must have its constructor call directly the one from  \texttt{Sensor}:
 \begin{center}\cppstyle
 \begin{lstlisting}
@@ -299,11 +299,11 @@ for(int i=0;i<envir_->walls.size();++i)
 
 Define the \texttt{update} function so that it updates the attribute \texttt{s\_} of the sensor with the distance to the nearest wall. Make it also print the distance to see if it is fine.
 
-\medskip\item[\textbf{\underline{Q5}}] We now want the sensor to be able to modify the robot twist to prevent any collisions, which is the goal of the \texttt{checkTwist} method.
+\medskip\item[\textbf{\underline{Q5}}] We now want the sensor to be able to modify the robot twist to prevent any collisions, which is the goal of the \texttt{correctTwist} method.
 We assume the \texttt{Twist} that is passed to this method is already expressed in the sensor frame. Hence we are only interested in the \texttt{vx} attribute and do not want it to be too large (fast motion in the sensor axis) if we are near to a wall.\\
 A simple way to do so is to define a minimum security range and to impose an upper bound to the velocity:
 
-\medskip\item[\textbf{\underline{Q6}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist by calling the \texttt{checkRobotTwist} method for all sensors. The robot should then stay inside the walls. We will use the following parameters:
+\medskip\item[\textbf{\underline{Q6}}] Modify the \texttt{Robot::moveWithSensor} method so that we also check the current robot twist by calling the \texttt{correctRobotTwist} method for all sensors. The robot should then stay inside the walls. We will use the following parameters:
 \begin{equation*}
 \left\{\begin{array}{ll}
 g &= .1 \\
@@ -336,7 +336,7 @@ In the main loop, we just want this robot to go forward at 0.4 m/s: \\\texttt{ro
 Of course it will go out of the wall for now.
 
 \begin{itemize}
-\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_bearing.h} file that defines a \texttt{SensorBearing} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{checkTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
+\medskip\item[\textbf{\underline{Q1}}] Create a \texttt{sensor\_bearing.h} file that defines a \texttt{SensorBearing} class that is derived from \texttt{Sensor}. The \texttt{update} and \texttt{correctTwist} methods have to be defined so that the code compiles. For now, just make the methods print something to the screen.
 
 \medskip\item[\textbf{\underline{Q2}}] Include this file in \texttt{main.cpp} and declare a \texttt{SensorBearing} variable.  We will use a front bearing sensor placed at $(0.1, 0,0)$ in the second robot frame.
 
@@ -360,7 +360,7 @@ The angle between the sensor and the robot can be computed with:
  \alpha = \text{arctan2}(y_r - y_s, x_r-x_s) - \theta_s
 \end{equation*}where $(x_s,y_s,\theta_s)$ is the sensor pose and $(x_r,y_r)$ is the robot position.
 
-\medskip\item[\textbf{\underline{Q4}}] We now build the \texttt{checkTwist} method. The bearing sensor should try to align with its target. To do so, we just want to change the rotation velocity:
+\medskip\item[\textbf{\underline{Q4}}] We now build the \texttt{correctTwist} method. The bearing sensor should try to align with its target. To do so, we just want to change the rotation velocity:
 \begin{algorithm}[!h]
 \SetKwComment{Comment}{(}{)}
 % \SetAlgoLined

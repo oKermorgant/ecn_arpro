@@ -24,19 +24,16 @@ Player::Player()
     const auto length = boat.second;
 
     remaining += length;
-    std::vector<Coord> coordinates(length);
 
     while(true)
     {
     // assume horizontal for now
+
     const uint row0 = rand() % 10;
     const uint col0 = rand() % (10-length);
-
+    std::vector<Coord> coordinates(length, {row0,col0});
     for(uint i = 0; i < length; ++i)
-    {
-      coordinates[i].row = row0;
       coordinates[i].col = col0 + i;
-    }
 
     // go to vertical?
     if(rand() % 2 == 0)

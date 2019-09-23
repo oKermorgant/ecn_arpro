@@ -34,25 +34,25 @@ public:
         update(pose_.transformDirect(_p));
     }
 
-    // check twist in sensor frame
-    virtual void checkTwist(Twist &_t) {}
+    // correct twist in sensor frame
+    virtual void correctTwist(Twist &_v) {}
 
-    // check twist in robot frame
-    void checkRobotTwist(Twist &_t)
+    // correct twist in robot frame
+    void correctRobotTwist(Twist &_v)
     {
-        cout << " Checking new sensor" << endl;
-        cout << "     Base robot twist: " << _t << endl;
+        cout << " Correction new sensor" << endl;
+        cout << "     Base robot twist: " << _v << endl;
         // twist in sensor frame
-        _t = _t.transformInverse(pose_);
-        cout << "     Base sensor twist: " << _t << endl;
+        _v = _v.transformInverse(pose_);
+        cout << "     Base sensor twist: " << _v << endl;
 
         // check twist in sensor frame
-        checkTwist(_t);
-        cout << "     Corrected sensor twist: " << _t << endl;
+        correctTwist(_v);
+        cout << "     Corrected sensor twist: " << _v << endl;
 
         // back to robot frame
-        _t = _t.transformDirect(pose_);
-        cout << "     Corrected robot twist: " << _t << endl;
+        _v = _v.transformDirect(pose_);
+        cout << "     Corrected robot twist: " << _v << endl;
     }
 
     // read current measurement

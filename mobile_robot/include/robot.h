@@ -43,13 +43,13 @@ public:
     // prints the current position
     void printPosition();
 
-    inline void getHistory(std::vector<double> &_x, std::vector<double> &_y)
+    inline void getHistory(std::vector<double> &_x, std::vector<double> &_y) const
     {
         _x = x_history_;
         _y = y_history_;
     }
 
-    inline std::string name() {return name_;}
+    inline std::string name() const {return name_;}
 
 protected:
     // position
