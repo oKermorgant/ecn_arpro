@@ -28,7 +28,6 @@ struct Cell
         return 'x';
       return type;
     }
-
     return '.';
   }
 

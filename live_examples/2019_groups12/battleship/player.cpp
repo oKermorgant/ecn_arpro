@@ -73,10 +73,9 @@ void Player::display()
       std::cout << cell(row, col).content() << " ";
     std::cout << std::endl;
   }
-
 }
 
-bool Player::shoot(Player &other)
+bool Player::shoot(Player & other)
 {
   const uint row = rand() % 10;
   const uint col = rand() % 10;
@@ -87,5 +86,6 @@ bool Player::shoot(Player &other)
     std::cout << "You have hit a " << target.type << "!\n";
     other.remaining--;
   }
+
   return other.remaining == 0;
 }

@@ -27,6 +27,8 @@ public:
         // this method should return  all positions reachable from this one
         std::vector<PositionPtr> generated;
 
+
+
         return generated;
     }
 };

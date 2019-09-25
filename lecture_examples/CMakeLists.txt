@@ -4,7 +4,7 @@ project (ARPRO_examples)
 set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-pthread)
 
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 
 find_package (Threads)
 find_package(PkgConfig)

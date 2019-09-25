@@ -2,6 +2,8 @@
 #define PLAYER_H
 #include <array>
 #include "cell.h"
+
+
 class Player
 {
 private:
@@ -11,7 +13,7 @@ private:
 
   Cell& cell(uint row, uint col)
   {
-    return grid[row + 10*col];
+    return grid.at(row + 10*col);
   }
 
 
