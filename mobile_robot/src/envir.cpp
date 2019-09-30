@@ -126,6 +126,8 @@ void Environment::plot()
   }
   out.close();
 
-  system("python ../src/plot.py data.yaml");
+  std::stringstream ss;
+  ss << "python " << SCRIPT_PATH << " data.yaml";
+  system(ss.str().c_str());
 }
 }
