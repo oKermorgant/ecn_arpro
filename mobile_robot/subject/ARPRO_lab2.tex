@@ -50,9 +50,8 @@ The file \texttt{sensor.h} defines a virtual class \texttt{Sensor} that will be 
 You of course have to install QtCreator and CMake:\\
 \texttt{sudo apt-get install cmake qtcreator} \\
 
-You will also have to install two Ubuntu packages that are used for the plotting of the robot trajectory:\\
-\texttt{sudo apt-get install python-matplotlib} \\ 
-\texttt{sudo apt-get install libpython2.7-dev} 
+You will also have to install these Ubuntu packages that are used for the plotting of the robot trajectory:\\
+\texttt{sudo apt-get install python-matplotlib}
 
 \subsection{Expected work}
 
@@ -258,8 +257,8 @@ class RangeSensor : public Sensor
 public:
     RangeSensor(Robot &_robot, double _x, double _y, double _theta) :
 	Sensor(_robot, _x,  _y,  _theta) // call the Sensor constructor
-	{// the RangeSensor constructor does nothing more}
-}    
+        {}	// the RangeSensor constructor does nothing more
+};    
 \end{lstlisting}
 \end{center}
 
