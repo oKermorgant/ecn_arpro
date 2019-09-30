@@ -26,8 +26,6 @@ struct Environment
 
     void addRobot(Robot &_robot);
 
-    void plotTrajectory(std::string name_, std::vector<double> x_, std::vector<double> y_, std::string color_);
-
     // plots the trajectory in the given environment
     void plot();
 };
