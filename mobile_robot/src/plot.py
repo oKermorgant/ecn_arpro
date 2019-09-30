@@ -3,7 +3,7 @@ import yaml
 from sys import argv
 
 with open(argv[1]) as f:
-   data = yaml.load(f)
+   data = yaml.safe_load(f)
     
 coord = pl.array(data['data'],dtype=float)
 
