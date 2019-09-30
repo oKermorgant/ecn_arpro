@@ -10,19 +10,32 @@ namespace arpro
 
 class Robot;
 
-struct Environment
+class Environment
 {
+
     std::vector<Pose> walls;
-    Pose target;
+    Pose target_;
     std::vector<double> x_hist, y_hist;
     std::vector<Robot*> robots_;
 
-    unsigned int iter;
+    double dt = 0.1;
+    double t = 0;
 
+public:
     Environment();
+
+    double time() const
+    {
+      return t;
+    }
 
     // the target draws a cardoid curve
     void updateTarget();
+
+    Pose target() const
+    {
+      return target_;
+    }
 
     void addRobot(Robot &_robot);
 

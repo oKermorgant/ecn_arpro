@@ -11,31 +11,30 @@ using namespace arpro;
 
 int main(int argc, char **argv)
 {
-  // init configuration from arguments
-
 
   // default environment with moving target
-    Environment envir;
-    // sensors gets measurements from this environment
-    Sensor::setEnvironment(envir);
+  Environment envir;
+  // sensors gets measurements from this environment
+  Sensor::setEnvironment(envir);
 
-    // init robot at (0,0,0)
-    Robot robot("R2D2", 0,0,0);    
-    envir.addRobot(robot);   
+  // init robot at (0,0,0)
+  Robot robot("R2D2", 0,0,0);
+  envir.addRobot(robot);
 
-    for(unsigned int i=0;i<10000;++i)
-    {
-        cout << "---------------------" << endl;
+  // simulate 100 sec
+  while(envir.time() < 100)
+  {
+    cout << "---------------------" << endl;
 
-        // update target position
-        envir.updateTarget();        
+    // update target position
+    envir.updateTarget();
 
-        // try to follow target
-        robot.goTo(envir.target);
+    // try to follow target
+    robot.goTo(envir.target());
 
-    }
+  }
 
-    // plot trajectory
-    envir.plot();
-    
+  // plot trajectory
+  envir.plot();
+
 }

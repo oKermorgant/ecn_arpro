@@ -11,7 +11,6 @@ namespace arpro
 
 Environment::Environment()
 {
-  iter=0;
   x_hist.clear();
   y_hist.clear();
 
@@ -25,22 +24,23 @@ Environment::Environment()
 // the target draws a cardoid curve
 void Environment::updateTarget()
 {
-  double c = -cos(0.0005*iter),
-      s = -sin(0.0005*iter);
+  double c = -cos(0.05*t),
+      s = -sin(0.05*t);
   double a = 6, b = 10;
-  target.x = (a + b*c)*c+a+1-b;
-  target.y = (a + b*c)*s;
+  target_.x = (a + b*c)*c+a+1-b;
+  target_.y = (a + b*c)*s;
 
-  x_hist.push_back(target.x);
-  y_hist.push_back(target.y);
-  iter++;
+  x_hist.push_back(target_.x);
+  y_hist.push_back(target_.y);
+
+  t += dt;
 }
 
 void Environment::addRobot(Robot &_robot)
 {
+  _robot.setSamplingTime(dt);
   robots_.push_back(&_robot);
 }
-
 
 void copyToCoord(std::vector<double> &coord, const std::vector<double> &src,
                  uint & offset)

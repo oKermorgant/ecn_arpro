@@ -21,9 +21,6 @@ Robot::Robot(string _name, double _x, double _y, double _theta)
     // init position history
     x_history_.push_back(_x);
     y_history_.push_back(_y);
-
-    // default sampling time: 1/100 s
-    dt_ = .01;
 }
 
 

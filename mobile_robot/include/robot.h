@@ -14,6 +14,10 @@ class Robot
 public:
     // initialize robot at (x,y,theta)
     Robot(std::string _name, double _x, double _y, double _theta);
+    void setSamplingTime(double dt)
+    {
+      dt_ = dt;
+    }
 
     Pose pose() {return pose_;}
 
@@ -22,8 +26,6 @@ public:
     {
         sensors_.push_back(_sensor);
     }
-    
-    void initWheels(double b, double r, double wmax);
     
     // move robot with a given (x,y,theta) velocity
     void moveXYT(double _vx, double _vy, double _omega);
@@ -58,7 +60,7 @@ protected:
     std::string name_;
 
     // sampling time
-    double dt_;
+    double dt_ = 0.1;
 
     // sensors
     std::vector<Sensor*> sensors_;
