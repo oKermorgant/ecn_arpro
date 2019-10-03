@@ -1,10 +1,7 @@
 #include "xy.h"
 #include <random>
+#include <iostream>
 
-XY::XY()
-{
-  randomize();
-}
 
 void XY::randomize()
 {
@@ -25,14 +22,11 @@ void XY::cross(const XY &p1, const XY &p2)
   const double a = rand_range(0, 1);
   x_ = a*p1.x_ + (1-a)*p2.x_;
   y_ = a*p1.y_ + (1-a)*p2.y_;
-
-  computeCost();
-
 }
 
 void XY::print() const
 {
-
+  std::cout << "f(" << x_ << ", " << y_ << ") = " << cost_ << std::endl;
 }
 
 

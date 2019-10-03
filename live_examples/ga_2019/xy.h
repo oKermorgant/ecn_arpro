@@ -5,7 +5,7 @@
 class XY
 {
 public:
-  XY();
+  XY(){};
   void randomize();
   void mutate();
 
