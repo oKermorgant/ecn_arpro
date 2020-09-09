@@ -1,79 +1,78 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
 
-int cnt = 0;
-
-class MyObj
+struct Point
 {
-public:
-    MyObj() {value_ = rand()%100;}
-    int value() {return value_;}
+  Point(double _x, double _y) : x(_x), y(_y) {}
 
-    friend bool operator<(MyObj &o1, MyObj &o2)
-    { cnt++;
-        cout << "comparing using overloaded operator<" << endl;
-        return o1.value() < o2.value();
-    }
+  double angle(const Point &other) const
+  {
+    return atan2(other.y-y, other.x-x);
+  }
+
+  double dist_square(const Point &other) const
+  {
+    const double dx(other.x-x);
+    const double dy(other.y-y);
+    return dx*dx + dy*dy;
+  }
+
+  double dist(const Point &other) const
+  {
+    return sqrt(dist_square(other));
+  }
+
+  // how to display a point with <<
+  friend std::ostream& operator<<(std::ostream &oss, const Point &P)
+  {
+    oss << "(" << P.x << ", " << P.y << ")";
+    return oss;
+  }
 
 protected:
-    int value_;
-
+  double x, y;
 };
 
-
-bool compare(MyObj &o1, MyObj &o2)
+void printAll(const std::vector<Point> &points)
 {
-    cnt++;
-    cout << "comparing using external compare function" << endl;
-    return o1.value() < o2.value();
+  for(size_t i = 0; i < points.size(); ++i)
+  {
+    if(i != 0)
+      std::cout << " -> ";
+    std::cout << points[i];
+  }
+  std::cout << std::endl << std::endl;
 }
 
 int main()
 {
-    // random vector of int's
-    vector<int> whatever(10);
+  std::vector<Point> points;
+  points.emplace_back(0,0);
+  points.emplace_back(1,1);
+  points.emplace_back(0,1);
+  points.emplace_back(1,0);
 
-    for(auto &i: whatever)
-        i = rand() % 100;
+  std::cout << "As initially defined\n";
+  printAll(points);
 
-    for(auto &i: whatever)
-        cout << i << " ";
-    cout << endl;
+  const Point Pd(0.1, 0.5);
+  std::cout << "Sorting according to (squared) distance to " << Pd << std::endl;
+  std::sort(points.begin(), points.end(), [Pd](const auto &P1, const auto &P2)
+  {
+    return Pd.dist_square(P1) < Pd.dist_square(P2);
+  });
+  printAll(points);
 
-    // sort with classical < comparison
-    sort(whatever.begin(),whatever.end());
-
-    for(auto &i: whatever)
-        cout << i << " ";
-    cout << endl;
-
-    // random vector of MyObj
-    vector<MyObj> v_obj(10);
-    for(auto &o: v_obj)
-        cout << o.value() << " ";
-    cout << endl;
-
-    // sort with external function
-    sort(v_obj.begin(),v_obj.end(),compare);
-cout << " did " << cnt <<  " comparisons" << endl;
-    // sort with operator<
-cnt = 0;
-    sort(v_obj.begin(),v_obj.end());
-
-
-cout << " did " << cnt <<  " comparisons" << endl;
-    // sort with lambda function
-    sort(v_obj.begin(),v_obj.end(),
-         [](MyObj &_o1, MyObj &_o2)
-            {   cout << "comparing with lambda function" << endl;
-                return _o1.value() < _o2.value();});
-
-    for(auto &o: v_obj)
-        cout << o.value() << " ";
-    cout << endl;
-
+  const auto &P0(points.front());
+  std::cout << "Sorting according to angle from " << P0 << std::endl;
+  std::sort(points.begin()+1, points.end(), [P0](const auto &P1, const auto &P2)
+  {
+    return P0.angle(P1) < P0.angle(P2);
+  });
+  printAll(points);
 }

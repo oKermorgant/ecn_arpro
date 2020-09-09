@@ -1,10 +1,10 @@
 cmake_minimum_required (VERSION 2.6)
-project (ARPRO_examples)
+project(ARPRO_examples)
 
 set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-pthread)
 
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 
 find_package (Threads)
 find_package(PkgConfig)
@@ -25,6 +25,9 @@ add_executable(function function.cpp)
 add_executable(smart_ptr smart_ptr.cpp)
 add_executable(pointers pointers.cpp)
 add_executable(class class.cpp)
+add_executable(blocks blocks.cpp)
+add_executable(overload overload.cpp)
+add_executable(multiple_return multiple_return.cpp)
 
 #add_executable(exception exception.cpp)
 

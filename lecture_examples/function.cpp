@@ -15,10 +15,9 @@ int f(int x)
 }
 
 
-int f(int x)
+int f(const int &x)
 {
-  cout << "Calling f int" << endl;
-  x = x+ 1;
+  cout << "Calling f int" << x << endl;
 
   return x;
 }
@@ -30,28 +29,12 @@ double f(double x)
   return x;
 }
 
-std::tuple<bool,double> square_root(double x)
-{
-  if(x < 0)
-    return {false,0};
-  return {true, sqrt(x)};
-}
-
-
-
 
 int main()
 {
-  f(4);
-  f(3.14);
-  ecn::f(4);
+  int x(4);
+  f(x);
+  std::cout << x << std::endl;
 
-  for(auto x: {-2, 2})
-  {
-    if(auto [ok,y] = square_root(x);ok)
-      std::cout << "Square root of " << x << " is " << y << std::endl;
-    else
-      std::cout << x << " has no square root" << endl;
-  }
 
 }

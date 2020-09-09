@@ -50,7 +50,6 @@ int main(int argc, char ** argv)
         runID = config["run"].as<string>();
     }
 
-
     else if(config_type == "txt")
     {
 
