@@ -6,11 +6,10 @@
 
 using namespace std;
 
-int DEBUG = 0;
+int DEBUG = 2;
 
 int main()
 {
-
     if(DEBUG > 0)
         cout << " before vector init" << endl;
 

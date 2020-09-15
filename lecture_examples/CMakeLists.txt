@@ -28,6 +28,7 @@ add_executable(class class.cpp)
 add_executable(blocks blocks.cpp)
 add_executable(overload overload.cpp)
 add_executable(multiple_return multiple_return.cpp)
+add_executable(random random.cpp)
 
 #add_executable(exception exception.cpp)
 

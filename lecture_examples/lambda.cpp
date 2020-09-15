@@ -8,7 +8,7 @@ using namespace std;
 
 struct Point
 {
-  Point(double _x, double _y) : x(_x), y(_y) {}
+  Point(double _x=0, double _y=0) : x(_x), y(_y) {}
 
   double angle(const Point &other) const
   {
@@ -21,6 +21,8 @@ struct Point
     const double dy(other.y-y);
     return dx*dx + dy*dy;
   }
+
+  double norm() const {return dist({0,0});}
 
   double dist(const Point &other) const
   {
@@ -52,21 +54,25 @@ void printAll(const std::vector<Point> &points)
 int main()
 {
   std::vector<Point> points;
+
   points.emplace_back(0,0);
   points.emplace_back(1,1);
-  points.emplace_back(0,1);
   points.emplace_back(1,0);
+  points.emplace_back(0,1);
 
   std::cout << "As initially defined\n";
   printAll(points);
 
-  const Point Pd(0.1, 0.5);
+
+  const Point Pd(0.1, 0.4);
   std::cout << "Sorting according to (squared) distance to " << Pd << std::endl;
   std::sort(points.begin(), points.end(), [Pd](const auto &P1, const auto &P2)
   {
     return Pd.dist_square(P1) < Pd.dist_square(P2);
   });
   printAll(points);
+
+
 
   const auto &P0(points.front());
   std::cout << "Sorting according to angle from " << P0 << std::endl;
@@ -75,4 +81,11 @@ int main()
     return P0.angle(P1) < P0.angle(P2);
   });
   printAll(points);
+
+
+ std::count_if(points.begin(), points.end(), [](const auto &P)
+  {
+    return P.norm() < 1.2;
+  });
+
 }

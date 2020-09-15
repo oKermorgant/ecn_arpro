@@ -1,6 +1,5 @@
 #include <visp/vpMatrix.h>
 
-
 int main()
 {
   vpMatrix M(4,4);
