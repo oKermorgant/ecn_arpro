@@ -11,7 +11,6 @@ int main()
 {
 
   // old way: rand() generates integers between 0 and RAND_MAX-1
-
   std::cout << "Old way" << std::endl;
   // seed of the random numbers generator
   srand(time(0));
@@ -32,6 +31,7 @@ int main()
   // end of the old way
 
 
+  
   // modern way
   std::cout << "\nModern way" << std::endl;
   std::random_device device;          // equivalent of time
