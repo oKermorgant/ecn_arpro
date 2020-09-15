@@ -10,7 +10,9 @@
 int main()
 {
 
-  // old way: rand combined with RAND_MAX
+  // old way: rand() generates integers between 0 and RAND_MAX-1
+
+  std::cout << "Old way" << std::endl;
   // seed of the random numbers generator
   srand(time(0));
   for(int i = 0; i < 10; ++i)
@@ -31,8 +33,9 @@ int main()
 
 
   // modern way
-  std::random_device device;          // equivalent of srand
-  std::mt19937 generator(device());   // equivalent of rand
+  std::cout << "\nModern way" << std::endl;
+  std::random_device device;          // equivalent of time
+  std::mt19937 generator(device());   // equivalent of srand
 
   // random integers between 1 - 100
   std::uniform_int_distribution<> dice100(1, 100);
