@@ -2,7 +2,7 @@
 #include <iostream>
 #include "puzzle.h"
 
-unsigned int Puzzle::n = 4;
+unsigned int Puzzle::n = 3;
 
 int main()
 {

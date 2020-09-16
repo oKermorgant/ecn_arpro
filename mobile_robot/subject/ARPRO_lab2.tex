@@ -231,12 +231,10 @@ It is thus impossible to declare a variable to be of \texttt{Sensor} type, as th
 The \texttt{Robot} class already has a attribute called \texttt{sensors\_} which is a vector of \texttt{Sensor*}.
 
 For example to update all sensors with the current robot pose, we can write the following:
-\begin{center}\cppstyle
-\begin{lstlisting}
+\begin{cppcode}
     for(auto & sensor: sensors_)
 	sensor->updateFromRobotPose(pose_);
-\end{lstlisting}
-\end{center}The arrow is because we use a pointer and not an actual value. The corresponding methods have thus to be 
+\end{cppcode}The arrow is because we use a pointer and not an actual value. The corresponding methods have thus to be 
 called with an arrow instead of a dot.
 
 

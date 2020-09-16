@@ -21,7 +21,6 @@ public:
     double dt = 0.1;
     double t = 0;
 
-
     Environment();
 
 

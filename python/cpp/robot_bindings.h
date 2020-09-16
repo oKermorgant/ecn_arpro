@@ -1,4 +1,0 @@
-#ifndef ROBOT_BINDINGS_H
-#define ROBOT_BINDINGS_H
-
-#endif // ROBOT_BINDINGS_H

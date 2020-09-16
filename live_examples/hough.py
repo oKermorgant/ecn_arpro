@@ -1,6 +1,6 @@
 from pylab import *
 
-noise = 2
+noise = 0.0
 outliers = 50
 size = 1000
 
@@ -17,10 +17,8 @@ xy = concatenate((x, y), 1)
 
 close('all')
 
-plot(x,y,'.')
 
-
-steps = 1000
+steps = 100
 
 theta_min = -pi
 theta_max = pi
@@ -35,19 +33,17 @@ rho_step = rho_vals[1] - rho_min
 TR = zeros((steps, steps))
 
 for xi, yi in xy:
-    for idx, theta in enumerate(theta_vals):
+    for theta_idx, theta in enumerate(theta_vals):
         rho = cos(theta)*xi + sin(theta)*yi
         rho_idx = int(round((rho - rho_min)/rho_step))
         if rho_idx < TR.shape[1] and rho_idx >= 0:
-            TR[idx,rho_idx] += 1
+            TR[theta_idx,rho_idx] += 1
       
-thres = 19
-ok = find(TR > thres)
+thres = 200
+ok = array(where(TR > thres)).T
 rho_theta = []
-for idx in ok:
-    idx_theta = idx / steps
-    idx_rho = idx % steps
-    rho_theta.append((rho_vals[idx_rho],theta_vals[idx_theta]))
+for theta_idx,rho_idx in ok:
+    rho_theta.append((rho_vals[rho_idx],theta_vals[theta_idx]))
     
 # To (a, b)
 print('Found {} lines'.format(len(rho_theta)))
@@ -56,9 +52,8 @@ for rho, theta in rho_theta:
     b = rho/sin(theta)
     print('y = {} x + {}'.format(round(a, 2), round(b, 2)))
     plot(x, a*x+b)
-
-
-
+    
+plot(x,y,'kd')
 figure()
 
 imshow(TR)
