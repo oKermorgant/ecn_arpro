@@ -4,8 +4,6 @@ project(ARPRO_examples)
 set(CMAKE_CXX_STANDARD 17)
 add_compile_options(-pthread)
 
-set(CMAKE_BUILD_TYPE Debug)
-
 find_package (Threads)
 find_package(PkgConfig)
 pkg_check_modules(YamlCpp yaml-cpp)

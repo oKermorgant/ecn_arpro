@@ -40,14 +40,14 @@ struct Boat
     return letter(type);
   }
 
-  static std::vector<std::pair<BoatType, int>> allBoats()
+  static std::vector<
+  std::pair<BoatType, int>> allBoats()
   {
     return {
-        {BoatType::AIRCRAFT, 5},
-        {BoatType::DESTROYER, 3},
-        {BoatType::SUBMARINE, 2},
-        {BoatType::CRUISER, 4}
-      };
+          {BoatType::CRUISER, 4},
+          {BoatType::AIRCRAFT, 5},
+          {BoatType::DESTROYER, 3},
+          {BoatType::SUBMARINE, 3}};
   }
 
 private:

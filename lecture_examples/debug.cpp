@@ -25,10 +25,6 @@ int main()
         for(int i=0;i<3;++i)
             cout << v[i] << endl;
     }
-  /*  catch(...)
-    {
-
-    }*/
 
     if(DEBUG > 1)
         cout << " after loop" << endl;

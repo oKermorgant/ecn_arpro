@@ -74,7 +74,6 @@ void Player::shoot(Player &other)
   int row(-1), col(-1);
   if(is_human)
   {
-
     display(other);
     while(row < 0 || row > 9 || col < 0 || col > 9)
     {
@@ -101,7 +100,8 @@ void Player::shoot(Player &other)
 
 void Player::registerShot(int row, int col)
 {
-  auto &target(grid[row][col]);
+  auto & target(grid[row][col]);
+
   if(target.hit == false)
   {
     target.hit = true;

@@ -9,7 +9,6 @@ std::tuple<bool, double> square_root(double x)
   return {true, sqrt(x)};
 }
 
-
 int main()
 {
   for(auto x: {-2., 2., 3.14})
