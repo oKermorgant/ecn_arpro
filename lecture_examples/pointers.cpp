@@ -3,8 +3,20 @@
 #include <iostream>
 #include <memory>
 
+void print(const std::unique_ptr<int> &xp)
+{
+  //std::cout << "ref count: " << xp.use_count() << std::endl;
+  std::cout << *xp << std::endl;
+}
+
 int main()
 {
+
+  {
+  auto xp = std::make_unique<int>(5);
+  print(xp);
+  }
+
   const int n = 32;
 
   // with base objects in the vector

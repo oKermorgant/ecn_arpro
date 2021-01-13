@@ -258,39 +258,39 @@ Vector operator*(const Matrix \& M, const Vector \&v);
 
 
  
-\subsection{Tower of Hanoi}
-
-This one is a classical mathematical puzzle.
-A given number of disks of different sizes are placed on three rods.
-The only constraint is that a bigger disk cannot be above a smaller one. 
-
-The goal is to move the disks one at a time (only the top disk of a rod may be moved to another rod) in order to have them all on a single rod.
-The Wikipedia page will give you strong hints to solve this problem.
-
-The starting position of the disks may be randomly generated or written in a file. The goal is of course to use a minimum number of moves.
-
-\begin{itemize}
- \involves{File input, output, Vectors, Data representation, Recursive programming (functions)}
- \end{itemize}
+% \subsection{Tower of Hanoi}
+% 
+% This one is a classical mathematical puzzle.
+% A given number of disks of different sizes are placed on three rods.
+% The only constraint is that a bigger disk cannot be above a smaller one. 
+% 
+% The goal is to move the disks one at a time (only the top disk of a rod may be moved to another rod) in order to have them all on a single rod.
+% The Wikipedia page will give you strong hints to solve this problem.
+% 
+% The starting position of the disks may be randomly generated or written in a file. The goal is of course to use a minimum number of moves.
+% 
+% \begin{itemize}
+%  \involves{File input, output, Vectors, Data representation, Recursive programming (functions)}
+%  \end{itemize}
  
- \subsection{Reachable numbers with only 6 6's}
- 
- In this problem we are trying to write numbers with only 6 6's, as in:
- \begin{eqnarray*}
-  1 =& 6/6 + 6 +6-6-6 \\
-  2 =& 6/6 + 6/6 + 6 - 6 \\
-  6 =& 6\times 6/6 + (6-6)/6 \\
-  10 =& (6\times(6+6) -6 -6)/6
- \end{eqnarray*}
- All 4 operations $\{+, -, \times, /\}$ are allowed in any order and any priority.
- The goal is to find:
- \begin{enumerate}
-  \item The first number that cannot be written this way.
-  \item The number of numbers that can be written this way.
- \end{enumerate}
-\begin{itemize}
- \involves{Functions, Recursive programming, Vectors}
- \end{itemize}
+%  \subsection{Reachable numbers with only 6 6's}
+%  
+%  In this problem we are trying to write numbers with only 6 6's, as in:
+%  \begin{eqnarray*}
+%   1 =& 6/6 + 6 +6-6-6 \\
+%   2 =& 6/6 + 6/6 + 6 - 6 \\
+%   6 =& 6\times 6/6 + (6-6)/6 \\
+%   10 =& (6\times(6+6) -6 -6)/6
+%  \end{eqnarray*}
+%  All 4 operations $\{+, -, \times, /\}$ are allowed in any order and any priority.
+%  The goal is to find:
+%  \begin{enumerate}
+%   \item The first number that cannot be written this way.
+%   \item The number of numbers that can be written this way.
+%  \end{enumerate}
+% \begin{itemize}
+%  \involves{Functions, Recursive programming, Vectors}
+%  \end{itemize}
  
  
  \subsection{Robust fitting with Hough lines}
@@ -567,6 +567,6 @@ Before loading a project in Qt Creator, you have at least to write a basic CMake
 
 Note: on the computers of the lab room (P-ro), automatic configuration can be done by running \texttt{gen\_qtcreator\_config} from the project folder.
 
-\subsection{Using Code::Blocks}
+% \subsection{Using Code::Blocks}
 
 \end{document}

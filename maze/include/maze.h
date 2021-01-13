@@ -24,9 +24,7 @@ public:
     void load(std::string _filename)
     {
       filename = _filename;
-      // load image
-      if(filename.at(0) == '/') im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
-      else im = cv::imread("../mazes/"+filename, cv::IMREAD_GRAYSCALE);
+      im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
       cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
     }
 

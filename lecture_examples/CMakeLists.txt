@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 project(ARPRO_examples)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_BUILD_TYPE Debug)
 add_compile_options(-pthread)
 
 find_package (Threads)

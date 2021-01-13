@@ -4,10 +4,11 @@
 
 int main()
 {
-  auto xy = ga();
+  auto xy = ga<XY>();
   xy.print();
 
-  std::cout << "Created " << xy.created << ", compared " << comparisons << std::endl;
+  std::cout << "Created " << xy.created <<
+               ", compared " << comparisons << std::endl;
 }
 
 

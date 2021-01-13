@@ -38,7 +38,7 @@ public:
 int main( int argc, char **argv )
 {
     // load file
-    std::string filename = "maze.png";
+    std::string filename = "../mazes/maze.png";
     if(argc == 2)
         filename = std::string(argv[1]);
 
