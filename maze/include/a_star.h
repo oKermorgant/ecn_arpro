@@ -12,12 +12,24 @@
 namespace ecn
 {
 
+// compare nodes
+template <class Node>
+inline bool areSame(const Node * l1, const Node * l2)
+{
+    return *l1 == *l2;
+}
+template <class Node>
+inline bool areSame(const Node * l1, const Node & l2)
+{
+    return *l1 == l2;
+}
+
 // a custom map for unique ptr's
-template <class T>
-class PtrMap : std::vector<std::pair<std::unique_ptr<T>, T*>>
+template <class Node>
+class PtrMap : std::vector<std::pair<std::unique_ptr<Node>, Node*>>
 {
 public:
-    void write(T* key, T* val)
+    void write(Node* key, Node* val)
     {
         // usually we find it near the end
         for(auto v = this->rbegin(); v != this->rend(); v++)
@@ -30,7 +42,7 @@ public:
         }
     }
 
-    T* get(T* key)
+    Node* get(Node* key)
     {
         // usually we find it near the end
         for(auto v = this->rbegin(); v != this->rend(); v++)
@@ -44,18 +56,17 @@ public:
     }
 
     // insertion
-    void add(std::unique_ptr<T> &key, T* val)
+    void add(std::unique_ptr<Node> &key, Node* val)
     {
         this->push_back({std::move(key), val});
     }
 };
 
-
 // reconstruct path from last best element
-template<class T>
-void reconstructPath(PtrMap<T> &come_from, T* best, int dist)
+template<class Node>
+void reconstructPath(PtrMap<Node> &come_from, Node* best, int dist)
 {
-    std::vector<T*> summary = {best};
+    std::vector<Node*> summary = {best};
     // build list from end to start
     while(come_from.get(best))
     {
@@ -75,8 +86,8 @@ void reconstructPath(PtrMap<T> &come_from, T* best, int dist)
 }
 
 // templated version of A* algorithm
-template<class T>
-void Astar(T start, T goal)
+template<class Node>
+void Astar(Node start, Node goal)
 {
     // check if we should display during A*
     std::ifstream config("../config.txt", std::ios::in);
@@ -97,11 +108,11 @@ void Astar(T start, T goal)
 
     auto t0 = std::chrono::system_clock::now();
 
-    typedef std::unique_ptr<T> Tptr;
+    typedef std::unique_ptr<Node> Tptr;
 
     struct NodeWithCost
     {
-        T* elem;
+        Node* elem;
         double f;
         int g;
     };
@@ -119,25 +130,25 @@ void Astar(T start, T goal)
             public std::priority_queue<NodeWithCost, std::vector<NodeWithCost>, Compare>
     {
     public:
-        NodeWithCost* find( const T& node)
+        NodeWithCost* find( const Node& node)
         {
             // when looking for an given element,
             // the best occurrence should be near the end
             for(auto it = this->c.rbegin(); it!=this->c.rend(); it++)
             {
-                if(it->elem->is(node))
+                if(areSame(it->elem,node))
                     return &(*it);
             }
             return 0;
         }
     };
 
-    std::vector<T*> closedSet;
+    std::vector<Node*> closedSet;
     priority_access queue;
     queue.push({&start, start.h(goal, use_manhattan), 0});
 
     // keep track of who comes from who
-    PtrMap<T> come_from;
+    PtrMap<Node> come_from;
 
     if(show)
         start.start();
@@ -148,7 +159,7 @@ void Astar(T start, T goal)
     {
         auto best = queue.top();
 
-        if(best.elem->is(goal))
+        if(areSame(best.elem,goal))
         {
             std::cout << created << " nodes created, " <<
                          evaluated << " evaluated, " <<
@@ -163,7 +174,7 @@ void Astar(T start, T goal)
         queue.pop();
         if(show)
         {
-            T* parent = come_from.get(best.elem);
+            Node* parent = come_from.get(best.elem);
             if(parent)
                 best.elem->show(true, *parent);
         }
@@ -180,7 +191,7 @@ void Astar(T start, T goal)
             auto child_ptr = child.get();
             // ensure we have not been here
             if(std::find_if(closedSet.rbegin(), closedSet.rend(),
-                            [&child_ptr](T* elem){return elem->is(*child_ptr);}) == closedSet.rend())
+                            [&child_ptr](Node* elem){return areSame(elem,child_ptr);}) == closedSet.rend())
             {
                 auto twin = queue.find(*child_ptr);
                 const int child_g = best.g + child_ptr->distToParent();

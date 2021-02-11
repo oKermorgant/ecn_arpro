@@ -81,7 +81,7 @@ In terms of implementation, the algorithm can deal with any \texttt{Node} class 
  \item \texttt{vector<unique\_ptr<Node>> Node::children()}: returns a \texttt{vector} of smart pointers\footnote{The use of smart pointers (here \texttt{unique\_ptr}) is detailed in \Sec{smart}} to the children (or neighboors) of the considered
  element
  \item \texttt{int distToParent()}: returns the distance to the node that generated this one
- \item \texttt{bool is(const Node \&other)}: returns true if the passed argument is actually the same point
+ \item \texttt{bool operator==(const Node \&other)}: returns true if the passed argument is actually the same point
  \item \texttt{double h(const Node \&goal)}: returns the heuristic distance to the passed argument
  \item \texttt{void show(bool closed, const Node \& parent)}: used for online display of the behavior
  \item \texttt{void print(const Node \& parent)}: used for final display
@@ -185,7 +185,7 @@ This class interfaces with an image and allows easy reading / writing to the maz
 This class implements basic properties of a 2D point:
 
 \begin{itemize}
- \item \texttt{bool is(Point)}: returns true if both points have the same x and y coordinates
+ \item \texttt{bool operator==(Point)}: returns true if both points have the same x and y coordinates
  \item \texttt{double h(const Point \&goal)}: heuristic distance, may use Manhattan
  ($|x-\texttt{goal}.x| + |y-\texttt{goal}.y|$) or classical Euclidean distance.
  \item \texttt{void show(bool closed, const Point \& parent)}: draws a straight line between the point and its parent, that

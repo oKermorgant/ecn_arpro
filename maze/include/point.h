@@ -37,7 +37,7 @@ public:
     }
 
     // 2 positions are equal if they have the same x and y
-    bool is(const Point &other)
+    bool operator==(const Point &other) const
     {
         return x == other.x && y == other.y;
     }
