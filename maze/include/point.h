@@ -14,8 +14,7 @@ class Point
 {
 public:
 
-    Point() {}
-    Point(int _x, int _y): x(_x), y(_y) {}
+    Point(int _x=0, int _y=0): x(_x), y(_y) {}
 
     void operator=(const Point &p)
     {
@@ -52,6 +51,7 @@ public:
     int x, y;
     static Maze maze;
 };
+
 
 }
 

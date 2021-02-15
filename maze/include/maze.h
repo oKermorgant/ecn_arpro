@@ -23,6 +23,7 @@ public:
 
     void load(std::string _filename)
     {
+      std::cout << _filename << std::endl;
       filename = _filename;
       im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
       cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
@@ -40,8 +41,14 @@ public:
       return im.at<uchar>(y,x);
     }
 
-    int height() {return im.rows;}
-    int width() {return im.cols;}
+    inline bool isFree(const Point &p) const
+    {
+        return isFree(p.x, p.y);
+    }
+
+    inline int height() const {return im.rows;}
+    inline int width() const {return im.cols;}
+
 
     ecn::Point start()
     {
