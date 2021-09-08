@@ -34,25 +34,25 @@ int main()
   
   // modern way
   std::cout << "\nModern way" << std::endl;
-  std::random_device device;          // equivalent of time
-  std::mt19937 generator(device());   // equivalent of srand
+  std::random_device device;      // get a pseudo-random seed
+  std::mt19937 rand_generator(device());    // actual generator, from seed
 
   // random integers between 1 - 100
   std::uniform_int_distribution<> dice100(1, 100);
   for(int i = 0; i < 10; ++i)
-    std::cout << dice100(generator) << " ";
+    std::cout << dice100(rand_generator) << " ";
   std::cout << std::endl;
 
   // random double between -1 - 1
   std::uniform_real_distribution<> minus1_1(-1, 1);
   for(int i = 0; i < 10; ++i)
-    std::cout << minus1_1(generator) << " ";
+    std::cout << minus1_1(rand_generator) << " ";
   std::cout << std::endl;
 
   // Gaussian noise of std = 1 centered on 2
   std::normal_distribution<> gaussian(2, 1);
   for(int i = 0; i < 10; ++i)
-    std::cout << gaussian(generator) << " ";
+    std::cout << gaussian(rand_generator) << " ";
   std::cout << std::endl;
 
 

@@ -1,3 +1,5 @@
+#!/bin/env python
+
 from pylab import *
 
 noise = 0.0

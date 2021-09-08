@@ -1,17 +1,15 @@
 #include <iostream>
+#include <string>
+#include <vector>
 
-struct MyRobot
+using namespace std;
+struct Robot
 {
-private:
-  double x_ = 0;
-
-public:
-  MyRobot() {}
-
-  MyRobot(double _x)
+  double x_ = 0, y_, theta;
+  string name;
+  Robot(string name)
   {
-    x_ = _x;
-    double x;
+    this->name = name;
   }
 
   double x()
@@ -19,12 +17,56 @@ public:
     std::cout << x_ << std::endl;
     return x_;
   }
+
+  double distanceTo(Robot other)
+  {
+    return 0;
+  }
 };
+
+class Matrix
+{
+
+  int rows, columns;
+  vector<double> data;
+
+public:
+  Matrix(int rows, int columns,double val = 0)
+  {
+    data.resize(rows*columns, val);
+    this->rows = rows;
+    this->columns = columns;
+  }
+
+  void resize(int rows, int columns)
+  {
+
+  }
+
+  double at(int row, int col)
+  {
+    return 0;
+  }
+};
+
+
+
+
 
 int main()
 {
-  MyRobot rob(1);
+  Robot rob("R2D2");
+
+  int i = 0;
+  float v;
+  if(i == v) {}
 
 
   rob.x();
+
+  Matrix M(4, 3);
+
+
+
+
 }

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int DEBUG = 2;
+int DEBUG = 0;
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 
     if(DEBUG > 1)
         cout << " before loop" << endl;
-   // try
+
     {
         for(int i=0;i<3;++i)
             cout << v[i] << endl;

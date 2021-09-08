@@ -34,7 +34,6 @@ int alpha_beta(T& game, int alpha, int beta, unsigned int recur, unsigned int ma
         return 0;
     }
 
-
     // check for end of game
     int win = game.Winner();
     if(win)

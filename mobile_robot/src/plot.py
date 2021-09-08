@@ -9,6 +9,7 @@ coord = pl.array(data['data'],dtype=float)
 
 n = len(data['names'])
 
+
 for i in range(n):
     pl.plot(coord[:,2*i], coord[:,2*i+1],data['colors'][i], label=data['names'][i])
     pl.plot([coord[0,2*i]],[coord[0,2*i+1]],data['colors'][i] + 'D')

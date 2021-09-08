@@ -15,25 +15,20 @@ int f(int x)
 }
 
 
-int f(const int &x)
+
+int f(const int &other)
 {
-  cout << "Calling f int" << x << endl;
+  //cout << "Calling f const &int" << x << endl;
 
-  return x;
+  return other;
 }
-
-double f(double x)
-{
-  cout << "Calling f double" << endl;
-  x = x+ 1;
-  return x;
-}
-
 
 int main()
 {
   int x(4);
+
   f(x);
+
   std::cout << x << std::endl;
 
 

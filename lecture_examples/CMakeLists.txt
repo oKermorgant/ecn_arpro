@@ -12,7 +12,7 @@ find_package(VISP)
 
 include_directories(.)
 
-add_executable(hello hello.cpp)
+add_executable(hello hello.cpp )
 add_executable(forloop forloop.cpp)
 add_executable(whileloop whileloop.cpp)
 add_executable(switchcase switchcase.cpp)

@@ -36,6 +36,11 @@ struct Point
     return oss;
   }
 
+  static bool compareNorms(const Point &p1, const Point &p2)
+  {
+    return p1.norm() < p2.norm();
+  }
+  
 protected:
   double x, y;
 };
@@ -45,7 +50,7 @@ void printAll(const std::vector<Point> &points)
   for(size_t i = 0; i < points.size(); ++i)
   {
     if(i != 0)
-      std::cout << " -> ";
+      std::cout << " ";
     std::cout << points[i];
   }
   std::cout << std::endl << std::endl;
@@ -53,39 +58,55 @@ void printAll(const std::vector<Point> &points)
 
 int main()
 {
-  std::vector<Point> points;
+  std::vector<Point> contour;
 
-  points.emplace_back(0,0);
-  points.emplace_back(1,1);
-  points.emplace_back(1,0);
-  points.emplace_back(0,1);
+  contour.emplace_back(0,0);
+  contour.emplace_back(1,1);
+  contour.emplace_back(2,0);
+  contour.emplace_back(0,1);
 
+  
   std::cout << "As initially defined\n";
-  printAll(points);
+  printAll(contour);
+  
+  
+  std::cout << "Sorting according to norm" << std::endl;
+  std::sort(contour.begin(), contour.end(), Point::compareNorms);
+  printAll(contour);
 
 
-  const Point Pd(0.1, 0.4);
+  const Point Pd(2, 0.4);
   std::cout << "Sorting according to (squared) distance to " << Pd << std::endl;
-  std::sort(points.begin(), points.end(), [Pd](const auto &P1, const auto &P2)
+  std::sort(contour.begin(), contour.end(), [Pd](const auto &P1, const auto &P2)
   {
     return Pd.dist_square(P1) < Pd.dist_square(P2);
   });
-  printAll(points);
+
+  printAll(contour);
 
 
-
-  const auto &P0(points.front());
-  std::cout << "Sorting according to angle from " << P0 << std::endl;
-  std::sort(points.begin()+1, points.end(), [P0](const auto &P1, const auto &P2)
+  std::cout << "Sorting according to angle from " << Pd << std::endl;
+  std::sort(contour.begin()+1, contour.end(), [Pd](const auto &P1, const auto &P2)
   {
-    return P0.angle(P1) < P0.angle(P2);
+    return Pd.angle(P1) < Pd.angle(P2);
   });
-  printAll(points);
+  printAll(contour);
 
 
- std::count_if(points.begin(), points.end(), [](const auto &P)
+ cout << std::count_if(contour.begin(), contour.end(), [](const auto &P)
   {
     return P.norm() < 1.2;
-  });
+  }) << endl;
+
+ int count = 0;
+ for(int i = 0; i < contour.size(); ++i)
+ {
+   if(contour[i].norm() < 1.2)
+      count += 1;
+ }
+
+
+
+
 
 }
