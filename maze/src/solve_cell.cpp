@@ -27,7 +27,16 @@ public:
         // this method should return  all positions reachable from this one
         std::vector<PositionPtr> generated;
 
+        const vector<pair<int,int>> neighboors{{-1,0},{1,0},{0,-1},{0,1}};
 
+        for(const auto [dx,dy]: neighboors)
+        {
+
+           if(maze.isFree(x+dx, y+dy))
+           {
+             generated.emplace_back(new Position(x+dx, y+dy));
+           }
+        }
 
         return generated;
     }

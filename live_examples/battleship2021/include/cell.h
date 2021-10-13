@@ -17,8 +17,21 @@ enum class Boat
 
 struct Cell
 {
+  bool isAlive() const
+  {
+    return boat != Boat::NONE && !hit;
+  }
+
   char display() const
   {
+    if(boat == Boat::NONE)
+    {
+      return hit ? 'X' : '.';
+    }
+
+    if(!hit)
+      return '.';
+
     switch (boat)
     {
     case Boat::AIRCRAFT: return 'A';
@@ -26,9 +39,8 @@ struct Cell
     case Boat::SUBMARINE: return 'S';
     case Boat::DESTROYER: return 'D';
     case Boat::CRUISER: return 'C';
-    case Boat::NONE: return '.';
+    default: return '.';
     }
-    return {};
   }
 
   Boat boat = Boat::NONE;

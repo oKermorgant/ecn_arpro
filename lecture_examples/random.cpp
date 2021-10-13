@@ -34,7 +34,7 @@ int main()
   
   // modern way
   std::cout << "\nModern way" << std::endl;
-  std::random_device device;      // get a pseudo-random seed
+  std::random_device device;                // get a pseudo-random seed
   std::mt19937 rand_generator(device());    // actual generator, from seed
 
   // random integers between 1 - 100
