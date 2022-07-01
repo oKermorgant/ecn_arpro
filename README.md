@@ -6,4 +6,4 @@ Open projects are to get used to the syntax by doing small or less small exercis
 
 Mobile robot and Maze are used for the assessment (C++ only as it is using existing code).
 
-The project is host on gitlab.univ-nantes.fr, github is only a mirror.
+The project is hosted on gitlab.univ-nantes.fr, github is only a mirror.
