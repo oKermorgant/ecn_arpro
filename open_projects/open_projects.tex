@@ -72,11 +72,11 @@ add_executable(mygame
 
 The CMake file is used to generate a Makefile. The steps are:
 \begin{enumerate}
- \item Create a build directory: \texttt{mkdir build}
- \item Go inside: \texttt{cd build}
- \item Call CMake: \texttt{cmake ..}
- \item Call Make: \texttt{make}
- \item Then launch your program: \texttt{./mygame}
+ \item Create a build directory: \okttt{mkdir build}
+ \item Go inside: \okttt{cd build}
+ \item Call CMake: \okttt{cmake ..}
+ \item Call Make: \okttt{make}
+ \item Then launch your program: \okttt{./mygame}
 \end{enumerate}
 
 \subsection{Using an IDE (Integrated Development Environment)}
@@ -197,7 +197,7 @@ The goal is to be the first to align 4 tokens, either vertically, horizontally o
 In this section, we program the computer to solve a given problem through an algorithm. Similarly to a cooking recipe, an algorithm is a sequence of basic steps (like finding the minimum value in a vector) that lead to an overall more complex behavior.
 
 The problem data may be defined in a file or be randomly generated.
-The use of the STL and of the \texttt{math.h} and \texttt{algorithm} functions will be of good use. 
+The use of the STL and of the \okttt{math.h} and \okttt{algorithm} functions will be of good use. 
 
 \subsection{1D function minimization}
 
@@ -237,7 +237,7 @@ Here the function to be minimized is still a scalar but may take several argumen
  \end{itemize}
 
  \newpage
-$\x$ can be a \texttt{std::array<double,n>} with known \texttt{n} at compile time. In this case, this type can be aliased and these operations should be defined:
+$\x$ can be a \okttt{std::array<double,n>} with known \okttt{n} at compile time. In this case, this type can be aliased and these operations should be defined:
 \begin{center}\cppstyle
 \begin{lstlisting}
 const uint n = 4;
@@ -408,7 +408,7 @@ openSet.add(neighboor)\;
 As we see, the algorithm does not depend on the type of the nodes, as long as the following can be defined:
 \begin{itemize}
  \item The $h$ function from the node to the goal
- \item The $neighboor$ function that gives the nearest nodes to the current node (\texttt{vector}?)
+ \item The $neighboor$ function that gives the nearest nodes to the current node (\okttt{vector}?)
  \item The $==$ operator that checks whether two nodes are the same
 \end{itemize}
 
@@ -530,7 +530,7 @@ For this kind of problem:
 
 Like the Tower of Hanoi, the TSP is a classical mathematical problem. We assume a salesman has to go in various cities to sell his stuff. Plane tickets are of course at a different price to go from one city to another (or maybe there is not always a direct plane from A to B). The goal is to find the sequence of cities that will have the salesman go only once in each city, come back at his initial city, and all that with the minimum price.
 
-In our case, the ECN administration forgot to give you the diplomas at the end of the master. I thus have to go to all students's capital cities to deliver it and of course I do not want to spend too much on the plane tickets. The file \texttt{tsp.yaml} gives the list of all cities and their distances\footnote{Plane tickets price are not proportional to distances but it was easy to generate automatically all distances between the cities}.
+In our case, the ECN administration forgot to give you the diplomas at the end of the master. I thus have to go to all students's capital cities to deliver it and of course I do not want to spend too much on the plane tickets. The file \okttt{tsp.yaml} gives the list of all cities and their distances\footnote{Plane tickets price are not proportional to distances but it was easy to generate automatically all distances between the cities}.
 
 In this instance of Genetic algorithm:
 \begin{itemize}
@@ -553,19 +553,19 @@ In this instance of Genetic algorithm:
 \subsection{Using QtCreator}
 
 The IDE\footnote{Integrated Development Environment} that will be used for C++ (and all my other labs) is Qt Creator. It is an open source, multi-platform IDE based on the Qt framework (which is used in the KDE Linux desktop). 
-Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \texttt{build} folder. You can then run Qt Creator:
+Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \okttt{build} folder. You can then run Qt Creator:
 \begin{enumerate}
-	\item Load the CMakeLists.txt file through \texttt{File...open project}
-	\item Give the path to your \texttt{build} directory
+	\item Load the CMakeLists.txt file through \okttt{File...open project}
+	\item Give the path to your \okttt{build} directory
 	\item Qt Creator will then execute CMake and display the source files found in CMakeLists.txt (if any)
-	\item To add a file (.cpp or .h), you can create an empty one with \texttt{File... new file} 
+	\item To add a file (.cpp or .h), you can create an empty one with \okttt{File... new file} 
 	\item Add this file in the CMakeLists.txt and right-click on the Project to run CMake to tell Qt Creator that the structure of the project has changed
 	\item Compilation is done by clicking the bottom-left hammer
 	\item Run your program with the green triangle. However, if you need user input, you will need to run the program from the console.
-	\item Do to so, open a terminal, go to the \texttt{build} folder and type the name of the program: \texttt{./myprogram}
+	\item Do to so, open a terminal, go to the \okttt{build} folder and type the name of the program: \okttt{./myprogram}
 \end{enumerate}
 
-Note: on the computers of the lab room (P-ro), automatic configuration can be done by running \texttt{gen\_qtcreator\_config} from the project folder.
+Note: on the computers of the lab room (P-ro), automatic configuration can be done by running \okttt{gen_qtcreator_config} from the project folder.
 
 % \subsection{Using Code::Blocks}
 

@@ -49,7 +49,6 @@ struct Cell
 
 inline std::ostream & operator<<(std::ostream &os, const Cell &cell)
 {
-  //os ;
   return  os<< cell.display();
 }
 

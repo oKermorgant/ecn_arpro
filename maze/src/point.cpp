@@ -11,7 +11,7 @@ Maze Point::maze;
 
 // final print
 // maze deals with the color, just tell the points
-void Point::print(const Point &parent)
+void Point::print(const Point &parent) const
 {
         int x_incr(0), y_incr(0);
 

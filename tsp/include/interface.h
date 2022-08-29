@@ -50,9 +50,10 @@ struct Interface
   {
     // display map just for fun
     std::stringstream ss;
-    ss << "python ../data/show_travel.py " << filepath;
+    ss << "python3 ../data/show_travel.py " << filepath;
     for(auto i: ordering)
       ss << " " << i;
+    ss << " &";
     system(ss.str().c_str());
   }
 

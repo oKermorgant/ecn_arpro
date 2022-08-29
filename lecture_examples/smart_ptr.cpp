@@ -88,6 +88,9 @@ void use_shared()
 
 int main()
 {
+  auto x{std::make_unique<int>(4)};
+
+
     std::srand(time(0));
    //use_raw();
    use_unique();

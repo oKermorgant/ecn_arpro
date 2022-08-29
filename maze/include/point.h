@@ -23,7 +23,7 @@ public:
     }
 
     // prints the grid with all positions from parent
-    virtual void print(const Point &parent);
+    virtual void print(const Point &parent) const;
 
     void start();
 

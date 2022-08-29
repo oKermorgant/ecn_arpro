@@ -30,7 +30,7 @@ bool operator<(const Individual &indiv1, const Individual &indiv2)
 }
 
 template <class Individual>
-Individual geneticAlgo()
+void geneticAlgo(Individual &best)
 {
   const int n{500};
   const int keep{n/10};
@@ -45,12 +45,10 @@ Individual geneticAlgo()
   auto iter_same{0};
   double best_cost{0};
 
-  Individual best;
-
   while(iter < max_iter && iter_same < max_same)
   {
-    std::sort(population.begin(), population.end());
-    best = population[0];
+    std::nth_element(population.begin(), population.begin()+keep, population.end());
+    best = *std::min_element(population.begin(), population.begin()+keep);
 
     if(best.cost == best_cost)
       iter_same++;
@@ -62,30 +60,30 @@ Individual geneticAlgo()
       iter_same = 0;
     }
 
-    std::array<Individual, n> new_pop{population};
+    std::array<Individual, n/2-keep> winners;
 
-    for(int idx = keep; idx < n/2; ++idx)
+    for(auto &winner: winners)
     {
       const auto [n1,n2] = differentRandom(n); {}
-      new_pop[idx] = std::min(population[n1], population[n2]);
+      winner = std::min(population[n1], population[n2]);
     }
+
+    std::copy(winners.begin(), winners.end(), population.begin()+keep);
 
     // crossing
     for(int idx = n/2; idx < n; ++idx)
     {
       const auto [n1,n2] = differentRandom(n/2); {}
 
-      new_pop[idx] = new_pop[n1].cross(new_pop[n2]);
-      new_pop[idx].mutate();
+      population[idx].cross(population[n1], population[n2]);
+      population[idx].mutate();
     }
 
-    population = new_pop;
     iter++;
   }
 
-
   std::cout << "Stop after " << iter << "\n";
-  return best;
+
 }
 
 

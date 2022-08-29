@@ -22,7 +22,6 @@ void PrintIndexAndValue(string s, vector<int> &vec, vector<int>::iterator &idx)
     cout << s << " is at " << distance(vec.begin(), idx) << " and equal to " << *idx << endl;
 
 }
-bool is_odd(int &v) {return v%2==1;}
 
 
 int main()
@@ -32,14 +31,28 @@ int main()
 
     cout << "vec is of length " << vec.size() << endl;
 
+    // on-the-fly function definition
+    const auto is_odd{[](int &v) {return v%2==1;}};
+
     // count how many 1's
     Print("There are ", count(vec.begin(),vec.end(),1), " 1's in vec");
 
     // count how many odd numbers
-    int odds =  count_if(vec.begin(),vec.end(),
-                         [](int &v) {return v%2==1;});
+    int odds_count =  count_if(vec.begin(),vec.end(), is_odd);
 
-    Print("There are ", odds, " odd numbers in vec");
+    Print("There are ", odds_count, " odd numbers in vec");
+
+    // get another vector with only odd numbers
+    decltype (vec) odds;  // ensure same type even if we change vec later
+    std::copy_if(vec.begin(), vec.end(), std::back_inserter(odds), is_odd);
+    std::cout << "Odd numbers: ";
+    PrintVec(odds);
+
+    // call std::unique to remove adjacent duplicates (sorted vector only)
+    std::sort(odds.begin(), odds.end());
+    odds.erase(std::unique(odds.begin(), odds.end()), odds.end());
+    std::cout << "Unique odd numbers : ";
+    PrintVec(odds);
 
     // find the index of 9
     // actually returns a pointer to the found element
@@ -81,8 +94,6 @@ int main()
     // sort vec according to 3 modulus
     cout << endl << "Sorting vec with %3: ";
     sort(vec.begin(), vec.end(), [](int a, int b){return a%3 < b%3;});
-
-
 
     // print it
     PrintVec(vec);

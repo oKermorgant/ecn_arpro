@@ -14,40 +14,41 @@ typedef std::pair<int, int> Pair;
 class Maze
 {
 public:
-    Maze() {}
+  Maze() {}
 
-    Maze(std::string _filename)
-    {
-      load(_filename);
-    }
+  Maze(std::string _filename)
+  {
+    load(_filename);
+  }
 
-    void load(std::string _filename)
-    {
-      std::cout << _filename << std::endl;
-      filename = _filename;
-      im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
-      cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
-    }
+  void load(std::string _filename)
+  {
+    std::cout << "Loading " << _filename << " ...";
+    filename = _filename;
+    im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
+    cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
+    std::cout << "ok" << std::endl;
+  }
 
-    Maze(int height, int width)
-    {
-        im = cv::Mat(height, width, CV_8UC1, cv::Scalar(0));
-    }
+  Maze(int height, int width)
+  {
+    im = cv::Mat(height, width, CV_8UC1, cv::Scalar(0));
+  }
 
-    bool isFree(int x, int y) const
-    {
-      if(x < 0 || y < 0 || x >= im.cols || y >= im.rows)
-          return 0;
-      return im.at<uchar>(y,x);
-    }
+  bool isFree(int x, int y) const
+  {
+    if(x < 0 || y < 0 || x >= im.cols || y >= im.rows)
+      return 0;
+    return im.at<uchar>(y,x);
+  }
 
-    inline bool isFree(const Point &p) const
-    {
-        return isFree(p.x, p.y);
-    }
+  inline bool isFree(const Point &p) const
+  {
+    return isFree(p.x, p.y);
+  }
 
-    inline int height() const {return im.rows;}
-    inline int width() const {return im.cols;}
+  inline int height() const {return im.rows;}
+  inline int width() const {return im.cols;}
 
 
     ecn::Point start()
@@ -84,76 +85,77 @@ public:
         return ret;
     }
 
-    void passThrough(int x, int y)
+
+  void passThrough(int x, int y)
+  {
+    path.push_back(cv::Point(x,y));
+  }
+
+  void dig(int x, int y)
+  {
+    im.at<uchar>(y,x) = 255;
+  }
+
+  void display(const std::string &name, const cv::Mat &im)
+  {
+    if(std::find(windows.begin(), windows.end(), name) == windows.end())
     {
-        path.push_back(cv::Point(x,y));
+      windows.push_back(name);
+      cv::namedWindow(name, cv::WINDOW_NORMAL);
+      cv::resizeWindow(name, 1000, (1000*im.rows)/im.cols);
+    }
+    cv::imshow(name, im);
+  }
+
+  void write(int x, int y, int r=0, int g=0, int b=0, bool show = true)
+  {
+    out.at<cv::Vec3b>(y, x) = cv::Vec3b(b, g, r);
+    if(show)
+    {
+      display("Maze", out);
+      cv::waitKey(1);
+    }
+  }
+
+  void save()
+  {
+    cv::imwrite("../mazes/maze.png", im);
+    display("Maze", im);
+  }
+
+  void saveSolution(std::string suffix)
+  {
+    cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
+    cv::Vec3b col(0, 255, 0);
+
+    col[1] = 0;
+    for(int i = 0; i < path.size(); ++i)
+    {
+      col[2] = i*255/path.size();
+      col[0] = 255-col[2];
+      out.at<cv::Vec3b>(path[i]) = col;
     }
 
-    void dig(int x, int y)
+    // re-write black nodes just to be sure...
+    for(int x = 0; x < im.cols; ++x)
     {
-        im.at<uchar>(y,x) = 255;
+      for(int y = 0; y < im.rows; ++y)
+      {
+        if(!isFree(x,y))
+          write(x,y,0,0,0,false);
+      }
     }
 
-    void display(const std::string &name, const cv::Mat &im)
-    {
-        if(std::find(windows.begin(), windows.end(), name) == windows.end())
-        {
-            windows.push_back(name);
-            cv::namedWindow(name, cv::WINDOW_NORMAL);
-            cv::resizeWindow(name, 1000, (1000*im.rows)/im.cols);
-        }
-        cv::imshow(name, im);
-    }
-
-    void write(int x, int y, int r=0, int g=0, int b=0, bool show = true)
-    {
-        out.at<cv::Vec3b>(y, x) = cv::Vec3b(b, g, r);
-        if(show)
-        {
-            display("Maze", out);
-            cv::waitKey(1);
-        }
-    }
-
-    void save()
-    {
-        cv::imwrite("../mazes/maze.png", im);
-        display("Maze", im);
-    }
-
-    void saveSolution(std::string suffix)
-    {
-        cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
-        cv::Vec3b col(0, 255, 0);
-
-        col[1] = 0;
-        for(int i = 0; i < path.size(); ++i)
-        {
-            col[2] = i*255/path.size();
-            col[0] = 255-col[2];
-            out.at<cv::Vec3b>(path[i]) = col;
-        }
-
-        // re-write black nodes just to be sure...
-        for(int x = 0; x < im.cols; ++x)
-        {
-            for(int y = 0; y < im.rows; ++y)
-            {
-                if(!isFree(x,y))
-                    write(x,y,0,0,0,false);
-            }
-        }
-
-        int dot = filename.find(".");
-        std::string name = filename.substr(0, dot) + "_" + suffix + ".png";
-        cv::imwrite("../mazes/" + name, out);
-        display("Solution", out);
-    }
+    int dot = filename.find(".");
+    std::string name = filename.substr(0, dot) + "_" + suffix + ".png";
+    cv::imwrite("../mazes/" + name, out);
+    display("Solution", out);
+  }
 protected:
-    cv::Mat im, out;
-    std::string filename;
-    std::vector<cv::Point> path;
-    std::vector<std::string> windows;
+  cv::Mat im, out;
+  std::string filename;
+  std::vector<cv::Point> path;
+  std::vector<std::string> windows;
 };
 }
 

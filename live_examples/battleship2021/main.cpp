@@ -14,11 +14,11 @@ int main()
   while(p1.isAlive() && p2.isAlive())
   {
     p1.shoot(p2);
-    //p2.display();
+    p2.display();
     if(p2.isAlive())
     {      
       p2.shoot(p1);
-     // p1.display();
+      p1.display();
     }
   }
 

@@ -15,11 +15,12 @@ int main()
   cout << "Random solution" << endl;
 
   interface.print(t.ordering);
-
+  interface.display(t.ordering);
   t = solveGA<Travel>();
   cout << "Optimized solution" << endl;
 
   interface.print(t.ordering);
+  interface.display(t.ordering);
 
 
 

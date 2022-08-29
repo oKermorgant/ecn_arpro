@@ -35,8 +35,6 @@ std::vector<Coord> randomCandidate(int length)
                                                                                     return cells;
                    }
 
-
-
   Player::Player() : grid{}
   {
     placeBoats();

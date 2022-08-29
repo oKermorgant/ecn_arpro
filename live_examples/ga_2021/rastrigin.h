@@ -8,7 +8,7 @@ class XY
 public:
   void randomize();
 
-  XY cross(XY other) const;
+  void cross(const XY &p1, const XY &p2);
 
   void mutate();
 

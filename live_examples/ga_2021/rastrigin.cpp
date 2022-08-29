@@ -1,4 +1,5 @@
 #include <random>
+#include <chrono>
 #include <iostream>
 
 #include "rastrigin.h"
@@ -14,15 +15,12 @@ void XY::randomize()
   computeCost();
 }
 
-XY XY::cross(XY other) const
+void XY::cross(const XY &p1, const XY &p2)
 {
-  XY crossing;
-
   const auto t{rand(0.05,0.95)};
-  crossing.x = x + t*(other.x-x);
-  crossing.y = y + t*(other.y-y);
+  x = p1.x + t*(p2.x-p1.x);
+  y = p1.y + t*(p2.y-p1.y);
 
-  return crossing;
 }
 
 void XY::mutate()
@@ -65,8 +63,43 @@ std::uniform_real_distribution<> XY::rand01;
 
 int main()
 {
+  XY best;
 
-  auto best{geneticAlgo<XY>()};
+  const auto start{std::chrono::steady_clock::now()};
+
+  geneticAlgo(best);
+
+  const auto end{std::chrono::steady_clock::now()};
+
+  std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count()
+            << " ms\n";
 
   best.print();
+
+
+  const auto v{std::vector{1,5,4,3,3,6,2,8,2,0}};
+
+  auto print = [](std::vector<int> v)
+  {
+    for(auto &elem: v)  std::cout << elem << " ";
+    std::cout << std::endl;
+  };
+
+  auto u{v};
+  std::sort(u.begin(), u.end());
+  print(u);
+
+  u = v;
+  std::partial_sort(u.begin(), u.begin()+3, u.end());
+  print(u);
+
+  u = v;
+  std::sort(u.begin(), u.begin()+3);
+  print(u);
+
+  u = v;
+  std::nth_element(u.begin(), u.begin()+3, u.end());
+  print(u);
+
+
 }

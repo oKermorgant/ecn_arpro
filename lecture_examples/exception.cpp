@@ -1,16 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
 // an exception for matrix multiplication
-
-
-
-    virtual const char* what() const throw()
-    {
-        return "Division par zero";
-    }
 
 
 class Matrix
@@ -18,24 +12,25 @@ class Matrix
 public:
     Matrix(int r, int c)
     {
-        row = r;
-        col = c;
-        data.resize(r);
-        for(auto &v: data)
-            v.resize(c, 0);
+        rows = r;
+        cols = c;
+        data.resize(r, vector<double>(c, 0));
     }
     double& operator()(int r, int c)
     {
-        if(r < row && c < col)
+        if(r < rows && c < cols)
             return data[r][c];
-        throw string("Mauvais indices");
+        stringstream ss;
+        ss << "Bad index for " << rows << "x" << cols << " matrix";
+              ss << ": (" << r << "," << c << ")";
+        throw ss.str();;
     }
 
-    void print()
+    void print() const
     {
-        for(auto row: data)
+        for(auto &row: data)
         {
-            for(auto val: row)
+            for(auto& val: row)
                 cout << val << "  ";
             cout << endl;
         }
@@ -43,7 +38,7 @@ public:
 
 private:
     vector<vector<double>> data;
-    int row, col;
+    int rows, cols;
 };
 
 

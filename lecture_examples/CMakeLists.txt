@@ -30,9 +30,10 @@ add_executable(blocks blocks.cpp)
 add_executable(overload overload.cpp)
 add_executable(multiple_return multiple_return.cpp)
 add_executable(random random.cpp)
-
-#add_executable(exception exception.cpp)
-
+add_executable(fibonacci fibonacci.cpp)
+add_executable(copy_elision copy_elision.cpp)
+add_executable(exception exception.cpp)
+add_executable(array_initializer array_initializer.cpp)
 if(YamlCpp_FOUND)
   include_directories(${YamlCpp_INCLUDE_DIRS})
     add_executable(config config.cpp)
