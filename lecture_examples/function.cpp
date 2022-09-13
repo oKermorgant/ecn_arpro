@@ -23,13 +23,32 @@ int f(const int &other)
   return other;
 }
 
-int main()
+void squared(int &x)
+{
+  x *= x;
+}
+
+void squared(int x)
+{
+  x *= x;
+}
+
+int main(int argc, char** argv)
 {
   int x(4);
 
+  auto func = [](bool ok)
+  {
+    if(ok) return .1;return .2;
+  };
+
+  sqrt(argc-4);
+
   f(x);
 
-  std::cout << x << std::endl;
+  //std::cout << x << std::endl;
 
+  int a{2};
+  cout << a << endl;
 
 }

@@ -1,8 +1,10 @@
 #include <visp/vpMatrix.h>
 #include <visp/vpHomogeneousMatrix.h>
 
-int main()
+int main(int argc,char** argv)
 {
+
+
   vpMatrix M(4,4);
   vpColVector v(3);
 

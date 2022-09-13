@@ -1,8 +1,11 @@
 #include <iostream>
 #include <map>
 #include <chrono>
+#include <fibonacci_helpers.h>
 
 using namespace std;
+
+using LargeNumber = fibonacci::LargeNumber<400>;
 
 
 using Clock = chrono::steady_clock;
@@ -11,37 +14,42 @@ inline int milliseconds_since(const Clock::time_point &start)
 {
   return chrono::duration_cast<chrono::milliseconds>(Clock::now()-start).count();
 }
-
-int fibo(int n)
+/*
+LargeNumber fibo(LargeNumber n)
 {
   if(n <= 1)
     return n;
   return fibo(n-1) + fibo(n-2);
 }
 
-int fibo_detailed(int n)
+LargeNumber fibo_detailed(LargeNumber n)
 {
   if(n <= 1)
     return n;
   std::cout << "computing fibo(" << n << ")\n";
   return fibo_detailed(n-1) + fibo_detailed(n-2);
-}
+}*/
 
-int fibo_cached(int n)
+LargeNumber fibo_cached(LargeNumber n, bool show_cache_size = false)
 {
-  static std::map<int,int> cache;
-  if(n <= 1)
+  static std::unordered_map<LargeNumber,LargeNumber,LargeNumber::hash> cache;
+  //static std::map<LargeNumber,LargeNumber> cache;
+  if(show_cache_size)
+    std::cout << "Current cache is " << cache.size() << std::endl;
+
+
+  if(n.lessThan2())
     return n;
 
   auto &cached{cache[n]};
-  if(!cached) // actually compute if 0 (was not in cache)
-    cached = fibo_cached(n-1) + fibo_cached(n-2);
+  if(cached == 0) // actually compute if 0 (was not in cache)
+    cached = fibo_cached(n.minusOne()) + fibo_cached(n.minusTwo());
   return cached;
 }
-
-int fibo_cached_detailed(int n)
+/*
+LargeNumber fibo_cached_detailed(LargeNumber n)
 {
-  static std::map<int,int> cache;
+  static std::map<LargeNumber,LargeNumber> cache;
   if(n <= 1)
     return n;
 
@@ -57,22 +65,27 @@ int fibo_cached_detailed(int n)
     std::cout << " in cache\n";
   }
   return cached;
-}
+}*/
 
 int main()
 {
-  // recursive, without cache
   auto start{Clock::now()};
-  std::cout << fibo(40);
-  std::cout << " / took " << milliseconds_since(start) << " ms" << std::endl;
+  /*
+  // recursive, without cache
 
+  //std::cout << fibo(1000);
+  std::cout << " / took " << milliseconds_since(start) << " ms" << std::endl;
+*/
   // recursive, with cache
   start = Clock::now();
-  std::cout << fibo_cached(40);
+  auto n{1000};
+  std::cout << "f(" << n << ") = " << fibo_cached(n);
   std::cout << " / took " << milliseconds_since(start) << " ms" << std::endl;
 
-  fibo_detailed(10);
-  fibo_cached_detailed(10);
+  std::cout << LargeNumber(0) << " " << LargeNumber(10) << " " << LargeNumber(1) << std::endl;
+
+  //fibo_detailed(10);
+  fibo_cached(10, true);
 
 
 

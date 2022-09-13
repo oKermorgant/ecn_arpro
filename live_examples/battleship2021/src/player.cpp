@@ -24,95 +24,95 @@ std::vector<Coord> randomCandidate(int length)
   const auto start_row(std::uniform_int_distribution<>(0, max_row)(generator));
   const auto start_col(std::uniform_int_distribution<>(0, max_col)(generator));
 
-  const int row_inc{orientation == HORIZONTAL ? 0 : 1}; {}
-                    const int col_inc{1-row_inc};
+  const int row_inc = orientation == HORIZONTAL ? 0 : 1;
+  const int col_inc{1-row_inc};
 
-                                    std::vector<Coord> cells;
-                                                    cells.reserve(length);
-                                                                    for(auto step = 0; step < length; ++step)
-                                                                      cells.push_back({start_row + step*row_inc, start_col + step*col_inc});
+  std::vector<Coord> cells;
+  cells.reserve(length);
+  for(auto step = 0; step < length; ++step)
+    cells.push_back({start_row + step*row_inc, start_col + step*col_inc});
 
-                                                                                    return cells;
-                   }
+  return cells;
+}
 
-  Player::Player() : grid{}
+Player::Player() : grid{}
+{
+  placeBoats();
+}
+
+void Player::display()
+{
+  for(const auto &row: grid)
   {
-    placeBoats();
-  }
-
-  void Player::display()
-  {
-    for(const auto &row: grid)
+    for(auto &cell: row)
     {
-      for(auto &cell: row)
-      {
-        cout << cell.display() << " ";
-      }
-      cout << endl;
+      cout << cell.display() << " ";
     }
     cout << endl;
   }
+  cout << endl;
+}
 
-  void Player::shoot(Player &other)
+void Player::shoot(Player &other)
+{
+
+  static std::default_random_engine generator;
+  std::uniform_int_distribution<> random_coord(0, 9);
+
+  auto row{random_coord(generator)};
+  auto col{random_coord(generator)};
+
+  while(other.grid[row][col].hit)
   {
+    row = random_coord(generator);
+    col = random_coord(generator);
+  }
+  //    std::cout << "targetting " << row << ", " << col << std::endl;
+  other.hitCell(row, col);
+}
 
-    static std::default_random_engine generator;
-    std::uniform_int_distribution<> random_coord(0, 9);
+void Player::placeBoats()
+{
+  const std::map<Boat, int> sizes{
+    {Boat::AIRCRAFT, 5},
+    {Boat::MINESWEEPER, 2},
+    {Boat::SUBMARINE, 3},
+    {Boat::DESTROYER, 3},
+    {Boat::CRUISER, 4}
+  };
 
-    auto row{random_coord(generator)};
-    auto col{random_coord(generator)};
+  for(const auto [boat, length]: sizes)
+  {
+    live_boats += length;
 
-    while(other.grid[row][col].hit)
+    while(true)
     {
-      row = random_coord(generator);
-      col = random_coord(generator);
-    }
-    //    std::cout << "targetting " << row << ", " << col << std::endl;
-    other.hitCell(row, col);
-  }
+      const auto cells{randomCandidate(length)};
 
-  void Player::placeBoats()
-  {
-    const std::map<Boat, int> sizes{
-      {Boat::AIRCRAFT, 5},
-      {Boat::MINESWEEPER, 2},
-      {Boat::SUBMARINE, 3},
-      {Boat::DESTROYER, 3},
-      {Boat::CRUISER, 4}
-    };
+      if(std::any_of(cells.begin(), cells.end(), [this](auto cell)
+      {return at(cell.row,cell.col) != Boat::NONE;}))
+        continue;
 
-    for(const auto [boat, length]: sizes)
-    {
-      live_boats += length;
+      // finally place this boat
+      for(const auto &cell: cells)
+        grid[cell.row][cell.col].boat = boat;
 
-      while(true)
-      {
-        const auto cells{randomCandidate(length)};
-
-        if(std::any_of(cells.begin(), cells.end(), [this](auto cell)
-        {return grid[cell.row][cell.col].boat != Boat::NONE;}))
-          continue;
-
-        // finally place this boat
-        for(const auto &cell: cells)
-          grid[cell.row][cell.col].boat = boat;
-
-        break;
-      }
+      break;
     }
   }
+}
 
-  bool Player::isAlive()
-  {
-    return live_boats;
-  }
+bool Player::isAlive()
+{
+  return live_boats;
+}
 
-  void Player::hitCell(int row, int col)
-  {
-    if(grid[row][col].hit)  return;
+void Player::hitCell(int row, int col)
+{
+  if(grid[row][col].hit)  return;
 
-    grid[row][col].hit = true;
+  grid[row][col].hit = true;
 
-    if(grid[row][col].boat != Boat::NONE)
-      live_boats--;
-  }
+  if(grid[row][col].boat != Boat::NONE)
+    live_boats--;
+}

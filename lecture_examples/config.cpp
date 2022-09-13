@@ -43,7 +43,7 @@ int main(int argc, char ** argv)
 
     if(config_type == "yaml")
     {
-        YAML::Node config = YAML::LoadFile("../config.yaml");
+        auto config = YAML::LoadFile("../config.yaml");
 
         start.LoadFrom(config["start"]);
         end.LoadFrom(config["end"]);

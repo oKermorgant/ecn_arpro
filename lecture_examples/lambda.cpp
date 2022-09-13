@@ -36,6 +36,11 @@ struct Point
     return oss;
   }
 
+  void print() const
+  {
+    std::cout << *this << " ";
+  }
+
   static bool compareNorms(const Point &p1, const Point &p2)
   {
     return p1.norm() < p2.norm();
@@ -47,12 +52,8 @@ protected:
 
 void printAll(const std::vector<Point> &points)
 {
-  for(size_t i = 0; i < points.size(); ++i)
-  {
-    if(i != 0)
-      std::cout << " ";
-    std::cout << points[i];
-  }
+  for(auto &p: points)
+    std::cout << p << " ";
   std::cout << std::endl << std::endl;
 }
 
@@ -75,35 +76,52 @@ int main()
   printAll(contour);
 
 
-  const Point Pd(2, 0.4);
-  std::cout << "Sorting according to (squared) distance to " << Pd << std::endl;
-  std::sort(contour.begin(), contour.end(), [Pd](const auto &P1, const auto &P2)
+  const Point Pc(2, 0.4);
+  std::cout << "Sorting according to (squared) distance to " << Pc << std::endl;
+  std::sort(contour.begin(), contour.end(), [Pc](const auto &P1, const auto &P2)
   {
-    return Pd.dist_square(P1) < Pd.dist_square(P2);
+    return Pc.dist_square(P1) < Pc.dist_square(P2);
   });
 
   printAll(contour);
 
 
-  std::cout << "Sorting according to angle from " << Pd << std::endl;
-  std::sort(contour.begin()+1, contour.end(), [Pd](const auto &P1, const auto &P2)
+  std::cout << "Sorting according to angle from " << Pc << std::endl;
+  std::sort(contour.begin()+1, contour.end(), [Pc](const auto &P1, const auto &P2)
   {
-    return Pd.angle(P1) < Pd.angle(P2);
+    return Pc.angle(P1) < Pc.angle(P2);
   });
   printAll(contour);
 
-
- cout << std::count_if(contour.begin(), contour.end(), [](const auto &P)
+  const auto first_far = std::partition(contour.begin(), contour.end(), [](const auto &P)
   {
     return P.norm() < 1.2;
-  }) << endl;
+  });
+  std::cout << "Points close to 0: ";
+  std::for_each(contour.begin(), first_far, [](const auto &P){P.print();});
+  std::cout << std::endl;
+  std::cout << "Points far from 0: ";
+  std::for_each(first_far, contour.end(), [](const auto &P){P.print();});
+  std::cout << std::endl;
 
- int count = 0;
- for(int i = 0; i < contour.size(); ++i)
- {
-   if(contour[i].norm() < 1.2)
+  if(first_far != contour.end())
+  {
+    // display first far point
+    const auto index = std::distance(contour.begin(), first_far);
+    std::cout << "Point #" << index << " / norm = " <<first_far->norm() << " >= 1.2" << std::endl;
+  }
+
+
+
+  int count = 0;
+  for(int i = 0; i < contour.size(); ++i)
+  {
+    if(contour[i].norm() < 1.2)
       count += 1;
- }
+  }
+  count++;
+
+
 
 
 

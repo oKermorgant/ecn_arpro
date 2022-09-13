@@ -69,6 +69,9 @@ int main()
   cout << "Adding an element to the vector" << endl;
   vec.push_back(Dummy{7.});
 
+  cout << "Back to size 2" << endl;
+  vec.resize(2);
+
   // raw loop
   cout << "Raw loop" << endl;
   for(size_t i = 0; i < vec.size(); ++i)

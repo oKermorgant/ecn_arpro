@@ -22,13 +22,13 @@ private:
 
   int live_boats{0};
 
-  void placeBoats();
+  void placeBoats();   
 
   void hitCell(int row, int col);
 
-  Cell at(int row, int col)
+  Boat at(int row, int col)
   {
-    return grid[row][col];
+    return grid[row][col].boat;
   }
 };
 

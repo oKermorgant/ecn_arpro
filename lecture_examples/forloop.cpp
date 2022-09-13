@@ -6,7 +6,7 @@ using namespace std;
 
 struct Robot
 {
-  double x, y, theta;
+  double x=0, y=0, theta=0;
   string name;
 
   void move() {}
@@ -20,8 +20,23 @@ struct Robot
 
 int main(int argc, char ** argv)
 {
+
+
   std::vector<Robot> fleet(10);
 
+  for(auto robot: fleet)
+  {
+
+  }
+
+
+
+
+
+
+
+
+/*
   Robot target;
 
   for(auto &robot: fleet)
@@ -32,7 +47,7 @@ int main(int argc, char ** argv)
 
     cout << robot.distanceTo(target) << endl;
   }
-
+*/
   map<string, int> grades;
   grades["Olivier"] = 1;
   grades["Isaac"] = 4;
@@ -41,6 +56,14 @@ int main(int argc, char ** argv)
   for(auto &[name, grade]: grades)
   {
     cout << name << " got  " << grade << endl;
+  }
+
+  for(int i = 0; i < 10; ++i)
+  {
+    for(int i = 0; i < 10; ++i)
+    {
+
+    }
   }
 
   vector<pair<int, double>> pairs;

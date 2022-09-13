@@ -3,14 +3,23 @@
 #include <vector>
 
 using namespace std;
+
+
 struct Robot
 {
   double x_ = 0, y_, theta;
   string name;
-  Robot(string name)
+ /* Robot(string name)
   {
     this->name = name;
+  }*/
+
+  void print()
+  {
+    std::cout << "'" << name << "' is at (" << x_ << ", " << y_ << ", " << theta << ")\n";
   }
+
+
 
   double x()
   {
@@ -23,6 +32,8 @@ struct Robot
     return 0;
   }
 };
+
+
 
 class Matrix
 {
@@ -55,16 +66,21 @@ public:
 
 int main()
 {
-  Robot rob("R2D2");
+  Robot rob{.name="R2D2"};
+  rob.print();
+
+  auto robot{Robot{.x_ = -1}};
+  robot.print();
+
 
   int i = 0;
   float v;
   if(i == v) {}
 
 
-  rob.x();
 
-  Matrix M(4, 3);
+
+  Matrix M(4, 3);  
 
 
 
