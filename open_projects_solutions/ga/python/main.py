@@ -18,7 +18,7 @@ ga.ga(Indiv).display()
 best = Indiv()
 best.randomize()
 best.compute_cost()
-for i in xrange(10000):
+for i in range(10000):
     indiv = Indiv()
     indiv.randomize()
     indiv.compute_cost()

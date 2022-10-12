@@ -5,13 +5,13 @@ import random
 
 class Travel:
     def __init__(self):
-        self.order = range(10)
+        self.order = list(range(Travel.n))
         
     @staticmethod
     def load(filename):
-        data = yaml.load(file(filename))
+        data = yaml.safe_load(open(filename))
         Travel.n = len(data['cities'])
-        Travel.distances = [data[v] for v in xrange(Travel.n)]
+        Travel.distances = [data[v] for v in range(Travel.n)]
         Travel.cities = data['cities']
         
         
@@ -20,7 +20,7 @@ class Travel:
         
     def compute_cost(self):
         self.cost = 0
-        for i in xrange(self.n):
+        for i in range(self.n):
             self.cost += self.distances[self.order[i-1]][self.order[i]]
 
 
