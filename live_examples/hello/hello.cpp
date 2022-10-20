@@ -1,43 +1,27 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <vector>
+#include <algorithm>
 
-//using namespace std;
-using std::cout;
-
+using namespace std;
 
 int main()
 {
 
+  vector<int> v{1,4,3,0,5};
 
-  const auto  a{9};
+  auto best{std::min_element(v.begin(), v.end())};
 
-  if(true)
-  {
-std::cout << 9;
-  }
+  cout << *best << " @ " << distance(v.begin(), best) << endl;
 
+  for(int i = 0; i < 10; ++i)
+    v.push_back(6);
 
-
-
-
+  cout << *best << " @ " << distance(v.begin(), best) << endl;
 
 
 
 
-
-
-
-
-
-
-
-
-
-  auto b = 2  * a;
-
-
-
-  std::cout << b << std::endl;
 
 }

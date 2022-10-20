@@ -102,7 +102,7 @@ struct LargeNumber
                                  [](auto digit){return digit != 0;})};
     for(auto digit = last; digit != n.digits.rend(); ++digit)
       oss << ((int) *digit);
-    return oss << " [" << std::distance(last, n.digits.rend()) << "]";
+    return oss;
   }
 
 };

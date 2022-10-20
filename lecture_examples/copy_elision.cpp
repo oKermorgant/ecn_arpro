@@ -5,8 +5,10 @@ using namespace std;
 
 struct Dummy
 {
-  double value{0};
-  Dummy(double value = 0.) : value{value}
+  static uint dummies;
+  uint value{0};
+  bool moved_away{false};
+  Dummy() : value{dummies++}
   {
     cout << "  constructing Dummy(" << value << ")" << std::endl;
   }
@@ -14,13 +16,17 @@ struct Dummy
   {
     cout << "  copy-constructing from Dummy(" << other.value << ")" << std::endl;
   }
-  Dummy(const Dummy &&other) noexcept : value{move(other.value)}
+  Dummy(Dummy &&other) noexcept : value{move(other.value)}
   {
     cout << "  move-constructing from Dummy(" << other.value << ")" << std::endl;
+    other.moved_away = true;
   }
   ~Dummy()
   {
-    cout << "    destructing Dummy(" << value << ")" << endl;
+    cout << "    destructing Dummy(" << value << ")";
+    if(moved_away)
+      cout << " / was moved away";
+    cout << std::endl;
   }
   void print() const
   {
@@ -29,68 +35,81 @@ struct Dummy
 
 };
 
-Dummy someFct(double v)
+uint Dummy::dummies{0};
+
+Dummy someFct()
 {
-  Dummy d(v);
+  cout << "\nA function that returns a dummy\n";
+  Dummy d;
   return d;
+}
+
+void detailVector(const vector<Dummy> &vec, const string &reason)
+{
+  cout << '\n' << reason
+       << " (size = " << vec.size()
+       << " / capacity = " << vec.capacity()
+       << ")\n";
 }
 
 
 int main()
 {
   // will call base constructor
-  Dummy d(1);
+  Dummy d;
 
   // will call copy constructor
   auto copy = d;
 
   // will call base constructor in function, but no copy to output
-  auto output = someFct(3.);
+  auto output = someFct();
 
-  cout << "Build a vector of size 3" << endl;
+  cout << "\nBuild a vector of size 3" << endl;
   // how is a vector of Dummy created?
-  vector<Dummy> vec{{1.,2.,3.}};
+  vector<Dummy> vec(3);
 
   const auto use_reserve{false};
 
   if(use_reserve)
   {
-    cout << "Reserving space" << endl;
+    cout << "\nReserving space" << endl;
     vec.reserve(8);
   }
 
   // resizing the vector may lead to reallocating all objects
-  cout << "push_back element to the vector" << endl;
-  vec.push_back(Dummy{4.});
-  cout << "emplace_back element to the vector" << endl;
-  vec.emplace_back(5.);
-  cout << "Adding an element to the vector" << endl;
-  vec.push_back(Dummy{6.});
-  cout << "Adding an element to the vector" << endl;
-  vec.push_back(Dummy{7.});
+  detailVector(vec, "push_back to vector");
+  vec.push_back(Dummy());
+  detailVector(vec, "emplace_back to vector");
+  vec.emplace_back();
+  detailVector(vec, "push_back to vector");
+  vec.push_back({});
+  detailVector(vec, "emplace_back to vector");
+  vec.emplace_back();
 
-  cout << "Back to size 2" << endl;
+  cout << "\nBack to size 2" << endl;
   vec.resize(2);
+  detailVector(vec, "new vector state");
 
   // raw loop
-  cout << "Raw loop" << endl;
+  cout << "\nRaw loop" << endl;
   for(size_t i = 0; i < vec.size(); ++i)
     auto di = vec[i];
 
-  cout << "Range-based for loop" << endl;
+  cout << "\nRange-based for loop" << endl;
   for(auto di: vec)
     di.print();
 
-  cout << "Range-based for loop, using reference" << endl;
+  cout << "\nRange-based for loop, using reference" << endl;
   for(const auto &di: vec)
     di.print();
 
   if(true)
   {
-    cout << "Inside a block" << endl;
-    auto d4 = Dummy(10);
+    cout << "\nInside a block" << endl;
+    auto d4 = Dummy();
     cout << "End of block" << endl;
   }
+  cout << "After block" << endl;
 
-cout << "end of program" << endl;
+  cout << "\nend of program" << endl;
 }

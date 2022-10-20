@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 #include <string>
 
 using std::cout;
@@ -20,11 +21,17 @@ public:
   string What() {return "polygon";}
 
   // virtual function = 0 makes the class abstract
-  virtual string WhatWithVirtual() = 0;
+  virtual string WhatWithVirtual() {return " I have no idea";}
 
 protected:
   int n;  // number of sides
 };
+
+
+
+
+
+
 
 
 class Triangle : public Polygon // a triangle is a polygon
@@ -42,7 +49,18 @@ public:
   // overload of virtual function
   string WhatWithVirtual() {return name;}
 protected:
-  string name = "triangle";  // number of sides
+  string name = "triangle";
+};
+
+class Hexagon : public Polygon
+{
+public:
+  Hexagon() : Polygon(6) {}
+
+  // overload of virtual function
+  string WhatWithVirtual() {return name;}
+protected:
+  string name = "hexagon";
 };
 
 
@@ -60,13 +78,13 @@ protected:
 };
 
 // this function gets a Polygon by value (copy)
-/*void PassByValue(Polygon p)
+void PassByValue(Polygon p)
 {
     cout << "Pass by value" << endl;
     cout << "   I just got a " << p.What() << endl;
     cout << "   It is actually a " << p.WhatWithVirtual() << " (I hope)" << endl;
     cout << "   Anyway it has " << p.sides() << " sides" << endl << endl;
-}*/
+}
 
 
 // this function gets a Polygon by reference (actual object, no copy)
@@ -77,7 +95,7 @@ void PassByReference(Polygon& p)
   cout << "   It is actually a " << p.WhatWithVirtual() << endl;
   cout << "   Anyway it has " << p.sides() << " sides" << endl << endl;
 }
-
+/*
 
 template <class T>
 void passWithTemplate(T p)
@@ -86,26 +104,28 @@ void passWithTemplate(T p)
   cout << "   I just got a " << p.What() << endl;
   cout << "   It is actually a " << p.WhatWithVirtual() << endl;
   cout << "   Anyway it has " << p.sides() << " sides" << endl << endl;
-}
+}*/
 
 
 
 int main()
 {
-  //Polygon p(5); // cannot have a Polygon, abstract class
+  Polygon p(5); // cannot have a Polygon, abstract class
   Triangle t; // no need to give the sides, it is a triangle...
   Square s;
+  Hexagon h;
 
-  cout << t.What() << endl;
 
-  //PassByValue(p);
-  //PassByValue(t);
+  PassByValue(p);
+  PassByValue(t);
+  PassByValue(h);
 
   //PassByReference(s); // s is not a Polygon
   PassByReference(t);
+  PassByReference(p);
 
-  passWithTemplate(t);
-  passWithTemplate(s);
+  //passWithTemplate(t);
+  //passWithTemplate(s);
 
 
   // the correct function (virtual or not) will be called if directly called from the object
@@ -129,23 +149,24 @@ int main()
 
   // what about storing polygons in a vector?
   // a vector of values does not keep track of the actual class
-  /*std::vector<Polygon> vec = {s, t};
+  std::vector<Polygon> vec = {h, t};
     cout << "exploring vector of values" << endl;
     for(auto &elem: vec)
     {
         cout << "this element is a " << elem.What() << " with " << elem.sides()  << " sides" << endl;
         cout << "this element is actually a " << elem.WhatWithVirtual() << endl;
-    }*/
+    }
 
   // to keep track we need a vector of references (pointers)
-  std::vector<Polygon*> vec_ref = { &t};
+  std::vector<Polygon*> vec_ref = { &t, &h};
+
   cout << '\n' << "exploring vector of pointers" << endl;
   for(auto &elem: vec_ref)
   {
     // functions then have to be called with arrow instead of dot
     // still does not work if function is not virtual
     cout << "this element is a " << elem->What()<< " with " << elem->sides()  << " sides" << endl;
-    //   cout << "this element is actually a " << elem->WhatWithVirtual() << endl;
+    cout << "this element is actually a " << elem->WhatWithVirtual() << endl;
   }
 
 }

@@ -11,7 +11,7 @@ using namespace std;
 
 void print(const std::string &s)
 {
-  static mutex mtx;
+  static std::mutex mtx;
   mtx.lock();
   std::cout << s << std::endl;
   mtx.unlock();
@@ -37,8 +37,10 @@ void Count(int id, int i)
 int main(int argc, char ** argv)
 {
   std::cout << "Without threads" << std::endl;
-  Count(1, 10);
-  Count(2, 10);
+ // Count(1, 10);
+ // Count(2, 10);
+
+
 
   std::cout << "With threads" << std::endl;
   std::thread t1(Count, 1, 10);

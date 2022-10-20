@@ -14,14 +14,16 @@ inline int milliseconds_since(const Clock::time_point &start)
 {
   return chrono::duration_cast<chrono::milliseconds>(Clock::now()-start).count();
 }
-/*
+
 LargeNumber fibo(LargeNumber n)
 {
-  if(n <= 1)
+  cout << "computing f(" << n << ")\n";
+  if(n.lessThan2())
     return n;
-  return fibo(n-1) + fibo(n-2);
+  return fibo(n.minusOne()) + fibo(n.minusTwo());
 }
 
+/*
 LargeNumber fibo_detailed(LargeNumber n)
 {
   if(n <= 1)
@@ -29,6 +31,7 @@ LargeNumber fibo_detailed(LargeNumber n)
   std::cout << "computing fibo(" << n << ")\n";
   return fibo_detailed(n-1) + fibo_detailed(n-2);
 }*/
+
 
 LargeNumber fibo_cached(LargeNumber n, bool show_cache_size = false)
 {
@@ -46,7 +49,9 @@ LargeNumber fibo_cached(LargeNumber n, bool show_cache_size = false)
     cached = fibo_cached(n.minusOne()) + fibo_cached(n.minusTwo());
   return cached;
 }
+
 /*
+
 LargeNumber fibo_cached_detailed(LargeNumber n)
 {
   static std::map<LargeNumber,LargeNumber> cache;
@@ -70,12 +75,21 @@ LargeNumber fibo_cached_detailed(LargeNumber n)
 int main()
 {
   auto start{Clock::now()};
-  /*
-  // recursive, without cache
 
-  //std::cout << fibo(1000);
+  fibo_cached(100);
+
+  cout << fibo_cached(1000) << std::endl;
+
+
   std::cout << " / took " << milliseconds_since(start) << " ms" << std::endl;
-*/
+
+
+
+}
+  /*
+
+
+  return 0;
   // recursive, with cache
   start = Clock::now();
   auto n{1000};
@@ -91,3 +105,5 @@ int main()
 
 
 }
+
+*/

@@ -1,3 +1,5 @@
+from time import time
+
 try:
     travel = reload(travel)
 except:
@@ -12,7 +14,14 @@ else:
     Indiv = travel.Travel
     Indiv.load('tsp.yaml')
 print('Best:')
+
+start = time()
+
 ga.ga(Indiv).display()
+
+end = time()
+
+print(f'Took {1000*(end-start)} ms')
 
 # compare to best out of 100
 best = Indiv()

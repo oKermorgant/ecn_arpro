@@ -24,15 +24,16 @@ inline bool areSame(const Node * l1, const Node & l2)
 }
 
 // resulting tree + owner of objects
+
 template <class Node>
-class Tree : public std::map<Node*, Node*>
+class Tree : public std::unordered_map<Node*, Node*>
 {
     std::queue<std::unique_ptr<Node>> nodes;
     std::vector<Node*> closedSet;
 public:
     inline void insert(std::unique_ptr<Node> & node, Node* parent)
     {
-        std::map<Node*, Node*>::emplace(node.get(), parent);
+        std::unordered_map<Node*, Node*>::emplace(node.get(), parent);
         nodes.emplace(std::move(node));
     }
     inline void close(Node * node)

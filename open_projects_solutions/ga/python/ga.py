@@ -2,9 +2,18 @@ from copy import deepcopy
 import random
 
 def nth_element(population, k):
+    population.sort()
+    return
     for i in range(k):
-        idx = population[i:].index(min(population[i:], key=lambda indiv: indiv.cost))
+        idx = population[i:].index(min(population[i:]))
         population[i],population[i+idx] = population[i+idx],population[i]
+
+def differenRandom(low, high):
+    n1 = random.randint(low, high)
+    n2 = random.randint(low, high-1)
+    if n1 == n2:
+        return (n1, n2+1)
+    return (n1,n2)
         
 def ga(Indiv):
     
@@ -17,8 +26,8 @@ def ga(Indiv):
     for indiv in population:
         indiv.randomize()
         indiv.compute_cost()
-        
-    new_pop = [Indiv() for k in range(n//2)]
+
+    winners = [Indiv() for k in range(n//2-keep)]
         
     iterations = 0
     same = 0
@@ -29,27 +38,15 @@ def ga(Indiv):
     while iterations < max_iter and same < max_same:
         iterations += 1
         
-        # elitism
-        new_pop[:keep] = population[:keep]
-        
         # tournament
         for k in range(keep, n//2):
-            n1 = random.randint(0, n-1)
-            n2 = random.randint(0, n-1)
-            while n1 == n2:
-                n2 = random.randint(0, n-1)
-            if population[n1].cost < population[n2].cost:
-                new_pop[k] = deepcopy(population[n1])
-            else:
-                new_pop[k] = deepcopy(population[n2])
+            n1, n2 = differenRandom(0, n-1)
+            winners[k-keep] = min(population[n1], population[n2])
                 
         # crossing
-        population[:n//2] = new_pop
+        population[keep:n//2] = deepcopy(winners)
         for k in range(n//2, n):
-            n1 = random.randint(0, n//2-1)
-            n2 = random.randint(0, n//2-1)
-            while n1 == n2:
-                n2 = random.randint(0, n/2-1) 
+            n1,n2 = differenRandom(0, n//2-1)
             population[k].cross_and_mutate(population[n1], population[n2])
             population[k].compute_cost()
         
