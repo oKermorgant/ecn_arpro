@@ -9,6 +9,7 @@
 #include <fstream>
 #include <chrono>
 #include <memory>
+#include <unordered_map>
 
 namespace ecn
 {
