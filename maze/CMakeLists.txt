@@ -7,7 +7,9 @@ set(CMAKE_BUILD_TYPE Release)
 find_package(OpenCV REQUIRED)
 
 find_package(PkgConfig)
-pkg_check_modules(YamlCpp yaml-cpp)
+find_package(yaml-cpp)
+
+add_definitions(-DMAZES="${CMAKE_CURRENT_SOURCE_DIR}/mazes")
 
 include_directories(${YamlCpp_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} include)
 

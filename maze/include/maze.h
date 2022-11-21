@@ -14,6 +14,11 @@ typedef std::pair<int, int> Pair;
 class Maze
 {
 public:
+  static std::string mazeFile(const std::string &file = "maze.png")
+  {
+    std::string abs_file = MAZES;
+    return abs_file + "/" + file;
+  }
   Maze() {}
 
   Maze(std::string _filename)
@@ -119,7 +124,7 @@ public:
 
   void save()
   {
-    cv::imwrite("../mazes/maze.png", im);
+    cv::imwrite(mazeFile(), im);
     display("Maze", im);
   }
 
@@ -148,7 +153,7 @@ public:
 
     int dot = filename.find(".");
     std::string name = filename.substr(0, dot) + "_" + suffix + ".png";
-    cv::imwrite("../mazes/" + name, out);
+    cv::imwrite(mazeFile(name), out);
     display("Solution", out);
   }
 protected:

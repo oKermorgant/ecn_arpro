@@ -42,7 +42,7 @@ public:
 int main( int argc, char **argv )
 {
     // load file
-    std::string filename = "../mazes/maze.png";
+    std::string filename = Maze::mazeFile("maze.png");
     if(argc == 2)
         filename = std::string(argv[1]);
 
