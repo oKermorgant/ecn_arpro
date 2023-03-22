@@ -1,109 +1,66 @@
 #include <iostream>
 #include <map>
 #include <chrono>
-#include <fibonacci_helpers.h>
+#include "large_number.h"
+#include "scoped_timer.h"
 
 using namespace std;
 
-using LargeNumber = fibonacci::LargeNumber<400>;
-
-
-using Clock = chrono::steady_clock;
-
-inline int milliseconds_since(const Clock::time_point &start)
-{
-  return chrono::duration_cast<chrono::milliseconds>(Clock::now()-start).count();
-}
+//#define detailed
 
 LargeNumber fibo(LargeNumber n)
 {
-  cout << "computing f(" << n << ")\n";
-  if(n.lessThan2())
+#ifdef detailed
+  cerr << "computing f(" << n << ")\n";
+#endif
+  if(n < 2)
     return n;
-  return fibo(n.minusOne()) + fibo(n.minusTwo());
+  return fibo(n-1) + fibo(n-2);
 }
 
-/*
-LargeNumber fibo_detailed(LargeNumber n)
-{
-  if(n <= 1)
-    return n;
-  std::cout << "computing fibo(" << n << ")\n";
-  return fibo_detailed(n-1) + fibo_detailed(n-2);
-}*/
-
-
-LargeNumber fibo_cached(LargeNumber n, bool show_cache_size = false)
+LargeNumber fibo_cached(LargeNumber n)
 {
   static std::unordered_map<LargeNumber,LargeNumber,LargeNumber::hash> cache;
-  //static std::map<LargeNumber,LargeNumber> cache;
-  if(show_cache_size)
-    std::cout << "Current cache is " << cache.size() << std::endl;
 
-
-  if(n.lessThan2())
+  if(n < 2)
     return n;
 
   auto &cached{cache[n]};
-  if(cached == 0) // actually compute if 0 (was not in cache)
-    cached = fibo_cached(n.minusOne()) + fibo_cached(n.minusTwo());
-  return cached;
-}
-
-/*
-
-LargeNumber fibo_cached_detailed(LargeNumber n)
-{
-  static std::map<LargeNumber,LargeNumber> cache;
-  if(n <= 1)
-    return n;
-
-  auto &cached{cache[n]};
-  std::cout << n;
-  if(!cached) // actually compute if 0 (was not in cache)
+  if(cached.isNull()) // actually compute if 0 (was not in cache)
   {
-    std::cout << " not in cache\n";
-    cached = fibo_cached_detailed(n-1) + fibo_cached_detailed(n-2);
+    cached = fibo_cached(n-1) + fibo_cached(n-2);
   }
   else
   {
-    std::cout << " in cache\n";
+#ifdef detailed
+    cerr << "already know f(" << n << ")\n";
+#endif
   }
   return cached;
-}*/
+}
+
+
+void do_raw(int n)
+{
+  ScopedTimer timer(std::to_string(n) + " not cached");
+  cout << "f(" << n << ") = " << fibo(n) << endl;
+}
+
+void do_cached(int n)
+{
+  ScopedTimer timer(std::to_string(n) + " cached");
+  cout << "f(" << n << ") = " << fibo_cached(n) << endl;
+}
+
 
 int main()
 {
-  auto start{Clock::now()};
-
-  fibo_cached(100);
-
-  cout << fibo_cached(1000) << std::endl;
-
-
-  std::cout << " / took " << milliseconds_since(start) << " ms" << std::endl;
-
-
-
+  do_raw(15);
+  do_raw(20);
+  do_raw(30);
+  do_cached(15);
+  do_cached(20);
+  do_cached(30);
+  do_cached(100);
+  do_cached(1000);
 }
-  /*
-
-
-  return 0;
-  // recursive, with cache
-  start = Clock::now();
-  auto n{1000};
-  std::cout << "f(" << n << ") = " << fibo_cached(n);
-  std::cout << " / took " << milliseconds_since(start) << " ms" << std::endl;
-
-  std::cout << LargeNumber(0) << " " << LargeNumber(10) << " " << LargeNumber(1) << std::endl;
-
-  //fibo_detailed(10);
-  fibo_cached(10, true);
-
-
-
-
-}
-
-*/
