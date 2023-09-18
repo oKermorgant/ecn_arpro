@@ -22,9 +22,26 @@ int main(int argc, char ** argv)
 {
 
 
+
+
+
+
+
+
+
+
+
+
+
   std::vector<Robot> fleet(10);
 
   for(auto robot: fleet)
+  {
+
+  }
+
+  // decomposition into public member variables
+  for(auto &[x,y,theta,name]: fleet)
   {
 
   }
@@ -53,6 +70,11 @@ int main(int argc, char ** argv)
   grades["Isaac"] = 4;
   grades["Helen"] = 3;
 
+  for(auto &elem: grades)
+  {
+    cout << elem.first << " got  " << elem.second << endl;
+  }
+
   for(auto &[name, grade]: grades)
   {
     cout << name << " got  " << grade << endl;
@@ -64,7 +86,7 @@ int main(int argc, char ** argv)
     {
 
     }
-  }
+  }   
 
   vector<pair<int, double>> pairs;
   pairs.push_back({1,3.14});

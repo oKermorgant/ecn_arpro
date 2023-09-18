@@ -6,10 +6,16 @@
 
 using namespace std;
 
-int DEBUG = 2;
+int DEBUG = 0;
+
+int getZero()
+{
+  return 1-1;
+}
 
 int main()
 {
+
     if(DEBUG > 0)
         cout << " before vector init" << endl;
 
@@ -22,7 +28,7 @@ int main()
         cout << " before loop" << endl;
 
     {
-        for(int i=0;i<3;++i)
+        for(int i=0;i<2;++i)
             cout << v[i] << endl;
     }
 

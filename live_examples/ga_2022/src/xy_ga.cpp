@@ -2,10 +2,6 @@
 #include <ga.h>
 
 int main()
-
 {
-const auto solution = genetic<XY>();
-
-solution.print();
-
+  genetic<XY>().print();
 }

@@ -8,7 +8,8 @@ namespace
 template <typename T>
 inline auto randRange(T distribution)
 {
-  static std::default_random_engine generator;
+  static std::random_device rd;
+  static std::default_random_engine generator(rd());
   return distribution(generator);
 }
 

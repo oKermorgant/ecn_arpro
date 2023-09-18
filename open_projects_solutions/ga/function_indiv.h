@@ -39,13 +39,13 @@ public:
         cost = 20 + x*x + y*y - 10*(cos(2*M_PI*x) + cos(2*M_PI*y));
     }
 
-    void CrossAndMutate(Position &_father, Position &_mother)
+    void CrossAndMutate(const Position &src1, const Position &src2)
     {
         // crossing: random mean between father and mother
-        double alpha = (1.*rand())/RAND_MAX;
+        const auto alpha = (1.*rand())/RAND_MAX;
 
-        x = alpha*_father.x + (1-alpha)*_mother.x;
-        y = alpha*_father.y + (1-alpha)*_mother.y;
+        x = alpha*src1.x + (1-alpha)*src2.x;
+        y = alpha*src1.y + (1-alpha)*src2.y;
 
         // mutation: random variation around current point
         x += -0.5 + (1.*rand())/RAND_MAX;

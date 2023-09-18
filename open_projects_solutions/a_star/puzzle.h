@@ -6,6 +6,8 @@
 #include <vector>
 #include <memory>
 #include <numeric>
+#include <iostream>
+#include <algorithm>
 
 // what is this puzzle
 class Puzzle
@@ -142,7 +144,7 @@ public:
 
 protected:
   std::vector<unsigned int> grid;
-  static unsigned int n;
+  static inline unsigned int n = 3;
   unsigned int c0;
 };
 

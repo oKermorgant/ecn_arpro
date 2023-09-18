@@ -18,9 +18,9 @@ int main()
 #endif
 
   if(true)
-  {
     std::cout << "In if(true) block" << std::endl;
-  }
+  else
+    std::cout << "In if(false) block" << std::endl;
 
   std::cout << sum(3, 4) << std::endl;
   std::cout << sum(3, "ab") << std::endl;

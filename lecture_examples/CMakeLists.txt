@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.1)
 project(ARPRO_examples)
 
 
@@ -8,6 +8,7 @@ add_compile_options(-pthread)
 find_package (Threads)
 find_package(PkgConfig)
 pkg_check_modules(YamlCpp yaml-cpp)
+
 find_package(VISP)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -36,7 +37,7 @@ add_executable(exception exception.cpp)
 add_executable(array_initializer array_initializer.cpp)
 add_executable(macros macros.cpp)
 add_executable(optional optional.cpp)
-
+add_executable(pid pid.cpp)
 
 if(YamlCpp_FOUND)
   include_directories(${YamlCpp_INCLUDE_DIRS})

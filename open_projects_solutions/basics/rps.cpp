@@ -11,7 +11,7 @@ struct Pick
   enum class Status{TIE, WINS, LOSES};
 
   int number; // 0 = rock, 1 = paper, 2 = scissors
-  static std::string choices;
+  inline static const std::string choices = "RPS";
 
   Pick(char c = '0')  // a chosen pick
   {
@@ -39,10 +39,7 @@ struct Pick
       return Status::LOSES;
     return Status::WINS;
   }
-
 };
-
-std::string Pick::choices = "RPS";
 
 using namespace std;
 

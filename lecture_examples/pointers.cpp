@@ -13,8 +13,8 @@ int main()
 {
 
   {
-  auto xp = std::make_unique<int>(5);
-  print(xp);
+    auto xp = std::make_unique<int>(5);
+    print(xp);
   }
 
   const int n = 32;
@@ -29,7 +29,7 @@ int main()
   std::cout << v[0] << " = " << *v0 << std::endl;
 
   // they may be moved when resizing
-  v.resize(n+1);
+  v.resize(n);
 
   std::cout << v[0] << " = " << *v0 << std::endl;
 
@@ -42,11 +42,20 @@ int main()
   // location of first element of vp
   auto vp0 = vp[0].get();
 
-  std::cout << *vp[0].get() << " = " << *vp0 << std::endl;
+  std::cout << *vp[0] << " = " << *vp0 << std::endl;
 
   // the base object are not moved when resizing
   vp.resize(n+1);
 
-  std::cout << *vp[0].get() << " = " << *vp0 << std::endl;
+  std::cout << *vp[0] << " = " << *vp0 << std::endl;
+
+  // dangling pointer: keep the memory address of something that is not here
+  int* val_ptr{};
+  {
+    auto val{3};
+    val_ptr = &val;
+  }
+  std::cout << "Val is " << *val_ptr << std::endl;
+
 
 }

@@ -14,7 +14,7 @@ int main()
         int max_move = std::min(sticks, 3);
         game.Print();
 
-
+        int i;
         if(human_turn)
         {
             auto avail = game.AvailableMoves();

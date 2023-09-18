@@ -5,8 +5,7 @@
 
 using namespace std;
 
-const int n = 7;    // what we can find with n times the number n
-
+const int n = 6;    // what we can find with n times the number n
 const bool units_only = true;   // do not allow numbers such as 66 or 666
 
 // a structure to store a found result : numbers / operations / priority / result

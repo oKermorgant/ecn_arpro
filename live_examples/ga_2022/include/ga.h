@@ -5,16 +5,16 @@
 #include <rand_range.h>
 #include <iostream>
 
-
-
 template <class Individual>
 Individual genetic()
 {
-  const size_t pop_size{500};
-  const size_t keep_best{30};
-  const auto max_iter{100};
+  const size_t pop_size{3000};
+  const size_t keep_best{100};
+  const auto max_iter{1000};
 
   std::vector<Individual> population(pop_size);
+  for(auto &indiv: population)
+    indiv.randomize();
 
   auto iter{0};
 
@@ -25,8 +25,8 @@ Individual genetic()
   while(iter < max_iter)
   {
     std::vector<Individual> new_population;
-    std::copy(population.begin(), population.begin()+keep_best,
-              std::back_inserter(new_population));
+    for(int i = 0; i < keep_best; ++i)
+      new_population.push_back(population[i]);
 
 
     while(new_population.size() < pop_size/2)

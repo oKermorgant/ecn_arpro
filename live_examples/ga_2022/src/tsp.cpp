@@ -1,6 +1,6 @@
 #include <travel.h>
 #include <iostream>
-#include <ga_opt.h>
+#include <ga.h>
 #include <chrono>
 
 using Clock = std::chrono::high_resolution_clock;
@@ -12,15 +12,12 @@ int main()
   Travel::load();
 
   const auto start{Clock::now()};
-
-  auto solution = genetic<Travel>();  
-
+  const auto solution{genetic<Travel>()};
   const auto end{Clock::now()};
 
   solution.print();
+
   std::cout << duration_cast<milliseconds>(end-start).count() << " ms" << std::endl;
 
-  solution.summary();
-
-  //solution.plot();
+  solution.plot();
 }

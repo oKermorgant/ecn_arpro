@@ -40,12 +40,12 @@ int main(int argc, char ** argv)
     else
     {
         unsigned int lower = 1, upper = 100;
-        unsigned int guess, response;
         while(true)
         {
-            guess = 0.5*(lower + upper);
+            const int guess = 0.5*(lower + upper);
             cout << "   0 if ok, 1 if too small, 2 if too large" << endl;
             cout << "Is it " << guess << "? - ";
+            int response;
             cin >> response;
             if(response == 0)
             {

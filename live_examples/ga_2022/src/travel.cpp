@@ -6,8 +6,6 @@
 Cities Travel::cities;
 Distances Travel::distances;
 size_t Travel::n;
-size_t Travel::created{};
-size_t Travel::copied{};
 
 void Travel::load()
 {
@@ -30,13 +28,13 @@ void Travel::computeCost()
 void Travel::randomize()
 {
   std::iota(order.begin(), order.end(), 0);
-  std::random_shuffle(order.begin(), order.end());
+  std::random_shuffle(order.begin()+1, order.end());
   computeCost();
 }
 
 void Travel::crossAndMutate(const Travel &p1, const Travel &p2)
 {
-  const auto cut{randRange(2, n-3)};
+  const auto cut{randRange(3, n-3)};
   std::copy(p1.order.begin(), p1.order.begin()+cut, order.begin());
 
   const auto last{p1.order[cut-1]};
@@ -54,7 +52,7 @@ void Travel::crossAndMutate(const Travel &p1, const Travel &p2)
     }
   }
 
-  const auto [n1, n2] = differentRandomNumbers(0, n-1); {}
+  const auto [n1, n2] = differentRandomNumbers(1, n-1); {}
   std::swap(order[n1], order[n2]);
 
   computeCost();

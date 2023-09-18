@@ -4,37 +4,33 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "individual.h"
 
 using Cities = std::vector<std::string>;
 using Distances = std::vector<std::vector<int>>;
 
-class Travel
+class Travel : public Individual
 {
   static Cities cities;
   static Distances distances;
   static size_t n;
 
-  static size_t created;
-static size_t copied;
-
   std::vector<size_t> order;
-  int cost;
 
   void computeCost();
 
 public:
 
+  static void load(); 
 
-
-  static void load();
-
-  bool operator<(const Travel &other) const
-  {
-    return cost < other.cost;
-  }
-
-  //Travel crossAndMutate(const Travel &other) const;
   void crossAndMutate(const Travel &p1, const Travel &p2);
+
+  inline Travel crossAndMutate(const Travel &other) const
+  {
+    Travel child;
+    child.crossAndMutate(*this, other);
+    return child;
+  }
 
   void print() const
   {
@@ -48,34 +44,12 @@ public:
     std::string cmd = "python3 ../python/show_travel.py tsp.yaml";
     for(auto city: order)
       cmd += " " + std::to_string(city);
-    system(cmd.c_str());
+    [[maybe_unused]] auto out = system(cmd.c_str());
   }
 
-  Travel() : order{std::vector<size_t>(n)}
-  {
-    created++;
-    randomize();
-  }
-
-  Travel(const Travel &src) : order{src.order}, cost{src.cost}
-  {
-    copied++;
-  }
-
-  ~Travel()
-  {
-
-  }
+  Travel() : order{std::vector<size_t>(n)} {}
 
   void randomize();
-
-  auto getCost() const {return cost;}
-
-  static void summary()
-  {
-    std::cout << "Created: "<< created <<
-                 "/ copied: "<< copied << std::endl;
-  }
 
 
 };

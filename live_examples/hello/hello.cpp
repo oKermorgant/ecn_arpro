@@ -1,27 +1,33 @@
 #include <iostream>
-#include <sstream>
-#include <algorithm>
 #include <vector>
 #include <algorithm>
 
-using namespace std;
+inline bool isOdd(int i)
+{
+  return i % 2 == 1;
+}
 
-int main()
+
+int main(int argc, char** argv)
 {
 
-  vector<int> v{1,4,3,0,5};
+  std::vector<int> v = {1,2,3,4,5,6,7,8,9};
 
-  auto best{std::min_element(v.begin(), v.end())};
+  //std::cout << std::boolalpha << isOdd(v[1]) << std::endl;
 
-  cout << *best << " @ " << distance(v.begin(), best) << endl;
+  if(std::all_of(v.begin(), v.end(), [](auto i)
+  {
+                   return i % 2 == 0;
+}) > 0)
+  {
 
-  for(int i = 0; i < 10; ++i)
-    v.push_back(6);
 
-  cout << *best << " @ " << distance(v.begin(), best) << endl;
+  }
+
 
 
 
 
 
 }
+

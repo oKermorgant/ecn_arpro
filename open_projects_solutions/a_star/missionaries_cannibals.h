@@ -11,8 +11,8 @@
 class MissionariesCannibals
 {
 
-  typedef std::unique_ptr<MissionariesCannibals> Ptr;
-  typedef std::vector<Ptr> Vector;
+  using Ptr = std::unique_ptr<MissionariesCannibals>;
+  using Vector = std::vector<Ptr>;
 
 public:
   // default constructor

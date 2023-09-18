@@ -2,11 +2,12 @@
 #define XY_H
 
 #include <rand_range.h>
+#include <individual.h>
 #include <iostream>
 
-class XY
+class XY : public Individual
 {
-  double x{}, y{}, cost{};
+  double x{}, y{};
 
   XY(double x, double y) : x{x}, y{y}
   {
@@ -15,9 +16,8 @@ class XY
   void computeCost()
   {
     cost = 20 + x*x + pow(y, 2) - 10*(cos(2*M_PI*x) + cos(2*M_PI*y));
-    if(std::abs(x) < 1e-6 || std::abs(y) < 1e-6)
-      throw std::runtime_error("wierd x y");
-
+    //if(std::abs(x) < 1e-6 || std::abs(y) < 1e-6)
+      //throw std::runtime_error("wierd x y");
   }
 
 public:
@@ -26,8 +26,6 @@ public:
   {
     randomize();
   }
-
-  auto getCost() {return cost;}
 
   void randomize()
   {
@@ -41,24 +39,28 @@ public:
     std::cout << "(" << x << ", " << y << ") @ " << cost << std::endl;
   }
 
+
+
   XY crossAndMutate(XY other)
-  {
-    const auto alpha{randRange(0., 1.)};
-    XY crossing(alpha * x + (1-alpha)*other.x,
-                alpha*y + (1-alpha)*other.y);
-
-    // mutate
-    crossing.x += randRange(-0.5, 0.5);
-    crossing.y += randRange(-0.5, 0.5);
-
-    crossing.computeCost();
+  {    
+    XY crossing;
+    crossing.crossAndMutate(*this, other);
     return crossing;
   }
 
-  bool operator<(XY other) const
+  void crossAndMutate(XY p1, XY p2)
   {
-    return cost < other.cost;
+    const auto alpha{randRange(0., 1.)};
+    x = alpha * p1.x + (1-alpha)*p2.x;
+    y = alpha * p1.y + (1-alpha)*p2.y;
+
+    // mutate
+    x += randRange(-0.5, 0.5);
+    y += randRange(-0.5, 0.5);
+
+    computeCost();
   }
+
 };
 
 

@@ -16,8 +16,4 @@ vpHomogeneousMatrix Mo;
 vpRotationMatrix R;
 std::cout << R.t() * R << std::endl;
 
-
-
-
-
 }

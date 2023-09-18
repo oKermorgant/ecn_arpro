@@ -62,5 +62,5 @@ int main()
   do_cached(20);
   do_cached(30);
   do_cached(100);
-  do_cached(1000);
+  do_cached(10000);
 }

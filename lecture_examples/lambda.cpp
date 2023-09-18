@@ -57,8 +57,20 @@ void printAll(const std::vector<Point> &points)
   std::cout << std::endl << std::endl;
 }
 
+
+
+
+
+
 int main()
 {
+
+
+
+
+
+
+
   std::vector<Point> contour;
 
   contour.emplace_back(0,0);
@@ -87,7 +99,7 @@ int main()
 
 
   std::cout << "Sorting according to angle from " << Pc << std::endl;
-  std::sort(contour.begin()+1, contour.end(), [Pc](const auto &P1, const auto &P2)
+  std::sort(contour.begin(), contour.end(), [Pc](const auto &P1, const auto &P2)
   {
     return Pc.angle(P1) < Pc.angle(P2);
   });
@@ -97,6 +109,10 @@ int main()
   {
     return P.norm() < 1.2;
   });
+  printAll(contour);
+
+
+
   std::cout << "Points close to 0: ";
   std::for_each(contour.begin(), first_far, [](const auto &P){P.print();});
   std::cout << std::endl;

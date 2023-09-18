@@ -7,7 +7,6 @@ std::optional<double> squareRoot(double x)
   if(x < 0)
     return {};
   return sqrt(x);
-
 }
 
 
@@ -17,7 +16,7 @@ int main()
   for(auto x: {2, -1})
   {
     if(const auto root{squareRoot(x)}; root.has_value())
-    {
+    { 
       std::cout << "square root of " << x << " is " << root.value() << std::endl;
     }
     else

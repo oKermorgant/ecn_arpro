@@ -12,7 +12,7 @@ int main()
 
   // old way: rand() generates integers between 0 and RAND_MAX-1
   std::cout << "Old way" << std::endl;
-  // seed of the random numbers generator
+  // seed of the random numbers generator is current time
   srand(time(0));
   for(int i = 0; i < 10; ++i)
   {
@@ -34,7 +34,7 @@ int main()
   
   // modern way
   std::cout << "\nModern way" << std::endl;
-  std::random_device device;                // get a pseudo-random seed
+  std::random_device device;                // get a random seed
   std::mt19937 rand_generator(device());    // actual generator, from seed
 
   // random integers between 1 - 100

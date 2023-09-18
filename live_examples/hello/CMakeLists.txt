@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+project(tutorial)
 
-project(awesome)
 
-add_executable(hello hello.cpp)
-
+add_executable(hello  hello.cpp other_file.cpp)

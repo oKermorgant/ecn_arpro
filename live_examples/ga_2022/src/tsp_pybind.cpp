@@ -9,7 +9,7 @@ PYBIND11_MODULE(tsp_pb, m) {
         .def(py::init<>())
         .def("load", &Travel::load)
         .def("randomize", &Travel::randomize)
-        .def("crossAndMutate", &Travel::crossAndMutate)
+        //.def("crossAndMutate", &Travel::crossAndMutate)
         .def("plot", &Travel::plot)
         .def("print", &Travel::print);
 #ifdef VERSION_INFO
