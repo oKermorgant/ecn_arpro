@@ -2,6 +2,7 @@
 #define XY_H
 #include <random>
 #include <iostream>
+#include <algorithm>
 
 class XY
 {
@@ -25,14 +26,12 @@ public:
     this->computeCost();
   }
 
-
-
   bool operator<(const XY &other) const
   {
     return this->cost < other.cost;
   }
 
-  XY cross(const XY &other) const
+  XY crossAndMutate(const XY &other) const
   {
     static std::uniform_real_distribution<double> alpha_range(0,1);
 
@@ -40,9 +39,23 @@ public:
     XY child;
     child.x = alpha*x + (1-alpha)*other.x;
     child.y = alpha*y + (1-alpha)*other.y;
-    child.computeCost();
+    //child.computeCost();
+
+    child.mutate();
 
     return child;
+  }
+
+  void mutate()
+  {
+    static std::uniform_real_distribution<double> mutation(-0.5, 0.5);
+
+    y += mutation(engine);
+
+    x = std::clamp(x + mutation(engine), -5., 5.);
+    y = std::clamp<double>(y, -5, 5);
+
+    computeCost();
   }
 
   void print() const
@@ -50,16 +63,7 @@ public:
     std::cout << "(" << x << ", " << y << ")\n";
   }
 
-
-
-
-
-
-
-
-
-
-
 };
+
 
 #endif // XY_H

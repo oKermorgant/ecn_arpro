@@ -16,6 +16,7 @@ devel/
 bin/
 install/
 *.user
+.vscode
 lib/
 ros_intalled/
 
