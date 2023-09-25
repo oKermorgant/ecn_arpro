@@ -28,10 +28,9 @@ inline auto randRange(double min, double max)
 inline std::pair<size_t, size_t> differentRandomNumbers(int min, int max)
 {
   const auto n1{randRange(min, max)};
-  auto n2{randRange(min, max)};
-  while(n1 == n2)
-    n2 = randRange(min, max);
-
+  auto n2{randRange(min, max+1)};
+  if(n1 == n2)
+    n2++;
   return {n1, n2};
 }
 
