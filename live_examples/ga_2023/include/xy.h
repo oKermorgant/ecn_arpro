@@ -1,13 +1,11 @@
 #ifndef XY_H
 #define XY_H
-#include <random>
+#include <rand_range.h>
 #include <iostream>
 #include <algorithm>
 
 class XY
 {
-  static inline std::default_random_engine engine;
-  static inline std::uniform_real_distribution<double> range{-5, 5};
   double cost;
 
   void computeCost()
@@ -21,21 +19,20 @@ public:
 
   void randomize()
   {
-    this->x = range(engine);
-    this->y = range(engine);
+    this->x = randRange(-5.,5.);
+    this->y = randRange(-5.,5.);
     this->computeCost();
   }
 
-  bool operator<(const XY &other) const
+  auto getCost() const
   {
-    return this->cost < other.cost;
+    return cost;
   }
+
 
   XY crossAndMutate(const XY &other) const
   {
-    static std::uniform_real_distribution<double> alpha_range(0,1);
-
-    const auto alpha = alpha_range(engine);
+    const auto alpha = randRange(0.,1.);
     XY child;
     child.x = alpha*x + (1-alpha)*other.x;
     child.y = alpha*y + (1-alpha)*other.y;
@@ -48,11 +45,9 @@ public:
 
   void mutate()
   {
-    static std::uniform_real_distribution<double> mutation(-0.5, 0.5);
+    y += randRange(-.5, .5);
 
-    y += mutation(engine);
-
-    x = std::clamp(x + mutation(engine), -5., 5.);
+    x = std::clamp(x + randRange(-.5, .5), -5., 5.);
     y = std::clamp<double>(y, -5, 5);
 
     computeCost();
@@ -60,7 +55,7 @@ public:
 
   void print() const
   {
-    std::cout << "(" << x << ", " << y << ")\n";
+    std::cout << "(" << x << ", " << y << ") -> " << cost << '\n';
   }
 
 };
