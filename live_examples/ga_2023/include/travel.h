@@ -51,7 +51,7 @@ public:
 
   static void load()
   {
-    auto config{YAML::LoadFile("../tsp.yaml")};
+    auto config{YAML::LoadFile(std::string(TSP_ROOT) + "/tsp.yaml")};
     cities = config["cities"].as<std::vector<std::string>>();
     for(int city = 0; city < cities.size(); ++city)
     {

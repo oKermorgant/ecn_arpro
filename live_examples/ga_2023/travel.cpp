@@ -24,5 +24,7 @@ int main()
 
   std::cout << duration.count() << " ms" << std::endl;
 
+  solution.plot();
+
 
 }
