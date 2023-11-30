@@ -4,7 +4,7 @@
 \stud{Option Robotique, Control \& Robotics master}
 \topic{Advanced Robot Programming}
 
-\def\maze{\okttt{ecn::Maze}~}
+\def\maze{\okt{ecn::Maze}~}
 
 \begin{document}
 
@@ -35,7 +35,7 @@ The lab was inspired by \link{https://www.youtube.com/watch?v=rop0W4QDOUI}{this 
 
 We use the classical mix of Git repository and CMake to download and compile the project:
 \begin{center}
- \okttt{mkdir build} $\rightarrow$ \okttt{cd build} $\rightarrow$ \okttt{cmake ..} $\rightarrow$ \okttt{make}
+ \okt{mkdir build} $\rightarrow$ \okt{cd build} $\rightarrow$ \okt{cmake ..} $\rightarrow$ \okt{make}
 \end{center}
 The program can the be launched.
 
@@ -59,7 +59,7 @@ The \link{https://en.wikipedia.org/w/index.php?title=Maze\_generation\_algorithm
 and also proposes C-code that generates a perfect maze of a given (odd) dimension. A perfect maze is a maze where there is one and only 
 one path between any two cells.
 
-Create a \okttt{generator.cpp} file by copy/pasting the Wikipedia code and modify it so that:
+Create a \okt{generator.cpp} file by copy/pasting the Wikipedia code and modify it so that:
 \begin{itemize}
  \item It compiles as C++.
  \item The final maze is not displayed on the console but instead it is saved to an image file 
@@ -67,7 +67,7 @@ Create a \okttt{generator.cpp} file by copy/pasting the Wikipedia code and modif
 \end{itemize}
 A good size is typically a few hundred pixels height / width. To debug the code, 51 x 101 gives a very readable maze.
 
-The \maze class (\Sec{mazeClass}) should be used to save the generated maze through its \okttt{Maze::dig} method that removes a wall at a given (x,y) position.
+The \maze class (\Sec{mazeClass}) should be used to save the generated maze through its \okt{Maze::dig} method that removes a wall at a given (x,y) position.
 It can also save a maze into an image file.
 
 
@@ -76,23 +76,23 @@ It can also save a maze into an image file.
 The given algorithm is described on \link{https://en.wikipedia.org/wiki/A*\_search\_algorithm\#Pseudocode}{Wikipedia}. It is basically a graph-search algorithm that
 finds the shortest path and uses a heuristic function in order to get some clues about the direction to be favored.
 
-In terms of implementation, the algorithm can deal with any \okttt{Node} class that has the following methods:
+In terms of implementation, the algorithm can deal with any \okt{Node} class that has the following methods:
 \begin{itemize}
- \item \okttt{vector<unique_ptr<Node>> Node::children()}: returns a \okttt{vector} of smart pointers\footnote{The use of smart pointers (here \okttt{unique_ptr}) is detailed in \Sec{smart}} to the children (or neighboors) of the considered
+ \item \okt{vector<Node> Node::children()}: returns a \okt{vector} of \okt{Node} consisting of the children (or neighboors) of the considered
  element
- \item \okttt{int distToParent()}: returns the distance to the node that generated this one
- \item \okttt{bool operator==(const Node \&other)}: returns true if the passed argument is actually the same point
- \item \okttt{double h(const Node \&goal)}: returns the heuristic distance to the passed argument
- \item \okttt{void show(bool closed, const Node \& parent)}: used for online display of the behavior
- \item \okttt{void print(const Node \& parent)}: used for final display
+ \item \okt{int distToParent()}: returns the distance to the node that generated this one
+ \item \okt{bool operator==(const Node \&other)}: returns true if the passed argument is actually the same point
+ \item \okt{double h(const Node \&goal) const}: returns the heuristic distance to the passed argument
+ \item \okt{void show(bool closed, const Node \& parent)}: used for online display of the behavior
+ \item \okt{void print(const Node \& parent)}: used for final display
 \end{itemize}
 
 
 While these functions highly depend on the application, in our case we consider a 2D maze so some of these functions are already implemented in, as seen in \Sec{ptClass}:
 \begin{itemize}
- \item For the first exercice, only the \okttt{children} method is to write.
- \item The second one adds the \okttt{distToParent} method.
- \item The last one adds the \okttt{show} and \okttt{print} methods.
+ \item For the first exercice, only the \okt{children} method is to write.
+ \item The second one adds the \okt{distToParent} method.
+ \item The last one adds the \okt{show} and \okt{print} methods.
 \end{itemize}
 
 
@@ -101,39 +101,39 @@ While these functions highly depend on the application, in our case we consider 
 
 The first A* will use cell-based motions, where the algorithm can only jump 1 cell from the current one.
 
-The file to modify is \okttt{solve_cell.cpp}.
-At the top of the file is the definition of a \okttt{Position} class
-that inherits from \okttt{ecn::Point} in order not to reinvent the wheel (a point has two coordinates, it can compute the distance to
+The file to modify is \okt{solve_cell.cpp}.
+At the top of the file is the definition of a \okt{Position} class
+that inherits from \okt{ecn::Point} in order not to reinvent the wheel (a point has two coordinates, it can compute the distance to
 another point, etc.).
 
-The only method to modify is \okttt{Position::children} that should generates the neighboors of the current point.
+The only method to modify is \okt{Position::children} that should generates the neighboors of the current point.
 The parent node is likely to be in those neighboors, but it will be removed by the algorithm. 
 
 \subsection{A* with line-based motions}
 
-Copy/paste the \okttt{solve_cell.cpp} file to \okttt{solve_line.cpp}.\\
+Copy/paste the \okt{solve_cell.cpp} file to \okt{solve_line.cpp}.\\
 
 Here the children should be generated so that a straight corridor is directly followed (ie children can only be corners, intersections or dead-ends).
-A utility function \okttt{bool is_corridor(int, int)} may be of good use.\\
+A utility function \okt{bool is_corridor(int, int)} may be of good use.\\
 
 The distance to the parent may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it 
-at the generation by using a new Constructor with signature \okttt{Position(int _x, int _y, int distance)}.\\
+at the generation by using a new Constructor with signature \okt{Position(int _x, int _y, int distance)}.\\
 
-The existing \okttt{ecn::Point} class is already able to display lines between two non-adjacent points (as long as they are on the same horizontal or
+The existing \okt{ecn::Point} class is already able to display lines between two non-adjacent points (as long as they are on the same horizontal or
 vertical line). The display should thus work directly.
 
 \subsection{A* with corridor-based motions}
 
-Copy/paste the \okttt{solve_line.cpp} file to \okttt{solve_corridor.cpp}.\\
+Copy/paste the \okt{solve_line.cpp} file to \okt{solve_corridor.cpp}.\\
 
 Here the children should be generated so that any corridor is directly followed (ie children can only be intersections or dead-ends, but
 not simple corners).
-A utility function \okttt{bool is_corridor(int, int)} may be of good use.\\
+A utility function \okt{bool is_corridor(int, int)} may be of good use.\\
 
 The distance to the parent may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it 
-at the generation by using a new Constructor with signature \okttt{Position(int _x, int _y, int distance)}. \\
+at the generation by using a new Constructor with signature \okt{Position(int _x, int _y, int distance)}. \\
 
-The existing \okttt{Point::show} and \okttt{Point::print} methods are not suited anymore for this problem. Indeed, the path from a point to its parent 
+The existing \okt{Point::show} and \okt{Point::print} methods are not suited anymore for this problem. Indeed, the path from a point to its parent
 may not be a straight line. Actually it will be necessary to re-search for the parent using the same approach as to generate the children.\\
 
 For this problem, remember that by construction the nodes can only be intersections or dead-ends. Still, the starting and goal positions may 
@@ -142,7 +142,7 @@ be in the middle of a corridor. It is thus necessary to check if a candidate pos
 \section{Comparison}
 
 Compare the approaches using various maze sizes and wall percentage.
-If it is not the case, compile in \okttt{Release} instead of \okttt{Debug} and enjoy the speed improvement.\\
+If it is not the case, compile in \okt{Release} instead of \okt{Debug} and enjoy the speed improvement.\\
 
 The expected behavior is that mazes with lots of walls (almost perfect mazes) should be solved must faster with the corridor, then line, then cell-based approaches.\\
 With less and less walls, the line- and cell-based approaches should become faster as there are less and less corridors to follow.
@@ -159,75 +159,40 @@ This class interfaces with an image and allows easy reading / writing to the maz
 
 \paragraph{Methods for maze creation}
 \begin{itemize}
- \item \okttt{Maze(std::string filename)}: loads the maze from the image file
- \item \okttt{Maze(int height, int width)}: build a new maze of given dimensions, with only walls
- \item \okttt{dig(int x, int y)}: write a free cell at the given position
- \item \okttt{save()}: saves the maze to \okttt{maze.png} and displays it
+ \item \okt{Maze(std::string filename)}: loads the maze from the image file
+ \item \okt{Maze(int height, int width)}: build a new maze of given dimensions, with only walls
+ \item \okt{dig(int x, int y)}: write a free cell at the given position
+ \item \okt{save()}: saves the maze to \okt{maze.png} and displays it
 \end{itemize}
 
 \paragraph{Methods for maze access}
 \begin{itemize}
- \item \okttt{int height()}, \okttt{int width()}: maze dimensions
- \item \okttt{int isFree(int x, int y)}: returns true for a free cell, or false for a wall or invalid (out-of-grid) coordinates
+ \item \okt{int height()}, \okt{int width()}: maze dimensions
+ \item \okt{int isFree(int x, int y)}: returns true for a free cell, or false for a wall or invalid (out-of-grid) coordinates
 \end{itemize}
 
 \paragraph{Methods for maze display}
 \begin{itemize}
- \item \okttt{write(int x, int y, int r, int g, int b, bool show = true)}\\
+ \item \okt{write(int x, int y, int r, int g, int b, bool show = true)}\\
     will display the (x,y) with the (r,g,b) color and actually shows if asked
- \item \okttt{passThrough(int x, int y)}: write the final path, color will go automatically from blue to red. 
+ \item \okt{passThrough(int x, int y)}: write the final path, color will go automatically from blue to red.
  Ordering is thus important when calling this function
- \item \okttt{saveSolution(std::string suffix)}: saves the final image
+ \item \okt{saveSolution(std::string suffix)}: saves the final image
 \end{itemize}
 
-\subsection{The \okttt{ecn::Point} class}\label{ptClass}
+\subsection{The \okt{ecn::Point} class}\label{ptClass}
 
 This class implements basic properties of a 2D point:
 
 \begin{itemize}
- \item \okttt{bool operator==(Point)}: returns true if both points have the same x and y coordinates
- \item \okttt{double h(const Point \&goal)}: heuristic distance, may use Manhattan
- ($|x-\okttt{goal}.x| + |y-\okttt{goal}.y|$) or classical Euclidean distance.
- \item \okttt{void show(bool closed, const Point \& parent)}: draws a straight line between the point and its parent, that
+ \item \okt{bool operator==(Point)}: returns true if both points have the same x and y coordinates
+ \item \okt{double h(const Point \&goal)}: heuristic distance, may use Manhattan
+ ($|x-\okt{goal}.x| + |y-\okt{goal}.y|$) or classical Euclidean distance.
+ \item \okt{void show(bool closed, const Point \& parent)}: draws a straight line between the point and its parent, that
  is blue if the point is in the closed set or red if it is in the open set.
- \item \okttt{void print(const Point\& parent)}: writes the final path into the maze for display, also considers a straight line
+ \item \okt{void print(const Point\& parent)}: writes the final path into the maze for display, also considers a straight line
 \end{itemize}
-All built classes should inherit from this class. The considered maze is available through the static member variable \okttt{ecn::maze} and can thus
+All built classes should inherit from this class. The considered maze is available through the static member variable \okt{ecn::maze} and can thus
 be accessed from the built member functions.
-
-\section{Pointers and smart pointers}\label{smart}
-
-During an A* algorithm, a lot of nodes are created, deleted and moved between the open and the closed set.
-This makes it necessary to create the nodes on the heap and manipulate only pointers. 
-In our case, new nodes are created in when calling the \okttt{children()} method, while they are deleted by the algorithm
-itself if needed. In order to avoid memory leaks, we will use smart pointers.\\
-
-Assuming that a new position can be created from its coordinates, a new position may be created with:
-\begin{itemize}
-\item \okttt{Position p(x, y);} for an actual position
- \item \okttt{Position* p = new Position(x, y);} for a raw pointer
- \item \okttt{std::unique_ptr<Position> p(new Position(x, y);} for a unique ptr
-\end{itemize}
-
-As the \okttt{children()} method is supposed to return a \okttt{std::vector} of pointers, the corresponding syntax may be as follows:
-\begin{center}\cppstyle
-\begin{lstlisting}
-typedef std::unique_ptr<Position> PositionPtr;
-std::vector<PositionPtr> children()
-{
-    std::vector<PositionPtr> generated;
-    while(..)   // whatever method we use to look for children
-    {
-    
-        // assuming that we found a child at (x,y)
-        generated.push_back(std::make_unique<Position>(x,y)));
-    }
-    return generated;
-}
-\end{lstlisting}
-\end{center}
-Here the generated children are directly put inside the vector, which is returned at the end. The smart pointer keeps track 
-of the allocated memory and the A* algorithm can decide to keep it or not, knowing that the memory will be managed accordlingly.
-
 
 \end{document}

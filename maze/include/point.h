@@ -41,7 +41,7 @@ public:
         return x == other.x && y == other.y;
     }
 
-    double h(const Point &goal, bool use_manhattan)
+    double h(const Point &goal, bool use_manhattan) const
     {
         if(use_manhattan)
             return  abs(x-goal.x) + abs(y-goal.y);

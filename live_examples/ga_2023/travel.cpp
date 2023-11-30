@@ -2,11 +2,13 @@
 #include <genetic.h>
 #include <iostream>
 #include <chrono>
+#include <filesystem>
 
 using Clock = std::chrono::high_resolution_clock;
 
 using std::cout;
 using std::endl;
+namespace fs = std::filesystem;
 
 
 int main()

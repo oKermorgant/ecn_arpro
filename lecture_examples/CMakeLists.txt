@@ -38,6 +38,7 @@ add_executable(array_initializer array_initializer.cpp)
 add_executable(macros macros.cpp)
 add_executable(optional optional.cpp)
 add_executable(pid pid.cpp)
+add_executable(pointers_graph pointers_graph.cpp)
 
 if(YamlCpp_FOUND)
   include_directories(${YamlCpp_INCLUDE_DIRS})
