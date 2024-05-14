@@ -3,8 +3,6 @@
 
 int main(int argc,char** argv)
 {
-
-
   vpMatrix M(4,4);
   vpColVector v(3);
 

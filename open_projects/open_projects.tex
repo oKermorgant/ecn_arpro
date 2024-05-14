@@ -1,11 +1,11 @@
 \documentclass{ecnreport}
 
 \stud{Option Robotique, Control \& Robotics master}
-\topic{Advanced Robot Programming}
+\topic{Advanced Programming}
 
 \begin{document}
 
-\inserttitle{Advanced Robot Programming  Labs \newline C++ Programming}
+\inserttitle{Advanced Programming}
 
 \insertsubtitle{Open projects}
 
@@ -72,11 +72,11 @@ add_executable(mygame
 
 The CMake file is used to generate a Makefile. The steps are:
 \begin{enumerate}
- \item Create a build directory: \okttt{mkdir build}
- \item Go inside: \okttt{cd build}
- \item Call CMake: \okttt{cmake ..}
- \item Call Make: \okttt{make}
- \item Then launch your program: \okttt{./mygame}
+ \item Create a build directory: \okt{mkdir build}
+ \item Go inside: \okt{cd build}
+ \item Call CMake: \okt{cmake ..}
+ \item Call Make: \okt{make}
+ \item Then launch your program: \okt{./mygame}
 \end{enumerate}
 
 \subsection{Using an IDE (Integrated Development Environment)}
@@ -169,26 +169,6 @@ The current grids should be displayed with:
 \end{itemize}
 
 
-\subsection{4 in a row}
-
-This game is played on a 6$\times$7 grid. Each player has to drop a token in one of the column, that will fall to the bottom or above potential existing tokens in this column.
-The goal is to be the first to align 4 tokens, either vertically, horizontally or diagonally.
-
-\begin{center}
- \begin{tabular}{|c|c|c|c|c|c|c|}
- \hline  
- . &.&.&.&. &.&.\\\hline
- . &.&.&.&. &.&.\\\hline
- . &.&.&.&. &.&.\\\hline
- . &.&.&.&. &.&.\\\hline
- . &.&o&.&x &.&.\\\hline
- . &o&x&x&o &o&.\\\hline
- \end{tabular}
-\end{center}
-\begin{itemize}
- \involves{Input/output, Vectors, Data representation}
- \aitip{Do not let the other player align 4 token (that is just trying not to lose), or try to guess best possible choices for the next 1, 2, 10... turns.}
-\end{itemize}
 
 \newpage
 
@@ -197,7 +177,7 @@ The goal is to be the first to align 4 tokens, either vertically, horizontally o
 In this section, we program the computer to solve a given problem through an algorithm. Similarly to a cooking recipe, an algorithm is a sequence of basic steps (like finding the minimum value in a vector) that lead to an overall more complex behavior.
 
 The problem data may be defined in a file or be randomly generated.
-The use of the STL and of the \okttt{math.h} and \okttt{algorithm} functions will be of good use. 
+The use of the STL and of the \okt{math.h} and \okt{algorithm} functions will be of good use.
 
 \subsection{1D function minimization}
 
@@ -237,7 +217,7 @@ Here the function to be minimized is still a scalar but may take several argumen
  \end{itemize}
 
  \newpage
-$\x$ can be a \okttt{std::array<double,n>} with known \okttt{n} at compile time. In this case, this type can be aliased and these operations should be defined:
+$\x$ can be a \okt{std::array<double,n>} with known \okt{n} at compile time. In this case, this type can be aliased and these operations should be defined:
 \begin{center}\cppstyle
 \begin{lstlisting}
 const uint n = 4;
@@ -245,13 +225,13 @@ using Vector = std::array<double,n>;
 using Matrix = std::array<Vector,n>;
 
 // vector-vector addition
-Vector operator+(const Vector \&v1, const Vector \&v2);
+Vector operator+(const Vector &v1, const Vector &v2);
 // dot product
-double operator*(const Vector \&v1, const Vector \&v2);
+double operator*(const Vector &v1, const Vector &v2);
 // scalar-vector product
-Vector operator*(const double k, const Vector \&v);
+Vector operator*(double k, const Vector &v);
 // matrix-vector product
-Vector operator*(const Matrix \& M, const Vector \&v);
+Vector operator*(const Matrix &M, const Vector &v);
 \end{lstlisting}
 \end{center}
 
@@ -341,122 +321,7 @@ $(\rho,\theta)$ are the values where RT[i,j] $>$ n\;
  
  
  
- \subsection{Path planning with A*}
- 
- The A* algorithm is a popular path planning method that can easily find the shortest path from a starting to a desired position in a graph. 
- A graph is a set of nodes (positions or situations) linked by elementary steps (for example, going from (0,0) to (0,1)). It may be a classical 2D or 3D space, but
- also any kind of graph where we want to find the shortest path. 
- 
- \begin{itemize}
- \involves{File input and output, Vectors, Data representation, Sort and find minimum (STL), Classes, Inheritance, Templates or References}
- \end{itemize}
- 
- \subsubsection{General A* algorithm}
- The algorithm is based on two functions:
- \begin{itemize}
-  \item The travel function $g(i)$ expresses the distance between the starting position and the evaluated one. 
-  \item The heuristic function $h(i)$ tries to estimate the cost from the current position to the desired one. 
- \end{itemize}The total cost function is the sum of $g$ and $h$.
-It is also using two sets of nodes:
-\begin{itemize}
- \item The closed set regroups all nodes that have been evaluated (starts at empty)
- \item The open set regroups all nodes that are to be evaluated (starts with the initial position)
-\end{itemize}
 
-
-\begin{algorithm}[!t]
-\SetKwComment{Comment}{(}{)}
-% \SetAlgoLined
-\KwData {start and goal positions}
-\KwResult {Sequence of nodes that define the shortest path}
-%add $P_0$ to $\mathcal{P}_s$\;
-closedSet$\gets$ []\;
-openSet$\gets$ [start]\;
-start.g$\gets$ 0\;
-start.compute\_h(goal)\;
-start.compute\_f()\;
-\While{openSet not empty}{
-candidate $\gets$ node in openSet with lowest f score\;
-\If{candidate == goal}{
-return candidate\;}
-
-openSet.remove(candidate)\;
-closedSet.add(candidate)\;
-\For{each neighboor of candidate}{
-union$\gets$openSet + closedSet\;
-\eIf{neighboor is in union}
-{
-twin$\gets$neighboor from union set \;
-\If{twin.g $>$ neighboor.g}{
-twin.set\_parent(candidate)\;
-twin.compute\_f()\;
-openSet.add(twin)\;
-}
-}
-{
-neighboor.compute\_h(goal)\;
-neighboor.compute\_f\;
-openSet.add(neighboor)\;
-}
-}
-
-}
-\caption{A* algorithm}
-\label{algo:smallpoly}
-\end{algorithm}
-
-As we see, the algorithm does not depend on the type of the nodes, as long as the following can be defined:
-\begin{itemize}
- \item The $h$ function from the node to the goal
- \item The $neighboor$ function that gives the nearest nodes to the current node (\okttt{vector}?)
- \item The $==$ operator that checks whether two nodes are the same
-\end{itemize}
-
-This is perfect for classes as the actual algorithm can be written in a generic way. I suggest you write it for a given class to test it without using templates.\\
-
-Using A* for classical 2D path planning is done in a specific lab, but as a graph-search algorithm a fun application is to solve puzzles.
-In this problem, we have a 3$\times$3 grid with cells numbered from 1 to 8\footnote{can also be done on a 4$\times$4 grid with numbers 1..15}, and an empty cell.
-The goal is to reach the following configuration:
-\begin{center}
- \begin{tabular}{|c|c|c|}
- \hline  
- 1 &2&3\\\hline
- 4 &5&6\\\hline
- 7&8&.\\\hline
- \end{tabular}
-\end{center}
-We go from one position to another one by sliding one cell in the empty cell. For example, the two configurations that may lead to the desired one are:
-\begin{center}
- 
- \begin{tabular}{|c|c|c|}
- \hline  
- 1 &2&3\\\hline
- 4 &5&6\\\hline
- 7&.&8\\\hline
- \end{tabular}\quad\quad\quad
- \begin{tabular}{|c|c|c|}
- \hline  
- 1 &2&3\\\hline
- 4 &5&.\\\hline
- 7&8&6\\\hline
- \end{tabular}
-\end{center}
-
-In this case:
-\begin{itemize}
- \item The $h$ function can be the Manhattan distance, that is:
- \begin{equation*}
-  h(x,y) = \sum_{i=1}^8(|x_i - x_i^*| + |y_i - y_i^*|)
- \end{equation*}where $(x_i,y_i)$ is the position of cell $i$ in the grid and $(x_i^*,y_i^*)$ is the position
- of cell $i$ in the desired grid.
- \item The $neighboor$ function should give all the grids reachables from the current one.
- \item The $==$ operator corresponds to having the cells at the same positions.
-\end{itemize}
-
-Note that not all starting grids can reach the desired one. The best way to build a starting position is to start from the desired one and randomly move cells
-for 30 to 40 steps. You will be surprised the algorithm will usually find a much shorter path to come back.
-
-You should write the different steps in a file with the corresponding move and grid, to go from the starting grid to the desired one.
 
 \subsection{Genetic algorithms}
 
@@ -530,7 +395,7 @@ For this kind of problem:
 
 Like the Tower of Hanoi, the TSP is a classical mathematical problem. We assume a salesman has to go in various cities to sell his stuff. Plane tickets are of course at a different price to go from one city to another (or maybe there is not always a direct plane from A to B). The goal is to find the sequence of cities that will have the salesman go only once in each city, come back at his initial city, and all that with the minimum price.
 
-In our case, the ECN administration forgot to give you the diplomas at the end of the master. I thus have to go to all students's capital cities to deliver it and of course I do not want to spend too much on the plane tickets. The file \okttt{tsp.yaml} gives the list of all cities and their distances\footnote{Plane tickets price are not proportional to distances but it was easy to generate automatically all distances between the cities}.
+In our case, the ECN administration forgot to give you the diplomas at the end of the master. I thus have to go to all students's capital cities to deliver it and of course I do not want to spend too much on the plane tickets. The file \okt{tsp.yaml} gives the list of all cities and their distances\footnote{Plane tickets price are not proportional to distances but it was easy to generate automatically all distances between the cities}.
 
 In this instance of Genetic algorithm:
 \begin{itemize}
@@ -553,19 +418,19 @@ In this instance of Genetic algorithm:
 \subsection{Using QtCreator}
 
 The IDE\footnote{Integrated Development Environment} that will be used for C++ (and all my other labs) is Qt Creator. It is an open source, multi-platform IDE based on the Qt framework (which is used in the KDE Linux desktop). 
-Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \okttt{build} folder. You can then run Qt Creator:
+Before loading a project in Qt Creator, you have at least to write a basic CMakeLists.txt file (even without executables) and to create the \okt{build} folder. You can then run Qt Creator:
 \begin{enumerate}
-	\item Load the CMakeLists.txt file through \okttt{File...open project}
-	\item Give the path to your \okttt{build} directory
+	\item Load the CMakeLists.txt file through \okt{File...open project}
+	\item Give the path to your \okt{build} directory
 	\item Qt Creator will then execute CMake and display the source files found in CMakeLists.txt (if any)
-	\item To add a file (.cpp or .h), you can create an empty one with \okttt{File... new file} 
+	\item To add a file (.cpp or .h), you can create an empty one with \okt{File... new file}
 	\item Add this file in the CMakeLists.txt and right-click on the Project to run CMake to tell Qt Creator that the structure of the project has changed
 	\item Compilation is done by clicking the bottom-left hammer
 	\item Run your program with the green triangle. However, if you need user input, you will need to run the program from the console.
-	\item Do to so, open a terminal, go to the \okttt{build} folder and type the name of the program: \okttt{./myprogram}
+	\item Do to so, open a terminal, go to the \okt{build} folder and type the name of the program: \okt{./myprogram}
 \end{enumerate}
 
-Note: on the computers of the lab room (P-ro), automatic configuration can be done by running \okttt{gen_qtcreator_config} from the project folder.
+Note: on the computers of the lab room (P-ro), automatic configuration can be done by running \okt{ideconf} from the project folder.
 
 % \subsection{Using Code::Blocks}
 

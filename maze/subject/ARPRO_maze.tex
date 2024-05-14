@@ -2,13 +2,15 @@
 \setlength{\parindent}{0cm}
 
 \stud{Option Robotique, Control \& Robotics master}
-\topic{Advanced Robot Programming}
+\topic{Advanced Programming}
+
+
 
 \def\maze{\okt{ecn::Maze}~}
 
 \begin{document}
 
-\inserttitle{Advanced Robot Programming  Labs \newline C++ Programming}
+\inserttitle{Advanced Programming}
 
 \insertsubtitle{Maze generation and solving}
 
@@ -73,7 +75,7 @@ It can also save a maze into an image file.
 
 \section{Maze solving}
 
-The given algorithm is described on \link{https://en.wikipedia.org/wiki/A*\_search\_algorithm\#Pseudocode}{Wikipedia}. It is basically a graph-search algorithm that
+The given algorithm is described on \link{https://en.wikipedia.org/wiki/A*\_search\_algorithm\#Pseudocode}{Wikipedia} and in Appendix \ref{aStar}. It is basically a graph-search algorithm that
 finds the shortest path and uses a heuristic function in order to get some clues about the direction to be favored.
 
 In terms of implementation, the algorithm can deal with any \okt{Node} class that has the following methods:
@@ -127,7 +129,7 @@ vertical line). The display should thus work directly.
 Copy/paste the \okt{solve_line.cpp} file to \okt{solve_corridor.cpp}.\\
 
 Here the children should be generated so that any corridor is directly followed (ie children can only be intersections or dead-ends, but
-not simple corners).
+not simple corners).\\
 A utility function \okt{bool is_corridor(int, int)} may be of good use.\\
 
 The distance to the parent may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it 
@@ -179,6 +181,51 @@ This class interfaces with an image and allows easy reading / writing to the maz
  Ordering is thus important when calling this function
  \item \okt{saveSolution(std::string suffix)}: saves the final image
 \end{itemize}
+
+\subsection{The \okt{ecn::Astar} function}\label{aStar}
+
+This function takes a \okt{start} and a \okt{goal} node and implements the A* algorithm as follows. It will return a \okt{std::vector<Node>}, including the  \okt{start} and \okt{goal} nodes. If no path was found the vector is empty.
+
+\begin{algorithm}[h!]
+\SetKwComment{Comment}{(}{)}
+% \SetAlgoLined
+\KwData {start and goal positions}
+\KwResult {Sequence of nodes that define the shortest path}
+%add $P_0$ to $\mathcal{P}_s$\;
+closedSet$\gets$ []\;
+openSet$\gets$ [start]\;
+start.g$\gets$ 0\;
+start.compute\_h(goal)\;
+start.compute\_f()\;
+\While{openSet not empty}{
+candidate $\gets$ node in openSet with lowest f score\;
+\If{candidate == goal}{
+return candidate\;}
+
+openSet.remove(candidate)\;
+closedSet.add(candidate)\;
+\For{each neighboor of candidate}{
+union$\gets$openSet + closedSet\;
+\eIf{neighboor is in union}
+{
+twin$\gets$neighboor from union set \;
+\If{twin.g $>$ neighboor.g}{
+twin.set\_parent(candidate)\;
+twin.compute\_f()\;
+openSet.add(twin)\;
+}
+}
+{
+neighboor.compute\_h(goal)\;
+neighboor.compute\_f\;
+openSet.add(neighboor)\;
+}
+}
+
+}
+\caption{A* algorithm}
+\label{algo:smallpoly}
+\end{algorithm}
 
 \subsection{The \okt{ecn::Point} class}\label{ptClass}
 

@@ -1,5 +1,7 @@
 #include <ostream>
 #include <algorithm>
+#include <vector>
+
 
 class LargeNumber
 {

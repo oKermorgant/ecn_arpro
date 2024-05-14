@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <unordered_map>
 #include <chrono>
 #include "large_number.h"
 #include "scoped_timer.h"
@@ -7,6 +8,8 @@
 using namespace std;
 
 //#define detailed
+
+
 
 LargeNumber fibo(LargeNumber n)
 {
@@ -20,6 +23,8 @@ LargeNumber fibo(LargeNumber n)
 
 LargeNumber fibo_cached(LargeNumber n)
 {
+  #include <unordered_map>
+
   static std::unordered_map<LargeNumber,LargeNumber,LargeNumber::hash> cache;
 
   if(n < 2)
@@ -52,6 +57,23 @@ void do_cached(int n)
   cout << "f(" << n << ") = " << fibo_cached(n) << endl;
 }
 
+LargeNumber fibo_iterative(LargeNumber n)
+{
+  LargeNumber a{0}, b{1};
+  for(LargeNumber i{0}; i < n; i+=1)
+  {
+    LargeNumber c{a+b};
+    a = b;
+    b = c;
+  }
+  return a;
+}
+
+void do_iterative(int n)
+{
+  ScopedTimer timer(std::to_string(n) + " iterative");
+  cout << "f(" << n << ") = " << fibo_iterative(n) << endl;
+}
 
 int main()
 {
@@ -62,5 +84,13 @@ int main()
   do_cached(20);
   do_cached(30);
   do_cached(100);
-  do_cached(10000);
+  //do_cached(100);
+  //do_cached(10000);
+
+  do_iterative(15);
+  do_iterative(20);
+  do_iterative(50);
+  do_iterative(100);
+
+
 }

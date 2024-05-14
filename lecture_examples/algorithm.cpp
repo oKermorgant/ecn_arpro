@@ -20,9 +20,7 @@ void PrintVec(vector<int> vec)
 void PrintIndexAndValue(string s, vector<int> &vec, vector<int>::iterator &idx)
 {
     cout << s << " is at " << distance(vec.begin(), idx) << " and equal to " << *idx << endl;
-
 }
-
 
 int main()
 {

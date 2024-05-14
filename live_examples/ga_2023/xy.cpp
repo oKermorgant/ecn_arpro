@@ -9,6 +9,8 @@ using Clock = std::chrono::steady_clock;
 
 int main()
 {
+
+
   const auto start = Clock::now();
   auto solution = genetic<XY>(500);
 

@@ -8,16 +8,13 @@ using namespace std;
 
 struct Robot
 {
-  double x_ = 0, y_, theta;
-  string name;
-  Robot(string name)
-  {
-    this->name = name;
-  }
+  double x_ = 0, y_{}, theta{};
+  std::string name;
+  explicit Robot(const std::string& name) : name(name) {}
 
-  void print()
+  void print() const
   {
-    std::cout << "'" << name << "' is at (" << x_ << ", " << y_ << ", " << theta << ")\n";
+    std::cout << name << " is at " << x_ << ", " << y_ << '\n';
   }
 
   double x()
@@ -26,7 +23,7 @@ struct Robot
     return x_;
   }
 
-  double distanceTo(Robot other) const
+  double distanceTo(const Robot& other) const
   {
     return 0;
   }
@@ -69,7 +66,7 @@ public:
     return {rows, columns};
   }
 
-  double at(int row, int col)
+ double at(int row, int col)
   {
     return 0;
   }
