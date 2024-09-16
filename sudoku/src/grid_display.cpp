@@ -26,7 +26,8 @@ void Grid::print() const
 }
 void Grid::print(Grid::Cells::const_iterator candidate, bool canceled) const
 {
-  print();
+  if(display)
+    print();
 }
 #else
 #include <opencv2/imgproc.hpp>
@@ -107,11 +108,16 @@ void Grid::print() const
     }
   }
   cv::imshow("Sudoku", im);
-  cv::waitKey(1);
+  if(display)
+    cv::waitKey(1);
+  else
+    cv::waitKey(0);
 }
 
 void Grid::print(Grid::Cells::const_iterator candidate, bool canceled) const
 {
+  if(!display)
+    return;
   print();
 
   // add canceled or new candidate
