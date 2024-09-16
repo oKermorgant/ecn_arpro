@@ -49,6 +49,16 @@ public:
   inline auto candidates() const {return candidates_;}
   inline auto neighboors() const {return neighboors_;}
   inline auto digit() const {return digit_;}
+  inline auto pruned() const
+  {
+    std::vector<int> pruned;
+    for(int i = 0; i < pruned_.size(); ++i)
+    {
+      if(pruned_[i])
+        pruned.push_back(i);
+    }
+    return pruned;
+  }
 
   /// simply deletes the guess from our candidates if it is here
   inline void eraseCandidate(uint guess)
@@ -56,12 +66,6 @@ public:
     if(auto elem{std::find(candidates_.begin(), candidates_.end(), guess)};
        elem != candidates_.end())
       candidates_.erase(elem);
-  }
-
-  /// tells if a value is a candidate of this cell
-  inline bool hasCandidate(uint guess) const
-  {
-    return std::find(candidates_.begin(), candidates_.end(), guess) != candidates_.end();
   }
 
   /// TODO Set the guess for this cell and prunes it from its neighboors

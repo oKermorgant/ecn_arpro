@@ -7,6 +7,7 @@
 
 class Grid
 {
+  using Cells = std::array<Cell, 81>;
 public:
   bool display = false;
   explicit Grid(const StartingGrid &starting_grid);
@@ -14,11 +15,12 @@ public:
   void solve();
 
   void print() const;
+  void print(Cells::const_iterator candidate, bool canceled = false) const;
 
 private:
 
   bool solveNextCell();
-  std::array<Cell, 81> cells;
+  Cells cells;
   uint guesses{};
   uint cancels{};
 };

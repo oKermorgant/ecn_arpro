@@ -44,30 +44,6 @@ void Grid::solve()
     std::cout << "Grid is not valid" << std::endl;
 }
 
-void Grid::print() const
-{
-  constexpr auto line{" -----------"};
-
-  std::cout << line << '\n';
-
-  auto cell{cells.begin()};
-  for(auto row = 0; row < 9; ++row)
-  {
-    std::cout << ' ';
-    for(auto col = 0; col < 9; ++col)
-    {
-      std::cout << (cell++)->symbol();
-      if(col == 2 || col == 5)
-        std::cout << '|';
-      else if(col == 8)
-        std::cout << '\n';
-    }
-    if(row == 2 || row == 5 || row == 8)
-      std::cout << line << '\n';
-  }
-  std::cout << std::endl;
-}
-
 
 // TODO section
 
@@ -75,17 +51,19 @@ void Grid::print() const
 /// Returns True if c1 is considered a better next cell to investigate
 /// than c2, False otherwise
 /// improve the current version by taking into account the number of candidates
+/// for now just picks any empty cell
 bool bestNextCell(const Cell &c1, const Cell &c2)
 {
   return c1.digit() < c2.digit();
 }
 
-
 /// main backtracking function
 bool Grid::solveNextCell()
 {
+  print();
   // TODO check if the grid is already full
-
+  if(std::all_of(cells.begin(), cells.end(), Cell::isAssigned))
+    return true;
 
   // identify next cell to go, it is just the best under whatever bestNextCell considers
   auto &next_cell{*std::min_element(cells.begin(), cells.end(), bestNextCell)};
@@ -96,11 +74,12 @@ bool Grid::solveNextCell()
 
   // TODO implement backtracking algorithm candidate loop
   // you may place all printing code inside if(display) blocks
+  for(auto guess: next_cell.candidates())
+  {
 
+    //print(&next_cell);  // to display the picked guess
 
-
-
-
-
+    //print(&next_cell, true);  // to display this guess was reset
+  }
   return false;
 }
