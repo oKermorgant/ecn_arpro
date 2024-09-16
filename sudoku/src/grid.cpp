@@ -30,11 +30,11 @@ void Grid::solve()
   const auto result{solveNextCell()};
   const auto end{Clock::now()};
 
-  print();
-
   std::cout << "Solved in "
             << std::chrono::duration_cast<std::chrono::microseconds>(end-start).count()
-            << " \u03BCs\n";
+            << " \u03BCs" << std::endl;
+
+  print();
 
   if(result && std::all_of(cells.begin(), cells.end(), Cell::isValid))
     std::cout << "Sudoku was solved with "
