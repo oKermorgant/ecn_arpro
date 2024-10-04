@@ -1,33 +1,16 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 
-inline bool isOdd(int i)
+//using namespace std;
+using std::endl;
+
+int main ()
 {
-  return i % 2 == 1;
-}
-
-
-int main(int argc, char** argv)
-{
-
-  std::vector<int> v = {1,2,3,4,5,6,7,8,9};
-
-  //std::cout << std::boolalpha << isOdd(v[1]) << std::endl;
-
-  if(std::all_of(v.begin(), v.end(), [](auto i)
-  {
-                   return i % 2 == 0;
-}) > 0)
-  {
-
-
-  }
-
-
-
+    int n;
+    std::cout <<"Hello there" << n <<  endl;
+    n = 3;
 
 
 
 }
+
 

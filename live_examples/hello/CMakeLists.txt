@@ -1,4 +1,5 @@
-project(tutorial)
+project(hello_project)
 
+add_executable(hello hello.cpp)
 
-add_executable(hello  hello.cpp other_file.cpp)
+add_executable(other other_file.cpp)

@@ -1,0 +1,46 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\n\x00h\x00e\x00l\x00l\x00o)
+
+[CMake]
+Build Directory Count=1
+Current Build Directory Index-Host System=0
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=/home/olivier/code/Labs/ARPRO/ecn_arpro/live_examples/hello/build
+Build Type=Debug
+CMake Binary=/usr/bin/cmake
+CMake Executable=/usr/bin/cmake
+Environment Profile=
+Extra Arguments=
+Install Directory=/usr/local
+Runtime=Host System
+
+[Launch]
+Launch Configurations=Launch Configuration 0,Launch Configuration 1
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=other
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Configured from ProjectItem=hello,other
+Project Target=hello,other
+Working Directory=file:///home/olivier/code/Labs/ARPRO/ecn_arpro/live_examples/hello/build/
+isExecutable=false
+
+[Launch][Launch Configuration 1]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=hello
+Type=Native Application
+
+[Launch][Launch Configuration 1][Data]
+Configured from ProjectItem=hello,hello
+Project Target=hello,hello
+Working Directory=file:///home/olivier/code/Labs/ARPRO/ecn_arpro/live_examples/hello/build/
+isExecutable=false
+
+[Project]
+VersionControlSupport=kdevgit
