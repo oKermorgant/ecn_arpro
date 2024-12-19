@@ -19,14 +19,22 @@ public:
     std::string abs_file = MAZES;
     return abs_file + "/" + file;
   }
-  Maze() {}
+  explicit Maze() {}
 
-  Maze(std::string _filename)
+  explicit Maze(const std::string &_filename)
   {
     load(_filename);
   }
 
-  void load(std::string _filename)
+  void load(int argc, char** argv)
+  {
+    if(argc == 2)
+      load(argv[1]);
+    else
+      load(mazeFile("maze.png"));
+  }
+
+  void load(const std::string &_filename)
   {
     std::cout << "Loading " << _filename << " ...";
     filename = _filename;

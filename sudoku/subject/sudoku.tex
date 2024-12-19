@@ -104,7 +104,7 @@ The \Cell class has:
  \item A vector of \okt{uint} called \okt{candidates_} that lists the remaining candidates at any point during the algorithm
  \item An array of \okt{uint} called \okt{pruned_} that tells how many times a given digit was pruned for this cell. Index 0 is not used so for example \okt{pruned_[3]} tells how many times 3 was said to be a forbidden value for this cell
  \item An array of 20 pointers to \Cell called \okt{neighboors_} that point to all other cells that cannot have the same digit as this one
- \item 2 member functions to deal with the candidates: \okt{eraseCandidate(guess)} and \okt{hasCandidate(guess)}
+ \item A member functions to erase a candidate during initialization: \okt{eraseCandidate(guess)}
  \item A static functions \okt{isValid(cell)} to be used in algorithms
  \item 2 member functions that are called by the backtracking algorithm: \okt{set(guess)} and \okt{cancel()}
  \item 2 member functions that keeps track of guesses in connected cells: \okt{prune(guess)} and \okt{restore(guess)}

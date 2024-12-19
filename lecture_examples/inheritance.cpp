@@ -12,10 +12,10 @@ class Polygon
 {
 public:
   // constructor with the number of sides
-  Polygon(int _n) : n(_n) {}
+  Polygon(int _n) : sides_(_n) {}
 
   // get the number of sides
-  int sides() {return n;}
+  int sides() {return sides_;}
 
   // non-virtual function
   string What() {return "polygon";}
@@ -24,12 +24,8 @@ public:
   virtual string WhatWithVirtual() {return " I have no idea";}
 
 protected:
-  int n;  // number of sides
+  int sides_;  // number of sides
 };
-
-
-
-
 
 
 
@@ -41,7 +37,7 @@ public:
 
   bool checkTriangle()
   {
-    return n == 3;
+    return sides_ == 3;
   }
 
   // overload of non-virtual function
@@ -119,10 +115,11 @@ int main()
   PassByValue(p);
   PassByValue(t);
   PassByValue(h);
+  //PassByValue(s);
 
   //PassByReference(s); // s is not a Polygon
   PassByReference(t);
-  PassByReference(p);
+  PassByReference(h);
 
   //passWithTemplate(t);
   //passWithTemplate(s);
@@ -149,7 +146,7 @@ int main()
 
   // what about storing polygons in a vector?
   // a vector of values does not keep track of the actual class
-  std::vector<Polygon> vec = {h, t};
+ /* std::vector<Polygon> vec = {h, t};
     cout << "exploring vector of values" << endl;
     for(auto &elem: vec)
     {
@@ -168,5 +165,5 @@ int main()
     cout << "this element is a " << elem->What()<< " with " << elem->sides()  << " sides" << endl;
     cout << "this element is actually a " << elem->WhatWithVirtual() << endl;
   }
-
+*/
 }

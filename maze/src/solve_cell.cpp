@@ -42,12 +42,8 @@ public:
 int main( int argc, char **argv )
 {
     // load file
-    std::string filename = Maze::mazeFile("maze.png");
-    if(argc == 2)
-        filename = std::string(argv[1]);
-
     // let Point know about this maze
-    Position::maze.load(filename);
+    Position::maze.load(argc, argv);
 
     // initial and goal positions as Position's
     Position start = Position::maze.start(),

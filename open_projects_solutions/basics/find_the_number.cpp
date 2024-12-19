@@ -28,7 +28,7 @@ int main(int argc, char ** argv)
             if(m == n)
             {
                 cout << "That's it, congratulations" << endl;
-                break;
+              //  break;
             }
             else if(m < n)
                 cout << "Too small" << endl;

@@ -23,8 +23,6 @@ LargeNumber fibo(LargeNumber n)
 
 LargeNumber fibo_cached(LargeNumber n)
 {
-  #include <unordered_map>
-
   static std::unordered_map<LargeNumber,LargeNumber,LargeNumber::hash> cache;
 
   if(n < 2)
@@ -57,7 +55,7 @@ void do_cached(int n)
   cout << "f(" << n << ") = " << fibo_cached(n) << endl;
 }
 
-LargeNumber fibo_iterative(LargeNumber n)
+LargeNumber fibo_iterative(const LargeNumber& n)
 {
   LargeNumber a{0}, b{1};
   for(LargeNumber i{0}; i < n; i+=1)

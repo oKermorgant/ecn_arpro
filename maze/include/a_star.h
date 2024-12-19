@@ -8,16 +8,14 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
-#include <memory>
 
 namespace ecn
 {
 
-// anonymous namespace for implementation details
+// namespace for implementation details
 namespace astar_impl
 {
-// resulting tree + owner of objects
-
+// graph as tree, owner of objects
 template <class Node>
 class Tree
 {
@@ -38,7 +36,7 @@ class Tree
 public:
 
   /// a Tree takes ownership of the nodes it is given
-  inline size_t insert(Node &&node, size_t parent)
+  inline auto insert(Node &&node, size_t parent)
   {
     nodes.emplace_back(std::forward<Node>(node), parent);
     return nodes.size()-1;

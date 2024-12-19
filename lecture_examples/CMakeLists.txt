@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.5)
 project(ARPRO_examples)
 
 
@@ -6,9 +6,7 @@ set(CMAKE_BUILD_TYPE Debug)
 add_compile_options(-pthread)
 
 find_package (Threads)
-find_package(PkgConfig)
-pkg_check_modules(YamlCpp yaml-cpp)
-
+find_package(yaml-cpp)
 find_package(VISP)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -39,6 +37,7 @@ add_executable(macros macros.cpp)
 add_executable(optional optional.cpp)
 add_executable(pid pid.cpp)
 add_executable(pointers_graph pointers_graph.cpp)
+add_executable(fleet fleet/fleet.cpp fleet/robot.cpp)
 
 if(YamlCpp_FOUND)
   include_directories(${YamlCpp_INCLUDE_DIRS})
