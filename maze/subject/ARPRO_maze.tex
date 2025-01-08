@@ -85,8 +85,7 @@ In terms of implementation, the algorithm can deal with any \okt{Node} class tha
  \item \okt{int distToParent()}: returns the distance to the node that generated this one
  \item \okt{bool operator==(const Node \&other)}: returns true if the passed argument is actually the same point
  \item \okt{double h(const Node \&goal) const}: returns the heuristic distance to the passed argument
- \item \okt{void show(bool closed, const Node \& parent)}: used for online display of the behavior
- \item \okt{void print(const Node \& parent)}: used for final display
+ \item \okt{void print(const Node \& next)}: used for final display, should call \okt{maze.passThrough(x,y)} for the sub-path from this point to the next one (which is one of the children by construction).
 \end{itemize}
 
 
@@ -94,7 +93,7 @@ While these functions highly depend on the application, in our case we consider 
 \begin{itemize}
  \item For the first exercice, only the \okt{children} method is to write.
  \item The second one adds the \okt{distToParent} method.
- \item The last one adds the \okt{show} and \okt{print} methods.
+ \item The last one adds the \okt{print} method.
 \end{itemize}
 
 

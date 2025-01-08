@@ -14,24 +14,14 @@ typedef std::pair<int, int> Pair;
 class Maze
 {
 public:
-  static std::string mazeFile(const std::string &file = "maze.png")
-  {
-    std::string abs_file = MAZES;
-    return abs_file + "/" + file;
-  }
-  explicit Maze() {}
-
-  explicit Maze(const std::string &_filename)
-  {
-    load(_filename);
-  }
+  Maze() {}
 
   void load(int argc, char** argv)
   {
     if(argc == 2)
       load(argv[1]);
     else
-      load(mazeFile("maze.png"));
+      load(DEFAULT_MAZE);
   }
 
   void load(const std::string &_filename)
@@ -39,7 +29,6 @@ public:
     std::cout << "Loading " << _filename << " ...";
     filename = _filename;
     im = cv::imread(filename, cv::IMREAD_GRAYSCALE);
-    cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
     std::cout << "ok" << std::endl;
   }
 
@@ -101,7 +90,10 @@ public:
 
   void passThrough(int x, int y)
   {
-    path.push_back(cv::Point(x,y));
+    const auto p = cv::Point(x,y);
+    if(!path.empty() && path.back() == p)
+      return;
+    path.emplace_back(p);
   }
 
   void dig(int x, int y)
@@ -120,31 +112,22 @@ public:
     cv::imshow(name, im);
   }
 
-  void write(int x, int y, int r=0, int g=0, int b=0, bool show = true)
-  {
-    out.at<cv::Vec3b>(y, x) = cv::Vec3b(b, g, r);
-    if(show)
-    {
-      display("Maze", out);
-      cv::waitKey(1);
-    }
-  }
-
   void save()
   {
-    cv::imwrite(mazeFile(), im);
+    cv::imwrite(DEFAULT_MAZE, im);
     display("Maze", im);
   }
 
-  void saveSolution(std::string suffix)
+  void saveSolution(const std::string &suffix)
   {
+    cv::Mat out;
     cv::cvtColor(im, out, cv::COLOR_GRAY2BGR);
-    cv::Vec3b col(0, 255, 0);
+    const auto len{path.size()};
 
-    col[1] = 0;
-    for(int i = 0; i < path.size(); ++i)
+    cv::Vec3b col{0,0,0};
+    for(int i = 0; i < len; ++i)
     {
-      col[2] = i*255/path.size();
+      col[2] = i*255/(len-1);
       col[0] = 255-col[2];
       out.at<cv::Vec3b>(path[i]) = col;
     }
@@ -155,17 +138,17 @@ public:
       for(int y = 0; y < im.rows; ++y)
       {
         if(!isFree(x,y))
-          write(x,y,0,0,0,false);
+          out.at<cv::Vec3b>(y,x) = {0,0,0};
       }
     }
 
-    int dot = filename.find(".");
-    std::string name = filename.substr(0, dot) + "_" + suffix + ".png";
-    cv::imwrite(mazeFile(name), out);
+    const auto dot{filename.find_last_of(".")};
+    const auto name{filename.substr(0, dot) + "_" + suffix + ".png"};
+    cv::imwrite(name, out);
     display("Solution", out);
   }
 protected:
-  cv::Mat im, out;
+  cv::Mat im;
   std::string filename;
   std::vector<cv::Point> path;
   std::vector<std::string> windows;

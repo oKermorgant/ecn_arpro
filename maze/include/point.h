@@ -22,12 +22,8 @@ public:
         y = p.y;
     }
 
-    // prints the grid with all positions from parent
-    virtual void print(const Point &parent) const;
-
-    void start();
-
-    virtual void show(bool closed, const Point &parent);
+    // prints the grid with all positions from next
+    virtual void print(const Point &next) const;
 
     friend std::ostream& operator<<(std::ostream& out, const Point& p)
     {
@@ -41,11 +37,9 @@ public:
         return x == other.x && y == other.y;
     }
 
-    double h(const Point &goal, bool use_manhattan) const
+    inline int h(const Point &goal) const
     {
-        if(use_manhattan)
-            return  abs(x-goal.x) + abs(y-goal.y);
-        return 1.5*sqrt((x-goal.x)*(x-goal.x) + (y-goal.y)*(y-goal.y));
+      return  abs(x-goal.x) + abs(y-goal.y);
     }
 
     int x, y;

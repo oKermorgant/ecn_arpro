@@ -14,13 +14,13 @@ public:
     // constructor from base ecn::Point
     Position(ecn::Point p) : Point(p.x, p.y) {}
 
-    int distToParent()
+    int distToParent() const
     {
         // in cell-based motion, the distance to the parent is always 1
         return 1;
     }
 
-    std::vector<Position> children()
+    std::vector<Position> children() const
     {
         // this method should return  all positions reachable from this one
         std::vector<Position> generated;

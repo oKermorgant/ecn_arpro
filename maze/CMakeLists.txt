@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE Debug)
 find_package(OpenCV REQUIRED)
 find_package(yaml-cpp)
 
-add_definitions(-DMAZES="${CMAKE_CURRENT_SOURCE_DIR}/mazes")
+add_definitions(-DDEFAULT_MAZE="${CMAKE_CURRENT_SOURCE_DIR}/mazes/maze.png")
 
 include_directories(${YamlCpp_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} include)
 
