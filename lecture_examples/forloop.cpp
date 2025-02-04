@@ -6,7 +6,7 @@ using namespace std;
 
 struct Robot
 {
-  double x=0, y=0, theta=0;
+  double x=0, y=0, theta_=0;
   string name;
 
   void move() {}

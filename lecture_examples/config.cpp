@@ -31,6 +31,10 @@ int main(int argc, char ** argv)
 {
 
 
+
+
+
+
     string config_type= "yaml";
 
     if(argc > 1 && argc < 5)

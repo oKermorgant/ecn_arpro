@@ -1,14 +1,11 @@
 #include <iostream>
-#include <map>
 #include <unordered_map>
-#include <chrono>
 #include "large_number.h"
 #include "scoped_timer.h"
 
 using namespace std;
 
-//#define detailed
-
+#define detailed
 
 
 LargeNumber fibo(LargeNumber n)
@@ -76,12 +73,12 @@ void do_iterative(int n)
 int main()
 {
   do_raw(15);
-  do_raw(20);
-  do_raw(30);
+  //do_raw(20);
+  //do_raw(30);
   do_cached(15);
-  do_cached(20);
-  do_cached(30);
-  do_cached(100);
+  //do_cached(20);
+  //do_cached(30);
+  //do_cached(100);
   //do_cached(100);
   //do_cached(10000);
 

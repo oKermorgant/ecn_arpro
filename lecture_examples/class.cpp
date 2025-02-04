@@ -8,7 +8,7 @@ using namespace std;
 
 struct Robot
 {
-  double x_ = 0, y_{}, theta{};
+  double x_ = 0, y_{}, theta_{};
   std::string name;
   explicit Robot(const std::string& name) : name(name) {}
 
@@ -33,8 +33,6 @@ struct Robot
     x_ = x;
 
     int x2;
-
-
   }
 };
 

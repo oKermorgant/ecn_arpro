@@ -34,7 +34,7 @@ class Tree
 
   std::vector<State> nodes;
   std::vector<size_t> parents;
-  std::vector<size_t> closedSet;
+  std::vector<NodeWithCost> closedSet;
   std::vector<NodeWithCost> queue;
 
   void push(const NodeWithCost &node)
@@ -62,7 +62,7 @@ public:
   std::optional<NodeWithCost> find(const State& state) const
   {
     if(const auto same{std::find_if(queue.rbegin(), queue.rend(),
-                                 [&](const auto &twin)
+                                     [&](const auto &twin)
                                      {return nodes[twin.idx] == state;})};
         same != queue.rend())
       return *same;
@@ -72,10 +72,9 @@ public:
   inline NodeWithCost best()
   {
     std::pop_heap(queue.begin(), queue.end());
-    const auto ret{queue.back()};
+    closedSet.push_back(queue.back());
     queue.pop_back();
-    closedSet.push_back(ret.idx);
-    return ret;
+    return closedSet.back();
   }
 
   inline const State& operator()(const NodeWithCost &node) const
@@ -89,25 +88,27 @@ public:
     parents[node.idx] = parent;
   }
 
-  inline bool isVisited(const State &state) const
+  inline bool isVisited(const State &state, int g) const
   {
-    return std::find_if(closedSet.rbegin(), closedSet.rend(),[&](const auto idx)
-                        {return nodes[idx] == state;}) != closedSet.rend();
+    return std::find_if(closedSet.rbegin(), closedSet.rend(),[&](const auto node)
+                        {return nodes[node.idx] == state
+                          && node.g <= g;}) != closedSet.rend();
   }
   std::vector<State> fullPathTo(const NodeWithCost &node) const
   {
-    auto last_idx{node.idx};
+    std::vector<size_t> path_idx{node.idx};
 
-    std::vector<State> path;
     // build list from end to start
-    while(last_idx)
-    {            
-      path.push_back(nodes[last_idx]);
-      last_idx = parents[last_idx];
-    }
-    path.push_back(nodes[0]);
-    // list from start to end
-    std::reverse(path.begin(),path.end());
+    do{
+      path_idx.push_back(parents[path_idx.back()]);
+    } while(path_idx.back());
+
+    // result from start to end
+    std::vector<State> path;
+    path.reserve(path_idx.size());
+    std::transform(path_idx.rbegin(), path_idx.rend(), std::back_inserter(path),[&](const auto &idx)
+                   {return nodes[idx];});
+
     for(size_t i = 1; i < path.size(); ++i)
       path[i-1].print(path[i]);
 
@@ -153,11 +154,12 @@ std::vector<Node> Astar(const Node &start, const Node &goal)
 
     for(auto &&child: children)
     {
+      const auto child_g = best.g + child.distToParent();
+
       // ensure we have not been here
-      if(tree.isVisited(child))
+      if(tree.isVisited(child, child_g))
         continue;
 
-      const auto child_g = best.g + child.distToParent();
       if(const auto &twin{tree.find(child)}; !twin)
       {
         tree.insert(std::move(child), best.idx, child.h(goal), child_g);
