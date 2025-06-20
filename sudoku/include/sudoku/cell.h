@@ -3,9 +3,7 @@
 
 #include <algorithm>
 #include <vector>
-#include <numeric>
 #include <array>
-#include <iostream>
 
 class Grid;
 

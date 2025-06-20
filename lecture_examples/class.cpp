@@ -98,9 +98,6 @@ int main()
     std::cout << r.x() << std::endl;
 
 
-
-
-
   [[maybe_unused]] auto dist = rob.distanceTo(target);
 
   //auto robot{Robot{.x_ = -1}};
