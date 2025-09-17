@@ -1,5 +1,6 @@
 #include <sudoku/cell.h>
 #include <sudoku/grid.h>
+#include <numeric>
 #include <iostream>
 
 void Cell::init(uint row, uint col, std::array<Cell, 81> &grid, uint digit)
