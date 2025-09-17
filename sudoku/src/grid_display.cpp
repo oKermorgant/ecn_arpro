@@ -39,12 +39,15 @@ const auto CV_WHITE{cv::Scalar(255, 255, 255)};
 const auto CV_BLACK{cv::Scalar(0,0,0)};
 const auto CV_OK{cv::Scalar(180,119,31)};
 const auto CV_NOK{cv::Scalar(14,127,255)};
+constexpr auto CV_SIZE{80};
+constexpr auto CV_FONT_SMALL{(0.8*CV_SIZE)/100};
+constexpr auto CV_FONT_LARGE{(1.5*CV_SIZE)/100};
 }
 
 cv::Point toPixel(double row, double col)
 {
-  return cv::Point(static_cast<int>(50 + 100*col),
-                   static_cast<int>(50 + 100*row));
+  return cv::Point(static_cast<int>(CV_SIZE/2 + CV_SIZE*col),
+                   static_cast<int>(CV_SIZE/2 + CV_SIZE*row));
 }
 
 void displayValue(uint row, uint col, uint v, const cv::Scalar &color)
@@ -52,16 +55,16 @@ void displayValue(uint row, uint col, uint v, const cv::Scalar &color)
   char text[12];
   sprintf(text, "%i", v);
   if(v < 6)
-    cv::putText(im, text, toPixel(row + 0.25 , col + (v-0.5)*0.18), 0, 0.8, color, 2);
+    cv::putText(im, text, toPixel(row + 0.25 , col + (v-0.5)*0.18), 0, CV_FONT_SMALL, color, 2);
   else
-    cv::putText(im, text, toPixel(row + 0.9 , col + (v-5.)*0.18), 0, 0.8, color, 2);
+    cv::putText(im, text, toPixel(row + 0.9 , col + (v-5.)*0.18), 0, CV_FONT_SMALL, color, 2);
 }
 
 void Grid::print() const
 {
   const static auto im_base = []()
   {
-    auto im_base = cv::Mat(1000, 1000, CV_8UC3, CV_WHITE);
+    auto im_base = cv::Mat(CV_SIZE*10, CV_SIZE*10, CV_8UC3, CV_WHITE);
     for(uint coord = 0; coord < 10; ++coord)
     {
       const int thickness = (coord % 3) ? 1 : 2;
@@ -84,7 +87,7 @@ void Grid::print() const
       {
         char text[12];
         sprintf(text, "%i", cell->digit());
-        cv::putText(im, text, toPixel(row + 0.65 , col + 0.3), 0, 1.5, CV_BLACK, 2);
+        cv::putText(im, text, toPixel(row + 0.65 , col + 0.3), 0, CV_FONT_LARGE, CV_BLACK, 2);
       }
 
       // print available guesses

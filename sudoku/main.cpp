@@ -12,7 +12,7 @@ int main(int argc, char** argv)
   Grid grid(starting_grid);
 
   // check any argument on display each step
-  grid.display = useDisplay(argc, argv, true);
+  grid.display = useDisplay(argc, argv, false);
 
   // solve it
   grid.solve();
