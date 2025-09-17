@@ -7,18 +7,20 @@ import time
 
 human_guess = (len(sys.argv) == 1)
 
+HIGH = 50
+
 if human_guess:
     
     # srand(time(NULL));
-    random.seed(time.clock)
+    # random.seed(time.clock)
     # const unsigned int n = rand() % 100;
-    n = random.randint(1,100)
+    n = random.randint(1,HIGH)
     
     while True:
         # ask the user for a number
         #    cout << "Please enter a number: ";
         #    cin >> m;
-        m = input('Please enter a number (1-100): ')
+        m = input(f'Please enter a number (1-{HIGH}): ')
         
         if m == n:
             print("That's it, congratulations")
@@ -30,15 +32,15 @@ if human_guess:
 
 else:
     lower = 1
-    upper = 100
+    upper = HIGH
     
     while True:
         
         # guess = 0.5*(lower + upper)
         guess = int(0.5*(lower + upper))
         
-        print("   0 if ok, 1 if too small, 2 if too large")
-        response = input("Is it " + str(guess) + "? - ")
+        print("   0 if ok, 1 if smaller, 2 if larger")
+        response = int(input("Is it " + str(guess) + "? - "))
         
         if response == 0:
             print(" I knew it!")
@@ -46,7 +48,7 @@ else:
         elif lower == upper:
             print("I think you are cheating")
             break
-        elif response == 1:
+        elif response == 2:
             lower = guess +1
         else:
             upper = guess -1

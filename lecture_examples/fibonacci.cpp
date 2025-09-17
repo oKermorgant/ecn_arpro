@@ -57,7 +57,7 @@ LargeNumber fibo_iterative(const LargeNumber& n)
   LargeNumber a{0}, b{1};
   for(LargeNumber i{0}; i < n; i+=1)
   {
-    LargeNumber c{a+b};
+    const auto c{a+b};
     a = b;
     b = c;
   }
