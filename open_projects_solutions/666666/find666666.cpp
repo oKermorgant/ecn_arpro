@@ -7,23 +7,25 @@ using namespace std;
 
 const int n = 6;    // what we can find with n times the number n
 
+enum class OP{ ADD, SUB, MUL, DIV };
+
 // a structure to store a found result : numbers / operations / priority / result
 struct Res
 {
   int val;
-  vector<int> op_base;
+  vector<OP> op_base;
   vector<int> order_base;
   vector<int> base;
   int score;
 
-  Res(int v, const vector<int> &_op, const vector<int> &_order, const vector<float> &_base)
+  Res(int v, const vector<OP> &_op, const vector<int> &_order, const vector<float> &_base)
     : val(v), op_base(_op), order_base(_order)
   {
     base.clear();
     std::transform(_base.begin(), _base.end(), std::back_inserter(base), [](auto v){return int(v);});
 
     // count the number of divisions as it is used to get the best result (with less divisions and less substractions)
-    score = 3*count(op_base.begin(), op_base.end(),3) + count(op_base.begin(), op_base.end(),1);
+    score = 3*count(op_base.begin(), op_base.end(),OP::DIV) + count(op_base.begin(), op_base.end(),OP::SUB);
   }
 
   void Print()
@@ -49,51 +51,50 @@ struct Res
       // perform operation o
       switch(op[o])
       {
-
-        case 0: // +
-          str[o] = str[o] + "+" + str[o+1] ;
+        case OP::ADD:
+          str[o] = str[o] + "+" + str[o+1];
           if(o+1 < op.size())
           {
-            if(op[o+1] == 2 || op[o+1] == 3)
+            if(op[o+1] == OP::MUL || op[o+1] == OP::DIV)
               parenthesis = true;
           }
           if(o != 0)
           {
-            if(op[o-1] != 0)
+            if(op[o-1] != OP::ADD)
               parenthesis = true;
           }
           break;
-        case 1: // -
+        case OP::SUB: // -
           str[o] = str[o] + "-" + str[o+1];
           if(o+1 < op.size())
           {
-            if(op[o+1] == 2 || op[o+1] == 3)
+            if(op[o+1] == OP::MUL || op[o+1] == OP::DIV)
               parenthesis = true;
           }
           if(o != 0)
           {
-            if(op[o-1] != 0)
+            if(op[o-1] != OP::ADD)
               parenthesis = true;
           }
           break;
-        case 2: // *
+        case OP::MUL: // *
           str[o] =str[o] +"*"+ str[o+1];
           if(o != 0)
           {
-            if(op[o-1] == 3)
+            if(op[o-1] == OP::DIV)
               parenthesis = true;
           }
           break;
-        case 3: // /
+        case OP::DIV: // /
           str[o] = str[o] +"/"+ str[o+1] ;
           if(o != 0)
           {
-            if(op[o-1] == 3)
+            if(op[o-1] == OP::DIV)
               parenthesis = true;
           }
           if(o+1 < op.size())
           {
-            if(op[o+1] == 2 || op[o+1] == 3)
+            if(op[o+1] == OP::MUL || op[o+1] == OP::DIV)
               parenthesis = true;
           }
           break;
@@ -146,7 +147,7 @@ void build_base(vector<float> prev, int depth = 0)
   }
 }
 
-void eval(vector<vector<float>> &base, vector<int> op_base, int depth = 0)
+void eval(vector<vector<float>> &base, vector<OP> op_base, int depth = 0)
 {
   if(depth == op_base.size())  // all operations have been defined
   {
@@ -175,16 +176,16 @@ void eval(vector<vector<float>> &base, vector<int> op_base, int depth = 0)
           // perform operation o
           switch(op[o])
           {
-            case 0: // +
+            case OP::ADD: // +
               nb[o] = nb[o] + nb[o+1];
               break;
-            case 1: // -
+            case OP::SUB: // -
               nb[o] =  nb[o] - nb[o+1];
               break;
-            case 2: // *
+            case OP::MUL: // *
               nb[o] =  nb[o] * nb[o+1];
               break;
-            case 3: // /
+            case OP::DIV: // /
               if (nb[o+1] == 0)
                 div0 = true;
               else
@@ -219,10 +220,9 @@ void eval(vector<vector<float>> &base, vector<int> op_base, int depth = 0)
   }
   else                    // define next operation
   {
-    for(int i = 0;i<4;++i)    // + - * /
+    for(auto op: {OP::ADD, OP::SUB, OP::MUL, OP::DIV})
     {
-      //  cout << i << endl;
-      op_base[depth] = i;
+      op_base[depth] = op;
       eval(base, op_base, depth+1);
     }
   }
@@ -249,7 +249,7 @@ int main()
   int nb = n-1;
   for(auto &base: all_base)
   {
-    vector<int> op(nb--);
+    vector<OP> op(nb--);
     eval(base, op);
     break;
   }
