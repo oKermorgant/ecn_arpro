@@ -33,7 +33,7 @@ public:
   Cell() {}
 
   // we cannot copy a Cell (would mess up the pointers)
-  inline Cell(const Cell &src) = delete;
+  Cell(const Cell &src) = delete;
 
   void init(uint row, uint col, std::array<Cell, 81> &grid, uint digit = 0);
 
@@ -46,7 +46,10 @@ public:
   /// Some accessors
   inline auto candidates() const {return candidates_;}
   inline auto neighboors() const {return neighboors_;}
-  inline auto digit() const {return digit_;}
+  inline auto digit() const
+  {
+    return digit_;
+  }
   inline auto pruned() const
   {
     std::vector<int> pruned;

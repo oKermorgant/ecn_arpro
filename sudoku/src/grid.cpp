@@ -56,11 +56,7 @@ void Grid::solve()
 /// for now just picks any empty cell
 bool bestNextCell(const Cell &c1, const Cell &c2)
 {
-  if(c1.digit() != c2.digit())
-    return c1.digit() < c2.digit();
-  return c1.candidates().size() < c2.candidates().size();
-
-
+  return c1.digit() < c2.digit();
 }
 
 /// main backtracking function
