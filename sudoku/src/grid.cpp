@@ -21,6 +21,7 @@ Grid::Grid(const StartingGrid& starting_grid)
   /// TODO erase candidates according to starting grid
   /// all non-empty cells should delete their value from their neighboors' candidates
 
+
 }
 
 void Grid::solve()
@@ -79,9 +80,6 @@ bool Grid::solveNextCell()
   for(auto guess: next_cell.candidates())
   {
     //print(&next_cell);  // to display the picked guess
-    if(solveNextCell())
-      return true;
-    next_cell.cancel();
   //print(&next_cell, true);  // to display this guess was reset
   }
   return false;
