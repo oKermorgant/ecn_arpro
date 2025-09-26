@@ -10,7 +10,7 @@ class Grid;
 class Cell
 {
   // how many times a given number was pruned, size 10 to forget about index 0
-  std::array<uint, 10> pruned_{};
+  std::array<uint, 10> pruned_count_{};
 
   // current guess
   uint digit_ = 0;
@@ -50,9 +50,9 @@ public:
   inline auto pruned() const
   {
     std::vector<int> pruned;
-    for(int i = 0; i < pruned_.size(); ++i)
+    for(int i = 0; i < pruned_count_.size(); ++i)
     {
-      if(pruned_[i])
+      if(pruned_count_[i])
         pruned.push_back(i);
     }
     return pruned;
@@ -62,7 +62,7 @@ public:
   inline void eraseCandidate(uint guess)
   {
     if(auto elem{std::find(candidates_.begin(), candidates_.end(), guess)};
-       elem != candidates_.end())
+        elem != candidates_.end())
       candidates_.erase(elem);
   }
 

@@ -41,7 +41,9 @@ void Grid::solve()
               << guesses << " wild guesses, "
                             "had to cancel and go back " << cancels << " times" << std::endl;
   else
+  {
     std::cout << "Grid is not valid" << std::endl;
+  }
 }
 
 
@@ -54,13 +56,17 @@ void Grid::solve()
 /// for now just picks any empty cell
 bool bestNextCell(const Cell &c1, const Cell &c2)
 {
-  return c1.digit() < c2.digit();
+  if(c1.digit() != c2.digit())
+    return c1.digit() < c2.digit();
+  return c1.candidates().size() < c2.candidates().size();
+
+
 }
 
 /// main backtracking function
 bool Grid::solveNextCell()
 {
-  print();
+
   // TODO check if the grid is already full
   if(std::all_of(cells.begin(), cells.end(), Cell::isAssigned))
     return true;
@@ -76,10 +82,11 @@ bool Grid::solveNextCell()
   // you may place all printing code inside if(display) blocks
   for(auto guess: next_cell.candidates())
   {
-
     //print(&next_cell);  // to display the picked guess
-
-    //print(&next_cell, true);  // to display this guess was reset
+    if(solveNextCell())
+      return true;
+    next_cell.cancel();
+  //print(&next_cell, true);  // to display this guess was reset
   }
   return false;
 }

@@ -102,7 +102,7 @@ The \Cell class has:
  \item A \okt{init} function that takes the row and column of the cell, the whole \okt{cells} array from the grid and any initial value this cell should have
  \item A \okt{uint} called \okt{digit_} that is the current guess for this cell. If \okt{digit_} is 0 it means this cell was not assigned a value at this point of the algorithm
  \item A vector of \okt{uint} called \okt{candidates_} that lists the remaining candidates at any point during the algorithm
- \item An array of \okt{uint} called \okt{pruned_} that tells how many times a given digit was pruned for this cell. Index 0 is not used so for example \okt{pruned_[3]} tells how many times 3 was said to be a forbidden value for this cell
+ \item An array of \okt{uint} called \okt{pruned_count_} that tells how many times a given digit was pruned for this cell. Index 0 is not used so for example \okt{pruned_count_[3]} tells how many times 3 was said to be a forbidden value for this cell
  \item An array of 20 pointers to \Cell called \okt{neighboors_} that point to all other cells that cannot have the same digit as this one
  \item A member functions to erase a candidate during initialization: \okt{eraseCandidate(guess)}
  \item A static functions \okt{isValid(cell)} to be used in algorithms
@@ -143,7 +143,7 @@ This method should decrement the pruning counter of the given guess for this cel
  \item The cell does not have a digit yet
  \item The guess was indeed pruned
 \end{itemize}
-If both these conditions are true, the counter in \okt{pruned_} should be decremented. If this counter falls back to 0, the guess should be added again to the \okt{candidates}.
+If both these conditions are true, the counter in \okt{pruned_count_} should be decremented. If this counter falls back to 0, the guess should be added again to the \okt{candidates}.
  \end{minipage}
 
 

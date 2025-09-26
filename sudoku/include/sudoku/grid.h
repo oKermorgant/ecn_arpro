@@ -14,11 +14,10 @@ public:
 
   void solve();
 
-  void print() const;
-  void print(Cells::const_iterator candidate, bool canceled = false) const;
+  void print() const;  
 
 private:
-
+  void print(Cells::const_iterator candidate, bool canceled = false) const;
   bool solveNextCell();
   Cells cells;
   uint guesses{};
