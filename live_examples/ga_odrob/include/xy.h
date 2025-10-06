@@ -2,21 +2,9 @@
 #define XY_H
 
 #include <algorithm>
-#include <ctime>
-#include <random>
 #include <iostream>
+#include <rand_utils.h>
 
-double rand01()
-{
-  static std::default_random_engine engine;
-  static std::uniform_real_distribution<double> unif(0,1);
-  return unif(engine);
-}
-
-template <class T> T rand(T min, T max)
-{
-  return min + rand01()*(max-min);
-}
 
 class XY
 {
@@ -25,7 +13,7 @@ private:
 
 void computeCost()
   {
-    cost_ =  x_+x_ + y_*x_ - 10*(cos(2*M_PI*x_) + cos(2*M_PI*y_));
+    cost_ =  20 + x_*x_ + y_*y_ - 10*(cos(2*M_PI*x_) + cos(2*M_PI*y_));
   }
 
 public:
@@ -33,6 +21,11 @@ public:
   auto x() const {return x_;}
   auto y() const {return y_;}
   auto cost() const {return cost_;}
+
+  /*XY()
+  {
+    randomize();
+  }*/
 
 
   void print() const
