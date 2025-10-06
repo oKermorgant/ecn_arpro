@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.5)
 project(ga)
 
 include_directories(include)
