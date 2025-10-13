@@ -17,7 +17,10 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 #set(CMAKE_BUILD_TYPE Debug)
 
-add_executable(sudoku main.cpp src/cell.cpp include/sudoku/grid.h src/grid.cpp src/grid_display.cpp
+add_executable(sudoku main.cpp
+                      src/cell.cpp
+                      src/grid.cpp
+                      src/grid_display.cpp
   )
 target_include_directories(sudoku PRIVATE include
   ${YamlCpp_INCLUDE_DIRS}  ${OpenCV_INCLUDE_DIRS})

@@ -62,11 +62,15 @@ public:
   }
 
   /// simply deletes the guess from our candidates if it is here
-  inline void eraseCandidate(uint guess)
+  inline bool eraseCandidate(uint guess)
   {
     if(auto elem{std::find(candidates_.begin(), candidates_.end(), guess)};
         elem != candidates_.end())
+    {
       candidates_.erase(elem);
+      return true;
+    }
+    return false;
   }
 
   /// TODO Set the guess for this cell and prunes it from its neighboors

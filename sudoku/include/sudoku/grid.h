@@ -5,6 +5,11 @@
 #include <sudoku/cell.h>
 #include <array>
 
+inline int add(int a, int b)
+{
+  return a+b;
+}
+
 class Grid
 {
   using Cells = std::array<Cell, 81>;

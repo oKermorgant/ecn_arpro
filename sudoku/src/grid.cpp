@@ -18,8 +18,8 @@ Grid::Grid(const StartingGrid& starting_grid)
     row++;
   }
 
-  /// TODO erase candidates according to starting grid
-  /// all non-empty cells should delete their value from their neighboors' candidates
+  // TODO erase candidates according to starting grid
+  // all non-empty cells should delete their value from their neighboors' candidates
 
 
 }
@@ -57,7 +57,7 @@ void Grid::solve()
 /// for now just picks any empty cell
 bool bestNextCell(const Cell &c1, const Cell &c2)
 {
-  return c1.digit() < c2.digit();
+    return c1.digit() < c2.digit();
 }
 
 /// main backtracking function
@@ -75,12 +75,17 @@ bool Grid::solveNextCell()
   if(next_cell.digit())
     throw std::runtime_error("Next cell already has a digit");
 
-  // TODO implement backtracking algorithm candidate loop
-  // you may place all printing code inside if(display) blocks
+  // TODO implement backtracking algorithm candidate loop  
   for(auto guess: next_cell.candidates())
   {
-    //print(&next_cell);  // to display the picked guess
-  //print(&next_cell, true);  // to display this guess was reset
+
+
+
+    print(&next_cell);  // to display the picked guess
+
+
+
+    print(&next_cell, true);  // to display this guess was reset
   }
   return false;
 }
