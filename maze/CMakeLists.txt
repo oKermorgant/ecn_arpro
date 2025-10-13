@@ -11,9 +11,13 @@ add_definitions(-DDEFAULT_MAZE="${CMAKE_CURRENT_SOURCE_DIR}/mazes/maze.png")
 
 include_directories(${YamlCpp_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} include)
 
+if(OpenCV_FOUND)
+  set(OpenCV_LIB opencv_highgui)
+endif()
+
 add_library(maze SHARED include/maze.h include/a_star.h
     include/point.h src/point.cpp)
-target_link_libraries(maze ${OpenCV_LIBS})
+target_link_libraries(maze ${OpenCV_LIB})
 
 #add_executable(generator src/generator.cpp)
 #target_link_libraries(generator maze)
