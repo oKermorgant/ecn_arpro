@@ -146,15 +146,15 @@ std::vector<Node> Astar(const Node &start, const Node &goal)
       return tree.fullPathTo(best);
     }
 
-    auto children{tree(best).children()};
-    created += children.size();
+    auto neighboors{tree(best).neighboors()};
+    created += neighboors.size();
 
     // to avoid equal costs leading to favorite directions
-    //std::random_shuffle(children.begin(), children.end());
+    //std::random_shuffle(neighboors.begin(), neighboors.end());
 
-    for(auto &&child: children)
+    for(auto &&child: neighboors)
     {
-      const auto child_g = best.g + child.distToParent();
+      const auto child_g = best.g + child.distToPrevious();
 
       // ensure we have not been here
       if(tree.isVisited(child, child_g))

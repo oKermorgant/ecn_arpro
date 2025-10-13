@@ -80,19 +80,19 @@ finds the shortest path and uses a heuristic function in order to get some clues
 
 In terms of implementation, the algorithm can deal with any \okt{Node} class that has the following methods:
 \begin{itemize}
- \item \okt{vector<Node> Node::children()}: returns a \okt{vector} of \okt{Node} consisting of the children (or neighboors) of the considered
+ \item \okt{vector<Node> Node::neighboors()}: returns a \okt{vector} of \okt{Node} consisting of the neighboors of the considered
  element
- \item \okt{int distToParent()}: returns the distance to the node that generated this one
+ \item \okt{int distToPrevious()}: returns the distance to the node that generated this one
  \item \okt{bool operator==(const Node \&other)}: returns true if the passed argument is actually the same point
  \item \okt{double h(const Node \&goal) const}: returns the heuristic distance to the passed argument
- \item \okt{void print(const Node \& next)}: used for final display, should call \okt{maze.passThrough(x,y)} for the sub-path from this point to the next one (which is one of the children by construction).
+ \item \okt{void print(const Node \& next)}: used for final display, should call \okt{maze.passThrough(x,y)} for the sub-path from this point to the next one (which is one of the neighboors by construction).
 \end{itemize}
 
 
 While these functions highly depend on the application, in our case we consider a 2D maze so some of these functions are already implemented in, as seen in \Sec{ptClass}:
 \begin{itemize}
- \item For the first exercice, only the \okt{children} method is to write.
- \item The second one adds the \okt{distToParent} method.
+ \item For the first exercice, only the \okt{neighboors} method is to write.
+ \item The second one adds the \okt{distToPrevious} method.
  \item The last one adds the \okt{print} method.
 \end{itemize}
 
@@ -107,17 +107,17 @@ At the top of the file is the definition of a \okt{Position} class
 that inherits from \okt{ecn::Point} in order not to reinvent the wheel (a point has two coordinates, it can compute the distance to
 another point, etc.).
 
-The only method to modify is \okt{Position::children} that should generates the neighboors of the current point.
-The parent node is likely to be in those neighboors, but it will be removed by the algorithm. 
+The only method to modify is \okt{Position::neighboors} that should generates the neighboors of the current point.
+The previous node is likely to be in those neighboors, but it will be removed by the algorithm.
 
 \subsection{A* with line-based motions}
 
 Copy/paste the \okt{solve_cell.cpp} file to \okt{solve_line.cpp}.\\
 
-Here the children should be generated so that a straight corridor is directly followed (ie children can only be corners, intersections or dead-ends).
+Here the neighboors should be generated so that a straight corridor is directly followed (ie neighboors can only be corners, intersections or dead-ends).
 A utility function \okt{bool is_corridor(int, int)} may be of good use.\\
 
-The distance to the parent may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it 
+The distance to the previous node may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it
 at the generation by using a new Constructor with signature \okt{Position(int _x, int _y, int distance)}.\\
 
 The existing \okt{ecn::Point} class is already able to display lines between two non-adjacent points (as long as they are on the same horizontal or
@@ -127,15 +127,15 @@ vertical line). The display should thus work directly.
 
 Copy/paste the \okt{solve_line.cpp} file to \okt{solve_corridor.cpp}.\\
 
-Here the children should be generated so that any corridor is directly followed (ie children can only be intersections or dead-ends, but
+Here the neighboors should be generated so that any corridor is directly followed (ie neighboors can only be intersections or dead-ends, but
 not simple corners).\\
 A utility function \okt{bool is_corridor(int, int)} may be of good use.\\
 
-The distance to the parent may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it 
+The distance to the previous node may not be always 1 anymore. As we know the distance when we look for the neighboor nodes, a good thing would be to store it
 at the generation by using a new Constructor with signature \okt{Position(int _x, int _y, int distance)}. \\
 
-The existing \okt{Point::show} and \okt{Point::print} methods are not suited anymore for this problem. Indeed, the path from a point to its parent
-may not be a straight line. Actually it will be necessary to re-search for the parent using the same approach as to generate the children.\\
+The existing \okt{Point::show} and \okt{Point::print} methods are not suited anymore for this problem. Indeed, the path from a point to the previous one
+may not be a straight line. Actually it will be necessary to re-search for the previous node using the same approach as to generate the neighboors.\\
 
 For this problem, remember that by construction the nodes can only be intersections or dead-ends. Still, the starting and goal positions may 
 be in the middle of a corridor. It is thus necessary to check if a candidate position is the goal even if it is not the end of a corridor.
@@ -234,9 +234,7 @@ This class implements basic properties of a 2D point:
  \item \okt{bool operator==(Point)}: returns true if both points have the same x and y coordinates
  \item \okt{double h(const Point \&goal)}: heuristic distance, may use Manhattan
  ($|x-\okt{goal}.x| + |y-\okt{goal}.y|$) or classical Euclidean distance.
- \item \okt{void show(bool closed, const Point \& parent)}: draws a straight line between the point and its parent, that
- is blue if the point is in the closed set or red if it is in the open set.
- \item \okt{void print(const Point\& parent)}: writes the final path into the maze for display, also considers a straight line
+ \item \okt{void print(const Point &next)}: writes the final path into the maze for display, considering a straight line
 \end{itemize}
 All built classes should inherit from this class. The considered maze is available through the static member variable \okt{ecn::maze} and can thus
 be accessed from the built member functions.
