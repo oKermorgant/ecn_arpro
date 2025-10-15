@@ -150,24 +150,24 @@ std::vector<Node> Astar(const Node &start, const Node &goal)
     created += neighboors.size();
 
     // to avoid equal costs leading to favorite directions
-    //std::random_shuffle(neighboors.begin(), neighboors.end());
 
-    for(auto &&child: neighboors)
+    for(auto &&nb: neighboors)
     {
-      const auto child_g = best.g + child.distToPrevious();
+      const auto nb_g{best.g + nb.distToPrevious()};
 
       // ensure we have not been here
-      if(tree.isVisited(child, child_g))
+      if(tree.isVisited(nb, nb_g))
         continue;
 
-      if(const auto &twin{tree.find(child)}; !twin)
+      if(const auto &twin{tree.find(nb)}; !twin)
       {
-        tree.insert(std::move(child), best.idx, child.h(goal), child_g);
+        tree.insert(std::move(nb), best.idx, nb.h(goal), nb_g);
         evaluated++;
       }
-      else if(twin->g > child_g)
+      else if(twin->g > nb_g)
       {
-        tree.setParent(*twin, best.idx, child_g);
+        // avoir recomputing heuristic
+        tree.setParent(*twin, best.idx, nb_g);
         shortcut++;
       }
     }
