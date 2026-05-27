@@ -72,7 +72,7 @@ void do_iterative(int n)
 
 int main()
 {
-  do_raw(15);
+  //do_raw(15);
   //do_raw(20);
   //do_raw(30);
   do_cached(15);
@@ -82,10 +82,10 @@ int main()
   //do_cached(100);
   //do_cached(10000);
 
-  do_iterative(15);
-  do_iterative(20);
-  do_iterative(50);
-  do_iterative(100);
+  //do_iterative(15);
+  //do_iterative(20);
+  //do_iterative(50);
+  //do_iterative(100);
 
 
 }

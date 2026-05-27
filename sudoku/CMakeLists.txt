@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.15)
 project(sudoku)
 
 add_definitions(-DSUDOKU_BASE_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
@@ -26,7 +26,6 @@ target_include_directories(sudoku PRIVATE include
   ${YamlCpp_INCLUDE_DIRS}  ${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries(sudoku yaml-cpp ${OpenCV_LIB})
-
 
 
 

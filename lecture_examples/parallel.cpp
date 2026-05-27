@@ -21,35 +21,41 @@ struct ScopedTimer
 
 using namespace std;
 
+// function that set its argument to the square
+auto square(int &val){val *= val;};
 
 int main()
 {
 
 
-  std::vector<int> numbers(1000000);
+  std::vector<int> numbers_base(1000000);
   // fill with 0..999
   {
     ScopedTimer timer("filling");
-    std::iota(numbers.begin(), numbers.end(), 0);
+    std::iota(numbers_base.begin(), numbers_base.end(), 0);
   }
 
-  // function that set its argument to the square
-  const auto square = [](int &val){val *= val;};
+
   // call this function, non-parallel
   {
+    auto numbers{numbers_base};
     ScopedTimer timer("squaring, non-par");
-    std::for_each(numbers.begin(), numbers.end(), square);
+    std::ranges::for_each(numbers, square);
   }
 
   // call this function, parallel
   {
+    auto numbers{numbers_base};
     ScopedTimer timer("squaring, par");
-    std::for_each(std::execution::par, numbers.begin(), numbers.end(), square);
+    std::for_each(std::execution::par,
+                  numbers.begin(), numbers.end(),
+                  square);
   }
 
   // randomize and sort, non-parallel
+  auto numbers{numbers_base};
   std::shuffle(numbers.begin(), numbers.end(), std::default_random_engine());
-  const auto copy = numbers; // keep original order for comparison
+  const auto copy{numbers}; // keep original order for comparison
   {
     ScopedTimer timer("sorting, non-par");
     std::sort(numbers.begin(), numbers.end());

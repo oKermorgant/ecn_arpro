@@ -30,7 +30,12 @@ auto nearestTo(const Fleet &fleet, double x, double y)
 
 int main()
 {
-  Fleet fleet(10);
+
+
+
+  std::vector<Robot> fleet(10);
+
+
 
   print(fleet);
 

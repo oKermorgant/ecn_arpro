@@ -79,6 +79,7 @@ int main()
   Robot rob("R2D2"), target("C3PO");
   rob.print();
 
+
   std::vector<Robot> fleet;
 
   for(auto name: {"R2D2", "C3PO", "BB8"})

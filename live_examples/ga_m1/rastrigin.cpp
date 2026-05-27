@@ -1,16 +1,19 @@
 #include <xy.h>
+#include <ga.h>
 
+#include <chrono>
 
+namespace chrono = std::chrono;
+using Clock = chrono::high_resolution_clock;
 
 int main()
 {
 
-  XY xy1, xy2;
+  const auto start{Clock::now()};
+  optimize().print();
+  const auto end{Clock::now()};
 
-  for(auto i: {1,2,3,4})
-  {
-    std::cout << rand_double(-5, 5) << std::endl;
-  }
+  std::cout << chrono::duration_cast<chrono::milliseconds>(end-start).count() << " ms" << std::endl;
 
 
 

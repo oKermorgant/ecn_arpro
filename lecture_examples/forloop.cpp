@@ -1,13 +1,32 @@
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <map>
 using namespace std;
 
+
 struct Robot
 {
   double x=0, y=0, theta_=0;
   string name;
+
+  Robot(std::string name = "")
+  {
+    this->name = name;
+    std::cout << "Creating a robot called " << name << std::endl;
+  }
+
+  auto set_theta(double theta)
+  {
+
+
+  }
+
+  auto get_x()
+  {
+    return x;
+  }
 
   void move() {}
 
@@ -21,29 +40,24 @@ struct Robot
 int main(int argc, char ** argv)
 {
 
-
-
-
-
-
-
-
-
+  Robot robot("R2D2");
 
 
 
 
   std::vector<Robot> fleet(10);
 
-  for(auto robot: fleet)
+  for(const auto &robot: fleet)
   {
-
+    std::cout << robot.x << std::endl;
   }
+
+
 
   // decomposition into public member variables
   for(auto &[x,y,theta,name]: fleet)
   {
-
+    x = 1;
   }
 
 
@@ -80,13 +94,6 @@ int main(int argc, char ** argv)
     cout << name << " got  " << grade << endl;
   }
 
-  for(int i = 0; i < 10; ++i)
-  {
-    for(int i = 0; i < 10; ++i)
-    {
-
-    }
-  }   
 
   vector<pair<int, double>> pairs;
   pairs.push_back({1,3.14});

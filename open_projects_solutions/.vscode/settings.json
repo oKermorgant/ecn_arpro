@@ -1,3 +1,11 @@
 {
   "cmake.buildDirectory": "/home/olivier/code/Labs/ARPRO/ecn_arpro/open_projects_solutions/build",
-   "editor.mouseWheelZoom": true}
+  "editor.mouseWheelZoom": true,
+  "cmake.configureArgs": ["-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE", "-DCMAKE_BUILD_TYPE=Debug"],
+   "cmake.generator": "Unix Makefiles",
+  "clangd.arguments": [ "-pretty",
+                         "--background-index=false",
+                         "--compile-commands-dir=/home/olivier/code/Labs/ARPRO/ecn_arpro/open_projects_solutions/build",
+                         "--query-driver=/usr/bin/g++"],
+  "clangd.fallbackFlags": ["-std=c++17", "-xc++"],
+}

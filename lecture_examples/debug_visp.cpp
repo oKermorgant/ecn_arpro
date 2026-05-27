@@ -2,6 +2,10 @@
 #include <visp/vpHomogeneousMatrix.h>
 #include <iostream>
 
+// backward compat
+namespace visp {}
+using namespace visp;
+
 int main(int argc,char** argv)
 {
   vpMatrix M(4,4);

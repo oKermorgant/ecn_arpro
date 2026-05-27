@@ -5,7 +5,7 @@
 #include <tuple>
 
 
-double rand01()
+inline double rand01()
 {
   static std::default_random_engine engine;
   static std::uniform_real_distribution<double> unif(0,1);
@@ -17,7 +17,7 @@ template <class T> T rand(T min, T max)
   return min + rand01()*(max-min);
 }
 
-std::pair<int, int> differentRandomNumbers(int max)
+inline std::pair<int, int> differentRandomNumbers(int max)
 {
 
   const auto n1 = rand(0, max);

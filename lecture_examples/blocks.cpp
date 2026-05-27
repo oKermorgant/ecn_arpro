@@ -10,7 +10,6 @@ int main ()
 
   cout << i << endl ;  // prints  2
 
-
   if (i == 2)
   {
     int j = 3;
