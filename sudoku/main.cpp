@@ -2,9 +2,6 @@
 
 int main(int argc, char** argv)
 {
-
-  auto sum = add(1,2);
-
   // load the starting grid from file as a std::array
   // "easy" is the name of the starting grid (see starts folder)
   const auto starting_grid{getStart(argc, argv, "hard")};
