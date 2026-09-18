@@ -26,9 +26,9 @@ wget "https://box.ec-nantes.fr/index.php/s/s7rbFwAeTqwoe6e/download?path=%2F&fil
 echo "   - extracting to ${HOME}/duels."
 ar x duels.deb  &> /dev/null
 zstd -df data.tar.zst  &> /dev/null
-mkdir -p root
+mkdir -p $root
 tar -xvf data.tar --directory=root  &> /dev/null
-cp -r root/opt/duels ~/
+cp -r $root/opt/duels ~/
 
 cd $root
 rm -rf /tmp/duels
