@@ -18,6 +18,12 @@ pip install pygame-ce zmq --break-system-packages
 rm -rf /tmp/duels
 mkdir -p /tmp/duels
 cd /tmp/duels
+
+if [[ -e ~/duels/games ]]; then
+    echo 'Copy current games into ~/duels_games'
+    cp -r ~/duels/games ~/duels_games
+fi
+
 echo '   - getting duels version...'
 wget https://raw.githubusercontent.com/CentraleNantesRobotics/ecn_install/refs/heads/ros2/modules.yaml -O modules.yaml  &> /dev/null
 duels_deb=$(grep -Eho 'duels(.*?).deb' modules.yaml)
@@ -28,6 +34,7 @@ echo "   - extracting to ${HOME}/duels."
 ar x duels.deb  &> /dev/null
 zstd -df data.tar.zst  &> /dev/null
 tar -xf data.tar
+rm -rf ~/duels
 mv opt/duels ~
 cd $root
 rm -rf /tmp/duels
