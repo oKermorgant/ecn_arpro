@@ -23,13 +23,13 @@ int f(const int &other)
   return other;
 }
 
-void squared(int x)
+void squared(int x_arg)
 {
-  x *= x;
+  x_arg *= x_arg;
 }
 
 
-void squared_ref(int &x)
+void squared_ref(int   &  x)
 {
   x *= x;
 }
@@ -50,7 +50,7 @@ TwoDoubleandAString getCoord()
 
 int main(int argc, char** argv)
 {
-  int x(4);
+  auto x(4);
 
   squared(x);
   squared_ref(x);

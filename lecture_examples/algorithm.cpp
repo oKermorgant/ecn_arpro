@@ -74,7 +74,7 @@ int main()
 
     // find the index of the first even number
     idx = find_if(vec.begin(), vec.end(),
-                  [](int v) {return v%2 == 0;});
+                  [](auto v) {return v%2 == 0;});
     
     PrintIndexAndValue("The first even number", vec, idx);
 

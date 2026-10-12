@@ -1,4 +1,3 @@
-#include <cmath>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -54,7 +53,7 @@ int main(int argc, char ** argv)
 
 
 
-  // decomposition into public member variables
+  // decomposition into (all) public member variables
   for(auto &[x,y,theta,name]: fleet)
   {
     x = 1;

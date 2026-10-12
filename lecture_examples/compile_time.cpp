@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <array>
 #include <vector>
@@ -49,8 +50,13 @@ int main()
 
   // print the sum of an array
   std::array<int, 9> arr;
+
+
   std::iota(arr.begin(), arr.end(), 1);
   std::cout << std::accumulate(arr.begin(), arr.end(), 0) << std::endl;
+
+
+
 
   // print the product of two matrices
   Matrix A(1,2);

@@ -8,8 +8,10 @@ using namespace std;
 
 struct Robot
 {
+
   double x_ = 0, y_{}, theta_{};
   std::string name;
+public:
   explicit Robot(const std::string& name) : name(name) {}
 
   void print() const
@@ -17,15 +19,9 @@ struct Robot
     std::cout << name << " is at " << x_ << ", " << y_ << '\n';
   }
 
-  double x()
+  auto distanceTo(const Robot& other) const
   {
-    std::cout << x_ << std::endl;
-    return x_;
-  }
-
-  double distanceTo(const Robot& other) const
-  {
-    return 0;
+    return 0.;
   }
 
   void variables(int x)
@@ -79,6 +75,8 @@ int main()
   Robot rob("R2D2"), target("C3PO");
   rob.print();
 
+  rob.x_ = 7;
+
 
   std::vector<Robot> fleet;
 
@@ -95,8 +93,8 @@ int main()
     }
   }
 
-  for(auto r: fleet)
-    std::cout << r.x() << std::endl;
+ // for(auto r: fleet)
+ //   std::cout << r.x() << std::endl;
 
 
   [[maybe_unused]] auto dist = rob.distanceTo(target);

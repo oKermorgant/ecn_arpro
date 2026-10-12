@@ -1,6 +1,7 @@
 #include <sudoku/grid.h>
 
 #ifndef SUDOKU_WITH_OPENCV
+#include <iostream>
 void Grid::print() const
 {
   constexpr auto line{" -----------"};

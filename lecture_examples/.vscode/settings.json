@@ -1,8 +1,7 @@
 {
   "cmake.buildDirectory": "/home/olivier/code/Labs/ARPRO/ecn_arpro/lecture_examples/build",
   "editor.mouseWheelZoom": true,
-  "cmake.configureArgs": ["-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE", "-DCMAKE_BUILD_TYPE=Debug"],
-   "cmake.generator": "Unix Makefiles",
+  "cmake.configureArgs": ["-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE"],
   "clangd.arguments": [ "-pretty",
                          "--background-index=false",
                          "--compile-commands-dir=/home/olivier/code/Labs/ARPRO/ecn_arpro/lecture_examples/build",
