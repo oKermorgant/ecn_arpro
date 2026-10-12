@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 root=$pwd
-distro=noble
+distro=resolute
 
 # IDE conf (QtCreator / VScode)
 if [[ "$(grep ideconf ~/.bashrc -c)" == "0" ]]; then
