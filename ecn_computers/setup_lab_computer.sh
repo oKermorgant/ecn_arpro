@@ -13,7 +13,7 @@ fi
 # Duels framework
 echo 'Setting up the Duels framework...'
 echo '   - installing pygame...'
-# pip install pygame --break-system-packages
+pip install pygame zmq --break-system-packages
 rm -rf /tmp/duels
 mkdir -p /tmp/duels
 cd /tmp/duels
