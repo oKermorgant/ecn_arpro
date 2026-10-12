@@ -13,7 +13,7 @@ fi
 # Duels framework
 echo 'Setting up the Duels framework...'
 echo '   - installing pygame...'
-pip install pygame --break-system-packages
+# pip install pygame --break-system-packages
 rm -rf /tmp/duels
 mkdir -p /tmp/duels
 cd /tmp/duels
@@ -26,6 +26,7 @@ wget "https://box.ec-nantes.fr/index.php/s/s7rbFwAeTqwoe6e/download?path=%2F&fil
 echo "   - extracting to ${HOME}/duels."
 ar x duels.deb  &> /dev/null
 zstd -df data.tar.zst  &> /dev/null
-
+tar -xf data.tar
+mv opt/duels ~
 cd $root
 rm -rf /tmp/duels
